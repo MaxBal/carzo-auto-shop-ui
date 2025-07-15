@@ -20,19 +20,19 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
       {/* Navigation links */}
       <div className="flex-1 flex flex-col gap-6 justify-center items-center text-white text-xl">
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
+        <a href="#" className="hover:text-[#00d1b3] transition-colors" onClick={onClose}>
           Головна сторінка
         </a>
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
+        <a href="#" className="hover:text-[#00d1b3] transition-colors" onClick={onClose}>
           Автокейси
         </a>
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
+        <a href="#" className="hover:text-[#00d1b3] transition-colors" onClick={onClose}>
           Накидки в салон
         </a>
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
+        <a href="#" className="hover:text-[#00d1b3] transition-colors" onClick={onClose}>
           Автокилимки
         </a>
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
+        <a href="#" className="hover:text-[#00d1b3] transition-colors" onClick={onClose}>
           Контакти
         </a>
       </div>

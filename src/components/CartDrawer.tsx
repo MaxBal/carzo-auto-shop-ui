@@ -84,7 +84,7 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
               </div>
               <button 
                 onClick={() => window.location.href = '/checkout'}
-                className="w-full h-11 mt-4 bg-brand text-white rounded-full font-medium hover:bg-brand/90 transition-colors"
+                className="w-full h-11 mt-4 bg-[#00d1b3] text-white rounded-full font-medium hover:bg-[#00d1b3]/90 transition-colors"
               >
                 Перейти до оформлення
               </button>
