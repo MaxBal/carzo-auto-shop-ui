@@ -23,9 +23,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
   const [selectedColor, setSelectedColor] = useState('black');
-  const [selectedFixation, setSelectedFixation] = useState('без фіксації');
+  const [selectedFixation, setSelectedFixation] = useState(false);
+  const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
+  const [selectedCarBrand, setSelectedCarBrand] = useState('');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
+  const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
+  const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
+  const [isLogoImageModalOpen, setIsLogoImageModalOpen] = useState(false);
   const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
@@ -75,7 +80,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     const selectedSizeData = sizes.find(s => s.name === selectedSize);
     const basePrice = selectedSizeData?.price || product.price;
     const logoPrice = logoOptions.find(l => l.name === selectedLogo)?.price || 0;
-    const fixationPrice = fixationOptions.find(f => f.name === selectedFixation)?.price || 0;
+    const fixationPrice = selectedFixation ? (fixationOptions.find(f => f.name === selectedFixationType)?.price || 0) : 0;
     return basePrice + logoPrice + fixationPrice;
   };
 
@@ -89,7 +94,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         size: selectedSize,
         logo: selectedLogo,
         color: selectedColor,
-        fixation: selectedFixation
+        fixation: selectedFixation ? selectedFixationType : 'без фіксації'
       }
     });
 
@@ -110,7 +115,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       
       <h1 className="text-2xl lg:text-3xl font-bold mb-2">{product.name}</h1>
       <p className="text-gray-500 text-sm lg:text-base mb-4">
-        арт. {product.article} | {selectedDesign} | {selectedLogo} | {selectedFixation}
+        арт. {product.article} | {selectedDesign} | {selectedLogo} | {selectedFixation ? 'фіксація=на дні' : 'фіксація=без фіксації'}
       </p>
 
       <div className="flex items-center gap-3 mb-6">
@@ -191,7 +196,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             ))}
           </div>
           <button 
-            onClick={() => setIsDesignModalOpen(true)}
+            onClick={() => setIsSizeModalOpen(true)}
             className="text-brand text-sm flex items-center gap-1 underline"
           >
             <Info size={16} />
@@ -216,9 +221,9 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           
           {selectedLogo !== 'без лого' && (
             <div className="space-y-3">
-              <Select defaultValue="Toyota">
+              <Select value={selectedCarBrand} onValueChange={setSelectedCarBrand}>
                 <SelectTrigger>
-                  <SelectValue />
+                  <SelectValue placeholder="Оберіть марку авто" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Toyota">Toyota</SelectItem>
@@ -227,13 +232,28 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 </SelectContent>
               </Select>
               
-              <div className="flex items-center gap-3 p-3 border rounded-lg">
-                <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                  <Camera size={16} />
+              {selectedCarBrand && (
+                <div 
+                  className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:border-brand"
+                  onClick={() => setIsLogoImageModalOpen(true)}
+                >
+                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                    <Camera size={16} />
+                  </div>
+                  <span className="text-sm">Лого {selectedCarBrand} ({selectedLogo.includes('нержавіюча') ? 'нержавіюча сталь' : 'латунь'})</span>
                 </div>
-                <span className="text-sm">Лого Toyota (нержавіюча сталь)</span>
-              </div>
+              )}
             </div>
+          )}
+          
+          {selectedLogo === 'без лого' && (
+            <button 
+              onClick={() => setIsLogoModalOpen(true)}
+              className="text-brand text-sm flex items-center gap-1 underline"
+            >
+              <Info size={16} />
+              Детальніше про лого
+            </button>
           )}
         </TabsContent>
 
@@ -241,27 +261,46 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           <div className="space-y-4">
             <h4 className="font-medium">Фіксація в багажнику</h4>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Увімкнути фіксацію</span>
-              <div className="w-12 h-6 bg-[#49d3b8] rounded-full p-1 cursor-pointer">
-                <div className="w-4 h-4 bg-white rounded-full transform translate-x-6"></div>
+              <span className="text-sm font-medium">Фіксація в багажнику</span>
+              <div 
+                className={`w-12 h-6 rounded-full p-1 cursor-pointer transition-colors ${
+                  selectedFixation ? 'bg-[#49d3b8]' : 'bg-gray-300'
+                }`}
+                onClick={() => setSelectedFixation(!selectedFixation)}
+              >
+                <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                  selectedFixation ? 'transform translate-x-6' : ''
+                }`}></div>
               </div>
             </div>
             
-            <RadioGroup value={selectedFixation} onValueChange={setSelectedFixation} className="space-y-3">
-              {fixationOptions.map((option) => (
-                <div key={option.name} className="flex items-center space-x-3">
-                  <RadioGroupItem value={option.name} id={option.name} />
-                  <label htmlFor={option.name} className="text-sm flex-1 cursor-pointer">
-                    <div className="font-medium">{option.name}</div>
-                    <div className="text-sm text-gray-500">{option.price} ₴</div>
+            {selectedFixation && (
+              <RadioGroup value={selectedFixationType} onValueChange={setSelectedFixationType} className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <RadioGroupItem value="фікс.на дні" id="fixation-bottom" />
+                  <label htmlFor="fixation-bottom" className="text-sm flex-1 cursor-pointer">
+                    <div className="font-medium">фікс.на дні 0 ₴</div>
                   </label>
                 </div>
-              ))}
-            </RadioGroup>
+                <div className="flex items-center space-x-3">
+                  <RadioGroupItem value="фікс.на стінці" id="fixation-wall" />
+                  <label htmlFor="fixation-wall" className="text-sm flex-1 cursor-pointer">
+                    <div className="font-medium">фікс.на стінці 0 ₴</div>
+                  </label>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <RadioGroupItem value="фікс.дно+стінка" id="fixation-both" />
+                  <label htmlFor="fixation-both" className="text-sm flex-1 cursor-pointer">
+                    <div className="font-medium">фікс.дно+стінка 80 ₴</div>
+                  </label>
+                </div>
+              </RadioGroup>
+            )}
           </div>
           
           <button 
-            className="text-[#49d3b8] text-sm flex items-center gap-1 underline"
+            onClick={() => setIsFixationModalOpen(true)}
+            className="text-brand text-sm flex items-center gap-1 underline"
           >
             <Info size={16} />
             Детальніше про фіксацію в багажнику
@@ -320,13 +359,54 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       </Modal>
 
       <Modal
+        isOpen={isSizeModalOpen}
+        onClose={() => setIsSizeModalOpen(false)}
+        title="Детально про розміри"
+        width="480px"
+      >
+        <div className="space-y-4">
+          {sizes.map((size) => (
+            <div key={size.name} className="flex gap-4">
+              <div className="w-16 h-16 bg-gray-200 rounded"></div>
+              <div>
+                <h4 className="font-medium">{size.name}</h4>
+                <p className="text-sm text-gray-500">{size.price} ₴</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Modal>
+
+      <Modal
         isOpen={isLogoModalOpen}
         onClose={() => setIsLogoModalOpen(false)}
-        title="Переглянути лого"
+        title="Детальніше про лого"
+        width="480px"
+      >
+        <div className="space-y-4">
+          <p>Інформація про лого опції</p>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isLogoImageModalOpen}
+        onClose={() => setIsLogoImageModalOpen(false)}
+        title={`Лого ${selectedCarBrand} ${selectedLogo.includes('нержавіюча') ? '(нержавіюча сталь)' : '(латунь)'}`}
         width="640px"
       >
         <div className="aspect-video bg-gray-200 rounded-lg"></div>
-        <p className="mt-2 text-center text-sm">Превʼю лого</p>
+        <p className="mt-2 text-center text-sm">Превʼю лого {selectedCarBrand}</p>
+      </Modal>
+
+      <Modal
+        isOpen={isFixationModalOpen}
+        onClose={() => setIsFixationModalOpen(false)}
+        title="Детальніше про фіксацію в багажнику"
+        width="480px"
+      >
+        <div className="space-y-4">
+          <p>Інформація про фіксацію в багажнику</p>
+        </div>
       </Modal>
 
       <Modal
