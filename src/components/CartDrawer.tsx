@@ -80,7 +80,10 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
               <span>Всього</span>
               <span className="text-lg font-bold">{getTotalPrice()} ₴</span>
             </div>
-            <button className="w-full h-11 mt-4 bg-brand text-white rounded-full font-medium hover:bg-brand/90 transition-colors">
+            <button 
+              onClick={() => window.location.href = '/checkout'}
+              className="w-full h-11 mt-4 bg-brand text-white rounded-full font-medium hover:bg-brand/90 transition-colors"
+            >
               Перейти до оформлення
             </button>
           </div>
