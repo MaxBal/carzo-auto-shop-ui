@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import scrollbar from 'tailwind-scrollbar'
+import scrollbar from 'tailwind-scrollbar'
 
 export default {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
@@ -21,5 +22,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [scrollbar],
 } satisfies Config
