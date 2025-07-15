@@ -79,7 +79,7 @@ export const CheckoutPage = () => {
               value={formData.lastName}
               onChange={handleInputChange}
               required
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand focus:border-brand"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#00d1b3] focus:border-[#00d1b3]"
             />
           </div>
 
@@ -91,7 +91,7 @@ export const CheckoutPage = () => {
               value={formData.firstName}
               onChange={handleInputChange}
               required
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand focus:border-brand"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#00d1b3] focus:border-[#00d1b3]"
             />
           </div>
 
@@ -104,7 +104,7 @@ export const CheckoutPage = () => {
               onChange={handleInputChange}
               required
               placeholder="+380"
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand focus:border-brand"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#00d1b3] focus:border-[#00d1b3]"
             />
           </div>
 
@@ -116,7 +116,7 @@ export const CheckoutPage = () => {
               value={formData.city}
               onChange={handleInputChange}
               placeholder="Київ"
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand focus:border-brand"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#00d1b3] focus:border-[#00d1b3]"
             />
           </div>
 
@@ -128,7 +128,7 @@ export const CheckoutPage = () => {
               value={formData.warehouse}
               onChange={handleInputChange}
               placeholder="№1"
-              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand focus:border-brand"
+              className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#00d1b3] focus:border-[#00d1b3]"
             />
           </div>
 
@@ -142,7 +142,7 @@ export const CheckoutPage = () => {
                   value="prepay"
                   checked={formData.paymentMethod === 'prepay'}
                   onChange={handleInputChange}
-                  className="text-brand"
+                  className="text-[#00d1b3]"
                 />
                 <span>Передплата</span>
               </label>
@@ -153,7 +153,7 @@ export const CheckoutPage = () => {
                   value="postpay"
                   checked={formData.paymentMethod === 'postpay'}
                   onChange={handleInputChange}
-                  className="text-brand"
+                  className="text-[#00d1b3]"
                 />
                 <span>Післяплата</span>
               </label>

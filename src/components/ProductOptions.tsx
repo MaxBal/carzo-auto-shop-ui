@@ -140,7 +140,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 key={design.name}
                 onClick={() => setSelectedDesign(design.name)}
                 className={`p-4 border-2 rounded-xl text-left transition-all ${
-                  selectedDesign === design.name ? 'border-brand' : 'border-gray-200'
+                  selectedDesign === design.name ? 'border-[#00d1b3]' : 'border-gray-200'
                 }`}
               >
                 <div className="font-medium text-base">{design.name}</div>
@@ -182,7 +182,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
                 className={`p-4 border-2 rounded-xl text-left transition-all ${
-                  selectedSize === size.name ? 'border-brand' : 'border-gray-200'
+                  selectedSize === size.name ? 'border-[#00d1b3]' : 'border-gray-200'
                 }`}
               >
                 <div className="font-medium text-base">{size.name}</div>
@@ -234,7 +234,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               
               {selectedCarBrand && (
                 <div 
-                  className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:border-brand"
+                  className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:border-[#00d1b3]"
                   onClick={() => setIsLogoImageModalOpen(true)}
                 >
                   <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
@@ -249,7 +249,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           {selectedLogo === 'без лого' && (
             <button 
               onClick={() => setIsLogoModalOpen(true)}
-              className="text-brand text-sm flex items-center gap-1 underline"
+              className="text-[#00d1b3] text-sm flex items-center gap-1 underline"
             >
               <Info size={16} />
               Детальніше про лого
@@ -263,7 +263,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <span className="text-sm font-medium">Фіксація в багажнику</span>
               <div 
                 className={`w-12 h-6 rounded-full p-1 cursor-pointer transition-colors ${
-                  selectedFixation ? 'bg-[#49d3b8]' : 'bg-gray-300'
+                  selectedFixation ? 'bg-[#00d1b3]' : 'bg-gray-300'
                 }`}
                 onClick={() => setSelectedFixation(!selectedFixation)}
               >
@@ -299,7 +299,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           
           <button 
             onClick={() => setIsFixationModalOpen(true)}
-            className="text-brand text-sm flex items-center gap-1 underline"
+            className="text-[#00d1b3] text-sm flex items-center gap-1 underline"
           >
             <Info size={16} />
             Детальніше про фіксацію в багажнику
@@ -329,7 +329,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             className="flex flex-col items-center justify-center gap-1 min-w-[64px] cursor-pointer"
             onClick={item.onClick}
           >
-            <div className="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center hover:border-[#49d3b8] transition-colors">
+            <div className="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center hover:border-[#00d1b3] transition-colors">
               <item.icon size={20} />
             </div>
             <span className="text-xs">{item.label}</span>
