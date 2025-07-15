@@ -19,10 +19,10 @@ interface ProductOptionsProps {
 
 export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [activeTab, setActiveTab] = useState('designs');
-  const [selectedDesign, setSelectedDesign] = useState('Carzo 2.0');
+  const [selectedDesign, setSelectedDesign] = useState('Carzo 1.0');
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
-  const [selectedColor, setSelectedColor] = useState('black');
+  const [selectedColor, setSelectedColor] = useState('чорний');
   const [selectedFixation, setSelectedFixation] = useState(false);
   const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
@@ -68,12 +68,12 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   ];
 
   const colors = [
-    { name: 'Чорний', value: '#000000' },
-    { name: 'Сірий', value: '#6B7280' },
-    { name: 'Синій', value: '#2563EB' },
-    { name: 'Червоний', value: '#DC2626' },
-    { name: 'Коричневий', value: '#92400E' },
-    { name: 'Бежевий', value: '#D4A574' }
+    { name: 'чорний', value: '#000000' },
+    { name: 'сірий', value: '#6B7280' },
+    { name: 'синій', value: '#2563EB' },
+    { name: 'червоний', value: '#DC2626' },
+    { name: 'коричневий', value: '#92400E' },
+    { name: 'бежевий', value: '#D4A574' }
   ];
 
   // Generate dynamic SKU
@@ -82,7 +82,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     const sizeCode = selectedSize.charAt(0); // S, M, L, XL
     const logoCode = selectedLogo === 'без лого' ? 'N' : 'Y';
     const fixCode = selectedFixation ? 'Y' : 'N';
-    return `ART.${designCode}.${sizeCode}.${logoCode}.${fixCode}`;
+    return `M ${selectedDesign}`;
   };
 
   const calculatePrice = () => {
@@ -124,6 +124,13 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
   return (
     <div className="col-span-12 md:col-span-4">
+      <div className="hidden md:block mb-4">
+        <div className="bg-black/80 text-white px-3 py-2 rounded-full inline-flex items-center gap-2 text-sm">
+          <Ship size={16} />
+          Відправимо сьогодні після 18:00
+        </div>
+      </div>
+      
       <div className="md:hidden mb-6 mt-6">
         <div className="bg-black/80 text-white px-3 py-2 rounded-full inline-flex items-center gap-2 text-sm">
           <Ship size={16} />
@@ -133,7 +140,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       
       <h1 className="text-[26px] font-bold mb-2 leading-tight">{product.name}</h1>
       <p className="text-[#6B7280] text-xs tracking-[-0.01em] mb-4">
-        арт. <span id="sku">{generateSKU()}</span>
+        арт. <span id="sku">{generateSKU()}</span> | колір={selectedColor.toLowerCase()} | лого={selectedLogo} | фіксація={selectedFixation ? selectedFixationType : 'без фіксації'}
       </p>
 
       <div className="flex items-center gap-3 mb-6">

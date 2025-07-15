@@ -36,16 +36,16 @@ export const Header = () => {
           </button>
 
           {/* Logo */}
-          <div className="flex-1 text-center">
+          <div className="flex-1">
             <h1 className="text-white font-bold text-lg leading-[56px] hover:text-brand transition-colors cursor-pointer">
               Carzo
             </h1>
           </div>
 
           {/* Desktop navigation */}
-          <nav className="hidden lg:flex gap-6 text-white text-sm absolute left-1/2 transform -translate-x-1/2">
+          <nav className="hidden lg:flex gap-8 text-white text-sm">
+            <a href="/" className="hover:text-brand transition-colors">Головна сторінка</a>
             <a href="/" className="hover:text-brand transition-colors">Автокейси</a>
-            <a href="/bags" className="hover:text-brand transition-colors">Сумки</a>
             <a href="#" className="hover:text-brand transition-colors">Накидки в салон</a>
             <a href="#" className="hover:text-brand transition-colors">Автокилимки</a>
             <a href="#" className="hover:text-brand transition-colors">Контакти</a>

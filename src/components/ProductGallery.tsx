@@ -14,7 +14,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
       <div className="hidden md:block col-span-8">
         <div className="flex gap-8">
           {/* Thumbnails */}
-          <div className="col-span-2 flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             {images.map((image, index) => (
               <button
                 key={index}
@@ -33,7 +33,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
           </div>
 
           {/* Main image */}
-          <div className="col-span-6 flex-1">
+          <div className="flex-1">
             <img
               src={images[activeImageIndex]}
               alt="Основне зображення продукту"
