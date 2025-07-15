@@ -1,54 +1,69 @@
 import { Shield, Zap, Heart, Star } from 'lucide-react';
 
 export const FeatureSection = () => {
-  const features = [
-    {
-      icon: Shield,
-      badge: 'Безпека',
-      title: 'Захист багажника',
-      description: 'Міцні матеріали та надійна фіксація захищають ваш автомобіль від пошкоджень'
-    },
-    {
-      icon: Zap,
-      badge: 'Якість',
-      title: 'Преміум матеріали',
-      description: 'Використовуємо тільки найкращі матеріали для максимальної довговічності'
-    },
-    {
-      icon: Heart,
-      badge: 'Комфорт',
-      title: 'Зручність використання',
-      description: 'Продуманий дизайн для максимального комфорту щоденного використання'
-    },
-    {
-      icon: Star,
-      badge: 'Надійність',
-      title: 'Українське виробництво',
-      description: 'Розроблено та виготовлено в Україні з гарантією якості'
-    }
-  ];
-
   return (
-    <section className="bg-gray-900 text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="grid md:grid-cols-2 gap-10">
-          {features.map((feature, index) => (
-            <div key={index} className="rounded-3xl bg-gray-800 p-6 shadow-lg relative">
-              <div className="text-xs font-semibold bg-teal-600/10 text-teal-400 rounded-full px-3 py-0.5 mb-3 inline-block">
-                {feature.badge}
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <feature.icon size={32} className="text-teal-400 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-300">{feature.description}</p>
-                </div>
-              </div>
+    <>
+      {/* Dark Section */}
+      <section className="bg-body py-20">
+        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
+          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start">
+            <Shield size={32} className="text-brand flex-shrink-0" />
+            <div>
+              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
+                Безпека
+              </span>
+              <h4 className="font-semibold text-lg">Захист багажника</h4>
+              <p className="text-dim text-sm mt-1">
+                Міцні матеріали та надійна фіксація захищають ваш автомобіль від пошкоджень
+              </p>
             </div>
-          ))}
+          </div>
+
+          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start">
+            <Zap size={32} className="text-brand flex-shrink-0" />
+            <div>
+              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
+                Якість
+              </span>
+              <h4 className="font-semibold text-lg">Преміум матеріали</h4>
+              <p className="text-dim text-sm mt-1">
+                Використовуємо тільки найкращі матеріали для максимальної довговічності
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Light Section */}
+      <section className="bg-white py-20">
+        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
+          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start border border-gray-100">
+            <Heart size={32} className="text-brand flex-shrink-0" />
+            <div>
+              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
+                Комфорт
+              </span>
+              <h4 className="font-semibold text-lg">Зручність використання</h4>
+              <p className="text-dim text-sm mt-1">
+                Продуманий дизайн для максимального комфорту щоденного використання
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start border border-gray-100">
+            <Star size={32} className="text-brand flex-shrink-0" />
+            <div>
+              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
+                Надійність
+              </span>
+              <h4 className="font-semibold text-lg">Українське виробництво</h4>
+              <p className="text-dim text-sm mt-1">
+                Розроблено та виготовлено в Україні з гарантією якості
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
