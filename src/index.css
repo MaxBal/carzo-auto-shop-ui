@@ -12,6 +12,3 @@
 input[type='radio']:checked,
 input[type='checkbox']:checked{ @apply bg-brand border-brand; }
 input:focus{ @apply ring-2 ring-brand ring-opacity-50 outline-none; }
-
-/* мини-скролл для галереи */
-.scrollbar-thin{ @apply scrollbar-thin scrollbar-thumb-gray-300; }
