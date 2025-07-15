@@ -1,62 +1,26 @@
-import { useState } from 'react';
+'use client'
+import React, { useState } from 'react'
+import { cn } from '@/lib/utils'
 
-interface ProductGalleryProps {
-  images: string[];
-}
-
-export const ProductGallery = ({ images }: ProductGalleryProps) => {
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-[96px_1fr] gap-4">
-      {/* Thumbnails - Left side */}
-      <div className="flex flex-col gap-2 order-2 md:order-1">
-        {images.map((image, index) => (
-          <button
-            key={index}
-            onClick={() => setActiveImageIndex(index)}
-            className={`w-16 h-16 rounded-xl overflow-hidden shadow-sm border-2 transition-colors ${
-              index === activeImageIndex ? 'border-teal-400' : 'border-gray-200 hover:border-gray-300'
-            }`}
-          >
-            <img
-              src={image}
-              alt={`Продукт ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-          </button>
+export default function ProductGallery({ images }: { images:string[] }){
+  const [active,setActive]=useState(0)
+  return(
+    <section className='flex gap-6'>
+      <ul className='flex flex-col gap-3 max-h-[640px] overflow-y-auto scrollbar-thin'>
+        {images.map((src,i)=>(
+          <li key={src}>
+            <button onClick={()=>setActive(i)}
+              className={cn(
+                'block w-16 h-16 overflow-hidden rounded-lg border-2 transition-transform',
+                active===i ? 'border-brand scale-105' : 'border-transparent hover:scale-105')}>
+              <img src={src} alt='' className='h-full w-full object-cover'/>
+            </button>
+          </li>
         ))}
+      </ul>
+      <div className='flex-1 aspect-square overflow-hidden rounded-2xl'>
+        <img src={images[active]} alt='' className='w-full h-full object-cover'/>
       </div>
-
-      {/* Main image - Right side / Mobile */}
-      <div className="order-1 md:order-2">
-        <div className="snap-x overflow-x-auto scroll-smooth md:overflow-hidden">
-          <div className="flex md:block">
-            {images.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={`Продукт ${index + 1}`}
-                className={`aspect-square w-full h-full object-cover rounded-2xl flex-shrink-0 snap-start ${
-                  index === activeImageIndex ? 'block' : 'hidden md:hidden'
-                } ${index === activeImageIndex ? 'md:block' : ''}`}
-                style={{ display: index === activeImageIndex ? 'block' : 'none' }}
-              />
-            ))}
-            {/* Mobile slider */}
-            <div className="flex md:hidden">
-              {images.map((image, index) => (
-                <img
-                  key={`mobile-${index}`}
-                  src={image}
-                  alt={`Продукт ${index + 1}`}
-                  className="aspect-square w-full h-full object-cover rounded-2xl flex-shrink-0 snap-start min-w-full"
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    </section>
+  )
+}

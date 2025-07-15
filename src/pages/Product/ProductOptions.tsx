@@ -11,7 +11,7 @@ type Fix='без фіксації'|'дно'|'стіна'|'дно+стіна'
 
 export default function ProductOptions(){
   const [design,setDesign]=useState<Design>('Carzo 1.0')
-  const [size,setSize]=useState<'M'|'L'|'XL'>('M')
+  const [size,setSize]=useState<'S'|'M'|'L'|'XL'>('M')
   const [color,setColor]=useState<Color>('black')
   const [logo,setLogo]=useState<Logo>('без лого')
   const [fix,setFix]=useState<Fix>('без фіксації')
@@ -40,27 +40,34 @@ export default function ProductOptions(){
         {/* designs */}
         <div data-state='designs' className='grid grid-cols-2 gap-4'>
           {(['Carzo 1.0','Carzo 2.0','Carzo 3.0','Carzo 4.0'] as Design[]).map(d=>(
-            <button key={d}
-              onClick={()=>setDesign(d)}
+            <button key={d} onClick={()=>setDesign(d)}
               className={`border-2 rounded-xl p-4 text-left text-sm font-medium
-                  ${design===d?'border-brand text-brand':'border-gray-300 text-gray-900'}`}>
+                ${design===d?'border-brand text-brand':'border-gray-300 text-gray-900'}`}>
               {d}
-              <div className='text-xs text-gray-500'>{d==='Carzo 1.0'?'6 кольорів':'1 колір'}</div>
+              <div className='text-xs text-gray-500'>
+                {d==='Carzo 1.0'?'6 кольорів':'1 колір'}
+              </div>
             </button>
           ))}
         </div>
 
         {/* sizes */}
-        <RadioGroup value={size} onValueChange={v=>setSize(v as any)}
-          className='grid grid-cols-3 gap-4'>
-          {['M','L','XL'].map(s=>(
-            <RadioItem key={s} value={s} label={s}/>
+        <RadioGroup value={size} onValueChange={v=>setSize(v as any)} className='grid grid-cols-2 gap-4'>
+          {[
+            {v:'S',t:'S 40×30×30 см',p:'1690 ₴',o:'2090 ₴'},
+            {v:'M',t:'M 50×30×30 см',p:'2090 ₴',o:'2300 ₴'},
+            {v:'L',t:'L 60×30×30 см',p:'2290 ₴',o:'2690 ₴'},
+            {v:'XL',t:'XL 80×30×30 см',p:'2790 ₴',o:'3100 ₴'}
+          ].map(s=>(
+            <div key={s.v} className={`border-2 rounded-xl p-4 ${size===s.v?'border-brand':'border-gray-300'}`}>
+              <RadioItem value={s.v as any} label={s.t}/>
+              <div className='text-sm'>{s.p} <span className='line-through text-gray-500 text-xs'>{s.o}</span></div>
+            </div>
           ))}
         </RadioGroup>
 
         {/* logo */}
-        <RadioGroup value={logo} onValueChange={v=>setLogo(v as any)}
-          className='grid grid-cols-3 gap-4'>
+        <RadioGroup value={logo} onValueChange={v=>setLogo(v as any)} className='grid grid-cols-3 gap-4'>
           {['без лого','латунь','нержавіюча'].map(l=>(
             <RadioItem key={l} value={l} label={l}/>
           ))}
@@ -78,6 +85,11 @@ export default function ProductOptions(){
               {f}
             </label>
           ))}
+          {/* переключатель пример использования Switch */}
+          <div className='flex items-center gap-3 pt-2'>
+            <Switch id='fix-switch' checked={fix!=='без фіксації'} onCheckedChange={v=>setFix(v?'дно':'без фіксації')}/>
+            <label htmlFor='fix-switch' className='text-sm'>Увімкнути фіксацію дно</label>
+          </div>
         </div>
       </Tabs>
 
@@ -85,7 +97,7 @@ export default function ProductOptions(){
         <svg width='20' height='20' fill='none' stroke='currentColor' strokeWidth='2'>
           <path d='M6 6h13l-1.5 9h-11L4 4H1'/><circle cx='8' cy='18' r='2'/><circle cx='17' cy='18' r='2'/>
         </svg>
-        Купити&nbsp;2090 ₴
+        Купити&nbsp;{size==='S'?'1690':'2090'} ₴
       </button>
     </aside>
   )
