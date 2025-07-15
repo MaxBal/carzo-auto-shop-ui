@@ -1,5 +1,5 @@
 import { Header } from '@/components/Header';
-import ProductGallery from '@/components/ProductGallery';
+import { ProductGallery } from '@/components/ProductGallery';
 import { ProductOptions } from '@/components/ProductOptions';
 import { FeatureSection } from '@/components/FeatureSection';
 import productMain from '@/assets/product-main.jpg';
