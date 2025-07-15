@@ -21,5 +21,5 @@ export default {
       },
     },
   },
-  plugins: [scrollbar],
+  plugins: [],
 } satisfies Config
