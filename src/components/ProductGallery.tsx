@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 interface ProductGalleryProps {
@@ -9,67 +8,55 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   return (
-    <>
-      {/* Desktop Gallery */}
-      <div className="hidden lg:block col-span-7">
-        <div className="flex gap-4">
-          {/* Thumbnails */}
-          <div className="flex flex-col gap-3">
-            {images.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveImageIndex(index)}
-                className={`w-[70px] h-[70px] rounded-lg overflow-hidden border-2 ${
-                  index === activeImageIndex ? 'border-[#49d3b8]' : 'border-gray-200'
-                }`}
-              >
-                <img
-                  src={image}
-                  alt={`Продукт ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
-
-          {/* Main image */}
-          <div className="flex-1">
+    <div className="grid grid-cols-2 md:grid-cols-[96px_1fr] gap-4">
+      {/* Thumbnails - Left side */}
+      <div className="flex flex-col gap-2 order-2 md:order-1">
+        {images.map((image, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveImageIndex(index)}
+            className={`w-16 h-16 rounded-xl overflow-hidden shadow-sm border-2 transition-colors ${
+              index === activeImageIndex ? 'border-teal-400' : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
             <img
-              src={images[activeImageIndex]}
-              alt="Основне зображення продукту"
-              className="w-full h-[500px] object-cover rounded-xl"
+              src={image}
+              alt={`Продукт ${index + 1}`}
+              className="w-full h-full object-cover"
             />
-          </div>
-        </div>
+          </button>
+        ))}
       </div>
 
-      {/* Mobile Gallery */}
-      <div className="lg:hidden col-span-12 -mx-4">
-        <div className="relative overflow-x-auto snap-x snap-mandatory">
-          <div className="flex">
+      {/* Main image - Right side / Mobile */}
+      <div className="order-1 md:order-2">
+        <div className="snap-x overflow-x-auto scroll-smooth md:overflow-hidden">
+          <div className="flex md:block">
             {images.map((image, index) => (
               <img
                 key={index}
                 src={image}
                 alt={`Продукт ${index + 1}`}
-                className="min-w-full aspect-square object-cover snap-start"
+                className={`aspect-square w-full h-full object-cover rounded-2xl flex-shrink-0 snap-start ${
+                  index === activeImageIndex ? 'block' : 'hidden md:hidden'
+                } ${index === activeImageIndex ? 'md:block' : ''}`}
+                style={{ display: index === activeImageIndex ? 'block' : 'none' }}
               />
             ))}
-          </div>
-          
-          {/* Indicators */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full">
-            {images.map((_, index) => (
-              <div
-                key={index}
-                className={`w-2 h-2 rounded-full ${
-                  index === activeImageIndex ? 'bg-[#49d3b8]' : 'bg-gray-300'
-                }`}
-              />
-            ))}
+            {/* Mobile slider */}
+            <div className="flex md:hidden">
+              {images.map((image, index) => (
+                <img
+                  key={`mobile-${index}`}
+                  src={image}
+                  alt={`Продукт ${index + 1}`}
+                  className="aspect-square w-full h-full object-cover rounded-2xl flex-shrink-0 snap-start min-w-full"
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
