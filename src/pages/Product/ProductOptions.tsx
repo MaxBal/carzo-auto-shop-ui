@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs"
-import { RadioGroup, RadioItem }       from "@/components/ui/RadioGroup"
-import { Switch }                      from "@/components/ui/Switch"
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/Tabs'
+import { RadioGroup, RadioItem }       from '@/components/ui/RadioGroup'
+import { Switch }                      from '@/components/ui/Switch'
 import { buildSku }                    from '@/utils/buildSku'
 
 type Design='Carzo 1.0'|'Carzo 2.0'|'Carzo 3.0'|'Carzo 4.0'
