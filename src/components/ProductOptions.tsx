@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ShoppingCart, Camera, Heart, Star, Shield, Zap } from 'lucide-react';
+import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
 
 interface ProductOptionsProps {
   product: {
@@ -16,42 +17,49 @@ interface ProductOptionsProps {
 
 export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [activeTab, setActiveTab] = useState('designs');
-  const [selectedDesign, setSelectedDesign] = useState('carzo-1.0');
-  const [selectedSize, setSelectedSize] = useState('M');
-  const [selectedLogo, setSelectedLogo] = useState('none');
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedFixation, setSelectedFixation] = useState('bottom');
+  const [selectedDesign, setSelectedDesign] = useState('Carzo 2.0');
+  const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
+  const [selectedLogo, setSelectedLogo] = useState('без лого');
   const [selectedColor, setSelectedColor] = useState('black');
-  const [isFixationEnabled, setIsFixationEnabled] = useState(true);
-  const [showModal, setShowModal] = useState<string | null>(null);
+  const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
+  const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
 
   const { toast } = useToast();
   const { addItem } = useCart();
 
   const designs = [
-    { id: 'carzo-1.0', name: 'Carzo 1.0', description: '6 кольорів' },
-    { id: 'carzo-2.0', name: 'Carzo 2.0', description: '4 кольори' },
-    { id: 'premium', name: 'Premium', description: '8 кольорів' },
-    { id: 'sport', name: 'Sport', description: '5 кольорів' }
+    { name: 'Carzo 1.0', colors: '6 кольорів' },
+    { name: 'Carzo 2.0', colors: '1 колір' },
+    { name: 'Carzo 3.0', colors: '1 колір' },
+    { name: 'Carzo 4.0', colors: '1 колір' }
   ];
 
   const sizes = [
-    { id: 'S', name: 'S', dimensions: '35×25×12' },
-    { id: 'M', name: 'M', dimensions: '40×30×15' },
-    { id: 'L', name: 'L', dimensions: '45×35×18' },
-    { id: 'XL', name: 'XL', dimensions: '50×40×20' }
+    { name: 'S 40×30×30 см', price: 1690, oldPrice: 2090 },
+    { name: 'M 50×30×30 см', price: 2090, oldPrice: 2300 },
+    { name: 'L 60×30×30 см', price: 2290, oldPrice: 2690 },
+    { name: 'XL 80×30×30 см', price: 2790, oldPrice: 3100 }
   ];
 
-  const colors = ['black', 'gray', 'brown', 'blue', 'red', 'green'];
+  const logoOptions = [
+    { name: 'без лого', price: 0 },
+    { name: 'з лого', price: 200 }
+  ];
 
-  const brands = ['Toyota', 'BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Honda', 'Hyundai'];
+  const colors = [
+    { name: 'Чорний', value: '#000000' },
+    { name: 'Сірий', value: '#6B7280' },
+    { name: 'Синій', value: '#2563EB' },
+    { name: 'Червоний', value: '#DC2626' },
+    { name: 'Коричневий', value: '#92400E' },
+    { name: 'Бежевий', value: '#D4A574' }
+  ];
 
   const calculatePrice = () => {
-    let price = product.price;
-    if (selectedLogo === 'steel') price += 280;
-    if (selectedLogo === 'brass') price += 200;
-    if (selectedFixation === 'bottom-wall') price += 80;
-    return price;
+    const selectedSizeData = sizes.find(s => s.name === selectedSize);
+    const basePrice = selectedSizeData?.price || product.price;
+    const logoPrice = logoOptions.find(l => l.name === selectedLogo)?.price || 0;
+    return basePrice + logoPrice;
   };
 
   const handleAddToCart = () => {
@@ -62,8 +70,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       options: {
         design: selectedDesign,
         size: selectedSize,
-        logo: selectedLogo === 'none' ? 'Без лого' : `${selectedLogo} ${selectedBrand}`,
-        fixation: selectedFixation,
+        logo: selectedLogo,
         color: selectedColor
       }
     });
@@ -74,268 +81,140 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     });
   };
 
-  const handleFixationToggle = () => {
-    if (isFixationEnabled) {
-      toast({
-        title: "Фіксація обов'язкова для безпеки",
-        variant: "destructive"
-      });
-    }
-  };
-
   return (
-    <div className="col-span-12 lg:col-span-7 lg:sticky lg:top-24">
-      {/* Product Header */}
-      <div>
-        <h3 className="font-semibold text-2xl">{product.name}</h3>
-        <p className="text-sm text-dim mt-1">
-          арт. {product.article} | колір={selectedColor} | лого={selectedLogo === 'none' ? 'без лого' : selectedLogo} | фіксація={selectedFixation}
-        </p>
-        <div className="text-3xl font-bold mt-2">
-          {calculatePrice()} ₴
-          {product.oldPrice && (
-            <del className="ml-3 text-dim line-through">{product.oldPrice} ₴</del>
-          )}
+    <div className="col-span-12 lg:col-span-7">
+      <div className="lg:hidden mb-6">
+        <div className="bg-black/80 text-white px-3 py-2 rounded-full inline-flex items-center gap-2 text-sm">
+          <Ship size={16} />
+          Відправимо сьогодні після 18:00
         </div>
       </div>
+      
+      <h1 className="text-2xl lg:text-3xl font-bold mb-2">{product.name}</h1>
+      <p className="text-gray-500 text-sm lg:text-base mb-4">
+        арт. {product.article} | {selectedDesign} | {selectedLogo}
+      </p>
 
-      {/* Tab Container */}
-      <div className="bg-gray-100 p-1 rounded-lg flex gap-1 w-fit mt-6 overflow-x-auto snap-x">
-        {[
-          { id: 'designs', label: 'Дизайни' },
-          { id: 'sizes', label: 'Розміри' },
-          { id: 'logo', label: 'Лого' },
-          { id: 'fixation', label: 'Фіксація' }
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition snap-start ${
-              activeTab === tab.id
-                ? 'bg-white border border-gray-300 text-body'
-                : 'text-dim hover:bg-white/50'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      <div className="flex items-center gap-3 mb-6">
+        <span className="text-2xl lg:text-3xl font-bold">{calculatePrice()} ₴</span>
+        {product.oldPrice && (
+          <span className="text-lg text-gray-500 line-through">{product.oldPrice} ₴</span>
+        )}
       </div>
 
-      {/* Tab Content */}
-      <div className="mt-4">
-        {/* Designs Tab */}
-        {activeTab === 'designs' && (
-          <div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-              {designs.map((design) => (
-                <div
-                  key={design.id}
-                  onClick={() => setSelectedDesign(design.id)}
-                  className={`p-4 rounded-xl border-2 transition cursor-pointer ${
-                    selectedDesign === design.id
-                      ? 'border-brand shadow-sm'
-                      : 'border-gray-200 hover:bg-gray-50'
-                  }`}
-                >
-                  <h4 className="font-medium">{design.name}</h4>
-                  <p className="text-xs text-dim">{design.description}</p>
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={() => setShowModal('designs')}
-              className="text-brand text-sm underline mt-2 cursor-pointer"
-            >
-              Детальніше про дизайни
-            </button>
-          </div>
-        )}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+        <TabsList className="grid w-full grid-cols-3 bg-gray-100">
+          <TabsTrigger value="designs" className="text-sm">Дизайни</TabsTrigger>
+          <TabsTrigger value="sizes" className="text-sm">Розміри</TabsTrigger>
+          <TabsTrigger value="logo" className="text-sm">Лого</TabsTrigger>
+        </TabsList>
 
-        {/* Sizes Tab */}
-        {activeTab === 'sizes' && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            {sizes.map((size) => (
+        <TabsContent value="designs" className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            {designs.map((design) => (
               <button
-                key={size.id}
-                onClick={() => setSelectedSize(size.id)}
-                className={`py-2 rounded-lg border text-sm flex flex-col items-center transition ${
-                  selectedSize === size.id
-                    ? 'border-brand'
-                    : 'border-gray-200 hover:bg-gray-50'
+                key={design.name}
+                onClick={() => setSelectedDesign(design.name)}
+                className={`p-4 border-2 rounded-xl text-left transition-all ${
+                  selectedDesign === design.name ? 'border-brand' : 'border-gray-200'
                 }`}
               >
-                <span className="font-medium">{size.name}</span>
-                <span className="text-xs text-dim">{size.dimensions}</span>
+                <div className="font-medium text-base">{design.name}</div>
+                <div className="text-sm text-gray-500">{design.colors}</div>
               </button>
             ))}
           </div>
-        )}
+          
+          <button 
+            onClick={() => setIsDesignModalOpen(true)}
+            className="text-brand text-sm flex items-center gap-1 underline"
+          >
+            <Info size={16} />
+            Детальніше про дизайни
+          </button>
 
-        {/* Logo Tab */}
-        {activeTab === 'logo' && (
-          <div>
-            <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="logo"
-                  value="none"
-                  checked={selectedLogo === 'none'}
-                  onChange={(e) => setSelectedLogo(e.target.value)}
-                  className="text-brand"
+          {selectedDesign === 'Carzo 1.0' && (
+            <div className="flex items-center gap-2 mt-4">
+              <span className="text-sm font-medium">Колір:</span>
+              {colors.map((color) => (
+                <button
+                  key={color.value}
+                  onClick={() => setSelectedColor(color.name)}
+                  className={`w-8 h-8 rounded-full border-2 transition-all ${
+                    selectedColor === color.name ? 'border-black scale-110' : 'border-gray-300'
+                  }`}
+                  style={{ backgroundColor: color.value }}
+                  title={color.name}
                 />
-                <span>Без лого</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="logo"
-                  value="steel"
-                  checked={selectedLogo === 'steel'}
-                  onChange={(e) => setSelectedLogo(e.target.value)}
-                  className="text-brand"
-                />
-                <span>Сталь +280 ₴</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="logo"
-                  value="brass"
-                  checked={selectedLogo === 'brass'}
-                  onChange={(e) => setSelectedLogo(e.target.value)}
-                  className="text-brand"
-                />
-                <span>Латунь +200 ₴</span>
-              </label>
+              ))}
             </div>
+          )}
+        </TabsContent>
 
-            {(selectedLogo === 'steel' || selectedLogo === 'brass') && (
-              <div className="mt-3">
-                <select
-                  value={selectedBrand}
-                  onChange={(e) => setSelectedBrand(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2"
-                >
-                  <option value="">Оберіть марку авто</option>
-                  {brands.map((brand) => (
-                    <option key={brand} value={brand}>{brand}</option>
-                  ))}
-                </select>
-
-                {selectedBrand && (
-                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg mt-3">
-                    <div className="w-10 h-10 bg-gray-300 rounded"></div>
-                    <span className="font-medium">{selectedBrand}</span>
-                    <button 
-                      onClick={() => setShowModal('logo-preview')}
-                      className="ml-auto text-brand hover:text-brand/80"
-                    >
-                      <Camera size={16} />
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {selectedLogo === 'none' && (
+        <TabsContent value="sizes" className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            {sizes.map((size) => (
               <button
-                onClick={() => setShowModal('logo-info')}
-                className="text-brand underline mt-2 block"
-              >
-                Детально про лого
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Fixation Tab */}
-        {activeTab === 'fixation' && (
-          <div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleFixationToggle}
-                className={`relative w-12 h-6 rounded-full cursor-pointer transition-colors ${
-                  isFixationEnabled ? 'bg-brand/20' : 'bg-gray-200'
+                key={size.name}
+                onClick={() => setSelectedSize(size.name)}
+                className={`p-4 border-2 rounded-xl text-left transition-all ${
+                  selectedSize === size.name ? 'border-brand' : 'border-gray-200'
                 }`}
               >
-                <div
-                  className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-                    isFixationEnabled ? 'left-6' : 'left-0.5'
-                  }`}
-                />
+                <div className="font-medium text-base">{size.name}</div>
+                <div className="text-sm">
+                  <span className="font-semibold">{size.price} ₴</span>
+                  {size.oldPrice && (
+                    <span className="text-gray-500 line-through ml-2">{size.oldPrice} ₴</span>
+                  )}
+                </div>
               </button>
-              <span>Фіксація</span>
-            </div>
-
-            {isFixationEnabled && (
-              <div className="flex flex-col gap-2 mt-4 pl-4 border-l-2 border-gray-100">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="fixation"
-                    value="bottom"
-                    checked={selectedFixation === 'bottom'}
-                    onChange={(e) => setSelectedFixation(e.target.value)}
-                    className="text-brand"
-                  />
-                  <span>Дно — 0 ₴</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="fixation"
-                    value="wall"
-                    checked={selectedFixation === 'wall'}
-                    onChange={(e) => setSelectedFixation(e.target.value)}
-                    className="text-brand"
-                  />
-                  <span>Стіна — 0 ₴</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="fixation"
-                    value="bottom-wall"
-                    checked={selectedFixation === 'bottom-wall'}
-                    onChange={(e) => setSelectedFixation(e.target.value)}
-                    className="text-brand"
-                  />
-                  <span>Дно+стіна — 80 ₴</span>
-                </label>
-              </div>
-            )}
+            ))}
           </div>
-        )}
-      </div>
+          <button 
+            onClick={() => setIsDesignModalOpen(true)}
+            className="text-brand text-sm flex items-center gap-1 underline"
+          >
+            <Info size={16} />
+            Детально про розміри
+          </button>
+        </TabsContent>
 
-      {/* Color Swatches for Carzo 1.0 */}
-      {selectedDesign === 'carzo-1.0' && (
-        <div className="flex items-center gap-2 mt-6">
-          {colors.map((color) => (
-            <button
-              key={color}
-              onClick={() => setSelectedColor(color)}
-              className={`w-5 h-5 rounded-full border-2 ${
-                selectedColor === color ? 'border-brand' : 'border-gray-200'
-              }`}
-              style={{ backgroundColor: color }}
-            />
-          ))}
-        </div>
-      )}
+        <TabsContent value="logo" className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            {logoOptions.map((option) => (
+              <button
+                key={option.name}
+                onClick={() => setSelectedLogo(option.name)}
+                className={`p-4 border-2 rounded-xl text-left transition-all ${
+                  selectedLogo === option.name ? 'border-brand' : 'border-gray-200'
+                }`}
+              >
+                <div className="font-medium text-base">{option.name}</div>
+                <div className="text-sm text-gray-500">+{option.price} ₴</div>
+              </button>
+            ))}
+          </div>
+          <button 
+            onClick={() => setIsLogoModalOpen(true)}
+            className="text-brand text-sm flex items-center gap-1 underline"
+          >
+            <Eye size={16} />
+            Переглянути лого
+          </button>
+        </TabsContent>
+      </Tabs>
 
-      {/* CTA Button */}
-      <button
+      <button 
         onClick={handleAddToCart}
-        className="mt-8 w-full h-12 rounded-full bg-body text-white font-semibold flex items-center justify-center gap-2 transition hover:bg-gray-900 fixed lg:static bottom-4 left-4 right-4 lg:left-auto lg:right-auto z-40"
+        className="w-full h-12 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 mb-6"
       >
         <ShoppingCart size={20} />
-        <span>Купити {calculatePrice()} ₴</span>
+        Купити {calculatePrice()} ₴ {product.oldPrice && <span className="line-through text-white/70">{product.oldPrice} ₴</span>}
       </button>
 
       {/* Circular Nav */}
-      <div className="flex gap-4 overflow-x-auto mt-6 pb-2">
+      <div className="flex gap-4 overflow-x-auto pb-2">
         {[
           { icon: Shield, label: 'Доставка' },
           { icon: Heart, label: 'Оплата' },
@@ -345,7 +224,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         ].map((item, index) => (
           <div
             key={index}
-            onClick={() => setShowModal(item.label.toLowerCase())}
             className="flex flex-col items-center justify-center gap-1 min-w-[64px] cursor-pointer"
           >
             <div className="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center hover:border-brand transition-colors">
@@ -358,18 +236,18 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
       {/* Modals */}
       <Modal
-        isOpen={showModal === 'designs'}
-        onClose={() => setShowModal(null)}
+        isOpen={isDesignModalOpen}
+        onClose={() => setIsDesignModalOpen(false)}
         title="Детальніше про дизайни"
         width="480px"
       >
         <div className="space-y-4">
           {designs.map((design) => (
-            <div key={design.id} className="flex gap-4">
+            <div key={design.name} className="flex gap-4">
               <div className="w-16 h-16 bg-gray-200 rounded"></div>
               <div>
                 <h4 className="font-medium">{design.name}</h4>
-                <p className="text-sm text-dim">{design.description}</p>
+                <p className="text-sm text-gray-500">{design.colors}</p>
               </div>
             </div>
           ))}
@@ -377,48 +255,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       </Modal>
 
       <Modal
-        isOpen={showModal === 'logo-preview'}
-        onClose={() => setShowModal(null)}
-        title={`Лого ${selectedBrand}`}
+        isOpen={isLogoModalOpen}
+        onClose={() => setIsLogoModalOpen(false)}
+        title="Переглянути лого"
         width="640px"
       >
         <div className="aspect-video bg-gray-200 rounded-lg"></div>
-        <p className="mt-2 text-center text-sm">Превʼю лого {selectedBrand}</p>
+        <p className="mt-2 text-center text-sm">Превʼю лого</p>
       </Modal>
-
-      <Modal
-        isOpen={showModal === 'logo-info'}
-        onClose={() => setShowModal(null)}
-        title="Детально про лого"
-        width="400px"
-      >
-        <div className="space-y-3">
-          <div className="flex justify-between">
-            <span>Сталь</span>
-            <span>дзеркальний блиск</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Латунь</span>
-            <span>теплий відтінок</span>
-          </div>
-        </div>
-      </Modal>
-
-      {['доставка', 'оплата', 'обмін', 'акції', 'відгуки'].map((modalName) => (
-        <Modal
-          key={modalName}
-          isOpen={showModal === modalName}
-          onClose={() => setShowModal(null)}
-          title={modalName.charAt(0).toUpperCase() + modalName.slice(1)}
-          width="400px"
-        >
-          <ul className="list-disc list-inside space-y-2 text-sm">
-            <li>Інформація про {modalName}</li>
-            <li>Детальний опис</li>
-            <li>Умови та правила</li>
-          </ul>
-        </Modal>
-      ))}
     </div>
   );
 };

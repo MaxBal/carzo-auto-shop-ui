@@ -13,13 +13,13 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
       <div className="hidden lg:block col-span-5">
         <div className="flex gap-4">
           {/* Thumbnails */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {images.map((image, index) => (
               <button
                 key={index}
                 onClick={() => setActiveImageIndex(index)}
-                className={`w-16 h-16 rounded-lg overflow-hidden ${
-                  index === activeImageIndex ? 'ring-2 ring-brand' : ''
+                className={`w-[70px] h-[70px] rounded-lg overflow-hidden border-2 ${
+                  index === activeImageIndex ? 'border-brand' : 'border-gray-200'
                 }`}
               >
                 <img
@@ -36,7 +36,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
             <img
               src={images[activeImageIndex]}
               alt="Основне зображення продукту"
-              className="w-full aspect-square object-cover rounded-xl shadow-sm"
+              className="w-full h-[500px] object-cover rounded-xl"
             />
           </div>
         </div>
