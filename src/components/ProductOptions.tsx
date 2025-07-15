@@ -207,14 +207,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         <TabsContent value="logo" className="space-y-4">
           <RadioGroup value={selectedLogo} onValueChange={setSelectedLogo} className="space-y-3">
             {logoOptions.map((option) => (
-              <div key={option.name} className="flex items-center space-x-3">
-                <RadioGroupItem value={option.name} id={option.name} />
+              <div key={option.name} className="flex items-center justify-between">
                 <label htmlFor={option.name} className="text-sm flex-1 cursor-pointer">
-                  <div className="font-medium">{option.name}</div>
-                  {option.price > 0 && (
-                    <div className="text-sm text-gray-500">+{option.price} ₴</div>
-                  )}
+                  <div className="font-medium">
+                    {option.name}
+                    {option.price > 0 && <span className="text-gray-500"> +{option.price} ₴</span>}
+                  </div>
                 </label>
+                <RadioGroupItem value={option.name} id={option.name} />
               </div>
             ))}
           </RadioGroup>
@@ -259,7 +259,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
         <TabsContent value="fixation" className="space-y-4">
           <div className="space-y-4">
-            <h4 className="font-medium">Фіксація в багажнику</h4>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Фіксація в багажнику</span>
               <div 
@@ -276,23 +275,23 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             
             {selectedFixation && (
               <RadioGroup value={selectedFixationType} onValueChange={setSelectedFixationType} className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <RadioGroupItem value="фікс.на дні" id="fixation-bottom" />
+                <div className="flex items-center justify-between">
                   <label htmlFor="fixation-bottom" className="text-sm flex-1 cursor-pointer">
                     <div className="font-medium">фікс.на дні 0 ₴</div>
                   </label>
+                  <RadioGroupItem value="фікс.на дні" id="fixation-bottom" />
                 </div>
-                <div className="flex items-center space-x-3">
-                  <RadioGroupItem value="фікс.на стінці" id="fixation-wall" />
+                <div className="flex items-center justify-between">
                   <label htmlFor="fixation-wall" className="text-sm flex-1 cursor-pointer">
                     <div className="font-medium">фікс.на стінці 0 ₴</div>
                   </label>
+                  <RadioGroupItem value="фікс.на стінці" id="fixation-wall" />
                 </div>
-                <div className="flex items-center space-x-3">
-                  <RadioGroupItem value="фікс.дно+стінка" id="fixation-both" />
+                <div className="flex items-center justify-between">
                   <label htmlFor="fixation-both" className="text-sm flex-1 cursor-pointer">
                     <div className="font-medium">фікс.дно+стінка 80 ₴</div>
                   </label>
+                  <RadioGroupItem value="фікс.дно+стінка" id="fixation-both" />
                 </div>
               </RadioGroup>
             )}
