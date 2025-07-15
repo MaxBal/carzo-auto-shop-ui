@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 
 interface ProductGalleryProps {
@@ -19,7 +20,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
                 key={index}
                 onClick={() => setActiveImageIndex(index)}
                 className={`w-[70px] h-[70px] rounded-lg overflow-hidden border-2 ${
-                  index === activeImageIndex ? 'border-brand' : 'border-gray-200'
+                  index === activeImageIndex ? 'border-[#49d3b8]' : 'border-gray-200'
                 }`}
               >
                 <img
@@ -43,7 +44,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
       </div>
 
       {/* Mobile Gallery */}
-      <div className="lg:hidden col-span-12">
+      <div className="lg:hidden col-span-12 -mx-4">
         <div className="relative overflow-x-auto snap-x snap-mandatory">
           <div className="flex">
             {images.map((image, index) => (
@@ -62,7 +63,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
               <div
                 key={index}
                 className={`w-2 h-2 rounded-full ${
-                  index === activeImageIndex ? 'bg-brand' : 'bg-gray-300'
+                  index === activeImageIndex ? 'bg-[#49d3b8]' : 'bg-gray-300'
                 }`}
               />
             ))}

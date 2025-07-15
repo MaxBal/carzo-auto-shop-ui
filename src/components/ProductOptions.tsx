@@ -4,6 +4,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
+import { RadioGroup, RadioGroupItem } from './ui/radio-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 interface ProductOptionsProps {
   product: {
@@ -24,6 +26,11 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedFixation, setSelectedFixation] = useState('без фіксації');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
+  const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
+  const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
+  const [isReviewsModalOpen, setIsReviewsModalOpen] = useState(false);
 
   const { toast } = useToast();
   const { addItem } = useCart();
@@ -44,12 +51,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
   const logoOptions = [
     { name: 'без лого', price: 0 },
-    { name: 'з лого', price: 200 }
+    { name: 'з лого (нержавіюча сталь)', price: 280 },
+    { name: 'з лого (латунь)', price: 200 }
   ];
 
   const fixationOptions = [
     { name: 'без фіксації', price: 0 },
-    { name: 'з фіксацією', price: 50 }
+    { name: 'фікс.на дні', price: 0 },
+    { name: 'фікс.на стінці', price: 0 },
+    { name: 'фікс.дно+стінка', price: 80 }
   ];
 
   const colors = [
@@ -190,44 +200,72 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         </TabsContent>
 
         <TabsContent value="logo" className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <RadioGroup value={selectedLogo} onValueChange={setSelectedLogo} className="space-y-3">
             {logoOptions.map((option) => (
-              <button
-                key={option.name}
-                onClick={() => setSelectedLogo(option.name)}
-                className={`p-4 border-2 rounded-xl text-left transition-all ${
-                  selectedLogo === option.name ? 'border-brand' : 'border-gray-200'
-                }`}
-              >
-                <div className="font-medium text-base">{option.name}</div>
-                <div className="text-sm text-gray-500">+{option.price} ₴</div>
-              </button>
+              <div key={option.name} className="flex items-center space-x-3">
+                <RadioGroupItem value={option.name} id={option.name} />
+                <label htmlFor={option.name} className="text-sm flex-1 cursor-pointer">
+                  <div className="font-medium">{option.name}</div>
+                  {option.price > 0 && (
+                    <div className="text-sm text-gray-500">+{option.price} ₴</div>
+                  )}
+                </label>
+              </div>
             ))}
-          </div>
-          <button 
-            onClick={() => setIsLogoModalOpen(true)}
-            className="text-brand text-sm flex items-center gap-1 underline"
-          >
-            <Eye size={16} />
-            Переглянути лого
-          </button>
+          </RadioGroup>
+          
+          {selectedLogo !== 'без лого' && (
+            <div className="space-y-3">
+              <Select defaultValue="Toyota">
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Toyota">Toyota</SelectItem>
+                  <SelectItem value="Honda">Honda</SelectItem>
+                  <SelectItem value="BMW">BMW</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <div className="flex items-center gap-3 p-3 border rounded-lg">
+                <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                  <Camera size={16} />
+                </div>
+                <span className="text-sm">Лого Toyota (нержавіюча сталь)</span>
+              </div>
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="fixation" className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
-            {fixationOptions.map((option) => (
-              <button
-                key={option.name}
-                onClick={() => setSelectedFixation(option.name)}
-                className={`p-4 border-2 rounded-xl text-left transition-all ${
-                  selectedFixation === option.name ? 'border-brand' : 'border-gray-200'
-                }`}
-              >
-                <div className="font-medium text-base">{option.name}</div>
-                <div className="text-sm text-gray-500">+{option.price} ₴</div>
-              </button>
-            ))}
+          <div className="space-y-4">
+            <h4 className="font-medium">Фіксація в багажнику</h4>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Увімкнути фіксацію</span>
+              <div className="w-12 h-6 bg-[#49d3b8] rounded-full p-1 cursor-pointer">
+                <div className="w-4 h-4 bg-white rounded-full transform translate-x-6"></div>
+              </div>
+            </div>
+            
+            <RadioGroup value={selectedFixation} onValueChange={setSelectedFixation} className="space-y-3">
+              {fixationOptions.map((option) => (
+                <div key={option.name} className="flex items-center space-x-3">
+                  <RadioGroupItem value={option.name} id={option.name} />
+                  <label htmlFor={option.name} className="text-sm flex-1 cursor-pointer">
+                    <div className="font-medium">{option.name}</div>
+                    <div className="text-sm text-gray-500">{option.price} ₴</div>
+                  </label>
+                </div>
+              ))}
+            </RadioGroup>
           </div>
+          
+          <button 
+            className="text-[#49d3b8] text-sm flex items-center gap-1 underline"
+          >
+            <Info size={16} />
+            Детальніше про фіксацію в багажнику
+          </button>
         </TabsContent>
       </Tabs>
 
@@ -242,17 +280,18 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       {/* Circular Nav */}
       <div className="flex gap-4 overflow-x-auto pb-2">
         {[
-          { icon: Shield, label: 'Доставка' },
-          { icon: Heart, label: 'Оплата' },
-          { icon: Star, label: 'Обмін' },
-          { icon: Zap, label: 'Акції' },
-          { icon: Camera, label: 'Відгуки' }
+          { icon: Shield, label: 'Доставка', onClick: () => setIsDeliveryModalOpen(true) },
+          { icon: Heart, label: 'Оплата', onClick: () => setIsPaymentModalOpen(true) },
+          { icon: Star, label: 'Обмін', onClick: () => setIsExchangeModalOpen(true) },
+          { icon: Zap, label: 'Акції', onClick: () => setIsPromoModalOpen(true) },
+          { icon: Camera, label: 'Відгуки', onClick: () => setIsReviewsModalOpen(true) }
         ].map((item, index) => (
           <div
             key={index}
             className="flex flex-col items-center justify-center gap-1 min-w-[64px] cursor-pointer"
+            onClick={item.onClick}
           >
-            <div className="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center hover:border-brand transition-colors">
+            <div className="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center hover:border-[#49d3b8] transition-colors">
               <item.icon size={20} />
             </div>
             <span className="text-xs">{item.label}</span>
@@ -260,7 +299,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         ))}
       </div>
 
-      {/* Modals */}
+      {/* All Modals */}
       <Modal
         isOpen={isDesignModalOpen}
         onClose={() => setIsDesignModalOpen(false)}
@@ -288,6 +327,61 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       >
         <div className="aspect-video bg-gray-200 rounded-lg"></div>
         <p className="mt-2 text-center text-sm">Превʼю лого</p>
+      </Modal>
+
+      <Modal
+        isOpen={isDeliveryModalOpen}
+        onClose={() => setIsDeliveryModalOpen(false)}
+        title="Доставка"
+        width="480px"
+      >
+        <div className="space-y-4">
+          <p>Інформація про доставку</p>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        title="Оплата"
+        width="480px"
+      >
+        <div className="space-y-4">
+          <p>Інформація про оплату</p>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isExchangeModalOpen}
+        onClose={() => setIsExchangeModalOpen(false)}
+        title="Обмін"
+        width="480px"
+      >
+        <div className="space-y-4">
+          <p>Інформація про обмін</p>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isPromoModalOpen}
+        onClose={() => setIsPromoModalOpen(false)}
+        title="Акції"
+        width="480px"
+      >
+        <div className="space-y-4">
+          <p>Інформація про акції</p>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={isReviewsModalOpen}
+        onClose={() => setIsReviewsModalOpen(false)}
+        title="Відгуки"
+        width="640px"
+      >
+        <div className="space-y-4">
+          <p>Відгуки покупців</p>
+        </div>
       </Modal>
     </div>
   );
