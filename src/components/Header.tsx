@@ -44,8 +44,8 @@ export const Header = () => {
 
           {/* Desktop navigation */}
           <nav className="hidden lg:flex gap-6 text-white text-sm absolute left-1/2 transform -translate-x-1/2">
-            <a href="#" className="hover:text-brand transition-colors">Головна сторінка</a>
-            <a href="#" className="hover:text-brand transition-colors">Автокейси</a>
+            <a href="/" className="hover:text-brand transition-colors">Автокейси</a>
+            <a href="/bags" className="hover:text-brand transition-colors">Сумки</a>
             <a href="#" className="hover:text-brand transition-colors">Накидки в салон</a>
             <a href="#" className="hover:text-brand transition-colors">Автокилимки</a>
             <a href="#" className="hover:text-brand transition-colors">Контакти</a>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
@@ -76,6 +76,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     { name: 'Бежевий', value: '#D4A574' }
   ];
 
+  // Generate dynamic SKU
+  const generateSKU = () => {
+    const designCode = selectedDesign.replace('Carzo ', '').replace('.0', '');
+    const sizeCode = selectedSize.charAt(0); // S, M, L, XL
+    const logoCode = selectedLogo === 'без лого' ? 'N' : 'Y';
+    const fixCode = selectedFixation ? 'Y' : 'N';
+    return `ART.${designCode}.${sizeCode}.${logoCode}.${fixCode}`;
+  };
+
   const calculatePrice = () => {
     const selectedSizeData = sizes.find(s => s.name === selectedSize);
     const basePrice = selectedSizeData?.price || product.price;
@@ -83,6 +92,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     const fixationPrice = selectedFixation ? (fixationOptions.find(f => f.name === selectedFixationType)?.price || 0) : 0;
     return basePrice + logoPrice + fixationPrice;
   };
+
+  // Update SKU immediately when any option changes
+  useEffect(() => {
+    const newSKU = generateSKU();
+    const skuElement = document.getElementById('sku');
+    if (skuElement) {
+      skuElement.textContent = newSKU;
+    }
+  }, [selectedDesign, selectedSize, selectedLogo, selectedFixation]);
 
   const handleAddToCart = () => {
     addItem({
@@ -105,42 +123,62 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   return (
-    <div className="col-span-12 lg:col-span-5">
-      <div className="lg:hidden mb-6">
+    <div className="col-span-12 md:col-span-4">
+      <div className="md:hidden mb-6 mt-6">
         <div className="bg-black/80 text-white px-3 py-2 rounded-full inline-flex items-center gap-2 text-sm">
           <Ship size={16} />
           Відправимо сьогодні після 18:00
         </div>
       </div>
       
-      <h1 className="text-2xl lg:text-3xl font-bold mb-2">{product.name}</h1>
-      <p className="text-gray-500 text-sm lg:text-base mb-4">
-        арт. {product.article} | {selectedDesign} | {selectedLogo} | {selectedFixation ? 'фіксація=на дні' : 'фіксація=без фіксації'}
+      <h1 className="text-[26px] font-bold mb-2 leading-tight">{product.name}</h1>
+      <p className="text-[#6B7280] text-xs tracking-[-0.01em] mb-4">
+        арт. <span id="sku">{generateSKU()}</span>
       </p>
 
       <div className="flex items-center gap-3 mb-6">
-        <span className="text-2xl lg:text-3xl font-bold">{calculatePrice()} ₴</span>
+        <span className="text-[28px] font-bold">{calculatePrice()} ₴</span>
         {product.oldPrice && (
-          <span className="text-lg text-gray-500 line-through">{product.oldPrice} ₴</span>
+          <span className="text-lg text-gray-500 line-through opacity-70">{product.oldPrice} ₴</span>
         )}
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-        <TabsList className="grid w-full grid-cols-4 bg-gray-100">
-          <TabsTrigger value="designs" className="text-sm">Дизайни</TabsTrigger>
-          <TabsTrigger value="sizes" className="text-sm">Розміри</TabsTrigger>
-          <TabsTrigger value="logo" className="text-sm">Лого</TabsTrigger>
-          <TabsTrigger value="fixation" className="text-sm">Фіксація</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-4 bg-[#F4F5F5] rounded-full p-1">
+          <TabsTrigger 
+            value="designs" 
+            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
+          >
+            Дизайн
+          </TabsTrigger>
+          <TabsTrigger 
+            value="sizes" 
+            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
+          >
+            Розміри
+          </TabsTrigger>
+          <TabsTrigger 
+            value="logo" 
+            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
+          >
+            Лого
+          </TabsTrigger>
+          <TabsTrigger 
+            value="fixation" 
+            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
+          >
+            Фіксація
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="designs" className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3">
             {designs.map((design) => (
               <button
                 key={design.name}
                 onClick={() => setSelectedDesign(design.name)}
-                className={`p-4 border-2 rounded-xl text-left transition-all ${
-                  selectedDesign === design.name ? 'border-brand' : 'border-gray-200'
+                className={`w-[180px] h-[72px] p-4 border-2 rounded-lg text-left transition-all shadow-sm ${
+                  selectedDesign === design.name ? 'border-[#00D1B3]' : 'border-gray-200'
                 }`}
               >
                 <div className="font-medium text-base">{design.name}</div>
@@ -164,7 +202,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 <button
                   key={color.value}
                   onClick={() => setSelectedColor(color.name)}
-                  className={`w-8 h-8 rounded-full border-2 transition-all ${
+                  className={`w-6 h-6 rounded-full border-2 transition-all ${
                     selectedColor === color.name ? 'border-black scale-110' : 'border-gray-300'
                   }`}
                   style={{ backgroundColor: color.value }}
@@ -176,13 +214,13 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         </TabsContent>
 
         <TabsContent value="sizes" className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3">
             {sizes.map((size) => (
               <button
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
-                className={`p-4 border-2 rounded-xl text-left transition-all ${
-                  selectedSize === size.name ? 'border-brand' : 'border-gray-200'
+                className={`w-[180px] h-[72px] p-4 border-2 rounded-lg text-left transition-all shadow-sm ${
+                  selectedSize === size.name ? 'border-[#00D1B3]' : 'border-gray-200'
                 }`}
               >
                 <div className="font-medium text-base">{size.name}</div>
@@ -309,7 +347,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
       <button 
         onClick={handleAddToCart}
-        className="w-full h-12 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 mb-6"
+        className="w-full h-14 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 mb-6 text-base"
       >
         <ShoppingCart size={20} />
         Купити {calculatePrice()} ₴ {product.oldPrice && <span className="line-through text-white/70">{product.oldPrice} ₴</span>}
