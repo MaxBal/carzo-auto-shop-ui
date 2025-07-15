@@ -10,7 +10,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
   return (
     <>
       {/* Desktop Gallery */}
-      <div className="hidden lg:block col-span-5">
+      <div className="hidden lg:block col-span-7">
         <div className="flex gap-4">
           {/* Thumbnails */}
           <div className="flex flex-col gap-3">
@@ -43,7 +43,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
       </div>
 
       {/* Mobile Gallery */}
-      <div className="lg:hidden">
+      <div className="lg:hidden col-span-12">
         <div className="relative overflow-x-auto snap-x snap-mandatory">
           <div className="flex">
             {images.map((image, index) => (

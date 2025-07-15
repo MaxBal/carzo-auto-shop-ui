@@ -21,6 +21,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
   const [selectedColor, setSelectedColor] = useState('black');
+  const [selectedFixation, setSelectedFixation] = useState('без фіксації');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
 
@@ -46,6 +47,11 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     { name: 'з лого', price: 200 }
   ];
 
+  const fixationOptions = [
+    { name: 'без фіксації', price: 0 },
+    { name: 'з фіксацією', price: 50 }
+  ];
+
   const colors = [
     { name: 'Чорний', value: '#000000' },
     { name: 'Сірий', value: '#6B7280' },
@@ -59,7 +65,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     const selectedSizeData = sizes.find(s => s.name === selectedSize);
     const basePrice = selectedSizeData?.price || product.price;
     const logoPrice = logoOptions.find(l => l.name === selectedLogo)?.price || 0;
-    return basePrice + logoPrice;
+    const fixationPrice = fixationOptions.find(f => f.name === selectedFixation)?.price || 0;
+    return basePrice + logoPrice + fixationPrice;
   };
 
   const handleAddToCart = () => {
@@ -71,7 +78,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         design: selectedDesign,
         size: selectedSize,
         logo: selectedLogo,
-        color: selectedColor
+        color: selectedColor,
+        fixation: selectedFixation
       }
     });
 
@@ -82,7 +90,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   return (
-    <div className="col-span-12 lg:col-span-7">
+    <div className="col-span-12 lg:col-span-5">
       <div className="lg:hidden mb-6">
         <div className="bg-black/80 text-white px-3 py-2 rounded-full inline-flex items-center gap-2 text-sm">
           <Ship size={16} />
@@ -92,7 +100,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       
       <h1 className="text-2xl lg:text-3xl font-bold mb-2">{product.name}</h1>
       <p className="text-gray-500 text-sm lg:text-base mb-4">
-        арт. {product.article} | {selectedDesign} | {selectedLogo}
+        арт. {product.article} | {selectedDesign} | {selectedLogo} | {selectedFixation}
       </p>
 
       <div className="flex items-center gap-3 mb-6">
@@ -103,10 +111,11 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-        <TabsList className="grid w-full grid-cols-3 bg-gray-100">
+        <TabsList className="grid w-full grid-cols-4 bg-gray-100">
           <TabsTrigger value="designs" className="text-sm">Дизайни</TabsTrigger>
           <TabsTrigger value="sizes" className="text-sm">Розміри</TabsTrigger>
           <TabsTrigger value="logo" className="text-sm">Лого</TabsTrigger>
+          <TabsTrigger value="fixation" className="text-sm">Фіксація</TabsTrigger>
         </TabsList>
 
         <TabsContent value="designs" className="space-y-4">
@@ -202,6 +211,23 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             <Eye size={16} />
             Переглянути лого
           </button>
+        </TabsContent>
+
+        <TabsContent value="fixation" className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            {fixationOptions.map((option) => (
+              <button
+                key={option.name}
+                onClick={() => setSelectedFixation(option.name)}
+                className={`p-4 border-2 rounded-xl text-left transition-all ${
+                  selectedFixation === option.name ? 'border-brand' : 'border-gray-200'
+                }`}
+              >
+                <div className="font-medium text-base">{option.name}</div>
+                <div className="text-sm text-gray-500">+{option.price} ₴</div>
+              </button>
+            ))}
+          </div>
         </TabsContent>
       </Tabs>
 
