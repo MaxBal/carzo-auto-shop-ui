@@ -6,7 +6,7 @@ export default function ProductGallery({ images }: { images:string[] }){
   const [active,setActive]=useState(0)
   return(
     <section className='flex gap-6'>
-      <ul className='flex flex-col gap-3 max-h-[640px] overflow-y-auto'>
+      <ul className='flex flex-col gap-3 max-h-[640px] overflow-y-auto scrollbar-thin'>
         {images.map((src,i)=>(
           <li key={src}>
             <button onClick={()=>setActive(i)}
