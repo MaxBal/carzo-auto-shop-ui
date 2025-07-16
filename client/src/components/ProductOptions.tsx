@@ -105,7 +105,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-5 px-4 md:px-0 mt-8 md:mt-0">
+    <div className="col-span-12 md:col-span-5 px-6 md:px-0 mt-8 md:mt-0">
       {/* Shipping banner */}
       <div className="bg-green-100 border border-green-300 rounded-lg px-3 py-2 mb-6 flex items-center">
         <Shield className="w-4 h-4 text-green-600 mr-2" />
@@ -223,11 +223,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                     <div className="text-xs text-gray-500">+{logo.price} ₴</div>
                   )}
                 </div>
-                <div className="flex gap-1">
-                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                </div>
+                <div className="w-2 h-2 rounded-full bg-gray-400"></div>
               </button>
             ))}
           </div>
@@ -250,11 +246,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 }`}
               >
                 <div className="font-medium text-sm">{fixation.name}</div>
-                <div className="flex gap-1">
-                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
-                </div>
+                <div className="w-2 h-2 rounded-full bg-gray-400"></div>
                 {fixation.price > 0 && (
                   <div className="text-xs text-gray-500">+{fixation.price} ₴</div>
                 )}

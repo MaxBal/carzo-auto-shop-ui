@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import { ShoppingCart, X } from 'lucide-react';
 import { Link } from 'wouter';
 import { useCart } from '@/hooks/useCart';
 import { CartDrawer } from './CartDrawer';
@@ -25,19 +25,20 @@ export const Header = () => {
   return (
     <>
       <header className={`fixed inset-x-0 top-0 h-14 z-50 transition-colors duration-300 ${
-        isScrolled ? 'bg-gray-900/95 backdrop-blur-sm' : 'bg-gray-900'
+        isScrolled ? 'bg-[#181a19]/95 backdrop-blur-sm' : 'bg-[#181a19]'
       }`}>
         <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4">
           {/* Mobile burger menu */}
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden text-white"
+            className="lg:hidden text-white flex flex-col gap-1"
           >
-            <Menu size={24} />
+            <div className="w-5 h-0.5 bg-white"></div>
+            <div className="w-5 h-0.5 bg-white"></div>
           </button>
 
           {/* Logo */}
-          <div className="flex-1">
+          <div className="flex-1 ml-4 lg:ml-0">
             <Link href="/">
               <h1 className="text-white font-bold text-lg leading-[56px] hover:text-brand transition-colors cursor-pointer">
                 Carzo
@@ -60,7 +61,7 @@ export const Header = () => {
             onClick={() => setIsCartOpen(true)}
             className="relative text-white ml-auto lg:ml-0"
           >
-            <ShoppingBag size={24} />
+            <ShoppingCart size={24} />
             {totalItems > 0 && (
               <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand text-[10px] flex items-center justify-center rounded-full text-white font-medium">
                 {totalItems}
