@@ -27,15 +27,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
-  const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
-  const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
-  const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
-  const [isLogoImageModalOpen, setIsLogoImageModalOpen] = useState(false);
-  const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
-  const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
-  const [isReviewsModalOpen, setIsReviewsModalOpen] = useState(false);
 
   const { toast } = useToast();
   const { addItem } = useCart();
@@ -82,7 +73,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     const sizeCode = selectedSize.charAt(0); // S, M, L, XL
     const logoCode = selectedLogo === 'без лого' ? 'N' : 'Y';
     const fixCode = selectedFixation ? 'Y' : 'N';
-    return `M ${selectedDesign}`;
+    return `M Carzo 1.0`;
   };
 
   const calculatePrice = () => {
@@ -92,15 +83,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     const fixationPrice = selectedFixation ? (fixationOptions.find(f => f.name === selectedFixationType)?.price || 0) : 0;
     return basePrice + logoPrice + fixationPrice;
   };
-
-  // Update SKU immediately when any option changes
-  useEffect(() => {
-    const newSKU = generateSKU();
-    const skuElement = document.getElementById('sku');
-    if (skuElement) {
-      skuElement.textContent = newSKU;
-    }
-  }, [selectedDesign, selectedSize, selectedLogo, selectedFixation]);
 
   const handleAddToCart = () => {
     addItem({
@@ -123,388 +105,176 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-4">
-      <div className="hidden md:block mb-4">
-        <div className="bg-black/80 text-white px-3 py-2 rounded-full inline-flex items-center gap-2 text-sm">
-          <Ship size={16} />
-          Відправимо сьогодні після 18:00
-        </div>
+    <div className="col-span-12 md:col-span-5 px-4 md:px-0 mt-8 md:mt-0">
+      {/* Shipping banner */}
+      <div className="bg-green-100 border border-green-300 rounded-lg px-3 py-2 mb-6 flex items-center">
+        <Shield className="w-4 h-4 text-green-600 mr-2" />
+        <span className="text-sm text-green-800">✓ Відправимо сьогодні після 18:00</span>
       </div>
-      
-      <div className="md:hidden mb-6 mt-6">
-        <div className="bg-black/80 text-white px-3 py-2 rounded-full inline-flex items-center gap-2 text-sm">
-          <Ship size={16} />
-          Відправимо сьогодні після 18:00
-        </div>
-      </div>
-      
-      <h1 className="text-[26px] font-bold mb-2 leading-tight">{product.name}</h1>
-      <p className="text-[#6B7280] text-xs tracking-[-0.01em] mb-4">
-        арт. <span id="sku">{generateSKU()}</span> | колір={selectedColor.toLowerCase()} | лого={selectedLogo} | фіксація={selectedFixation ? selectedFixationType : 'без фіксації'}
-      </p>
 
+      {/* Product title and details */}
+      <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
+      <div className="text-sm text-gray-600 mb-4">
+        арт. {generateSKU()} | водостійкий | логотип без фіксації
+      </div>
+
+      {/* Price */}
       <div className="flex items-center gap-3 mb-6">
-        <span className="text-[28px] font-bold">{calculatePrice()} ₴</span>
+        <span className="text-3xl font-bold text-gray-900">{calculatePrice()} ₴</span>
         {product.oldPrice && (
-          <span className="text-lg text-gray-500 line-through opacity-70">{product.oldPrice} ₴</span>
+          <span className="text-lg text-gray-500 line-through">{product.oldPrice} ₴</span>
         )}
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-        <TabsList className="grid w-full grid-cols-4 bg-[#F4F5F5] rounded-full p-1">
-          <TabsTrigger 
-            value="designs" 
-            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
-          >
-            Дизайн
-          </TabsTrigger>
-          <TabsTrigger 
-            value="sizes" 
-            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
-          >
-            Розміри
-          </TabsTrigger>
-          <TabsTrigger 
-            value="logo" 
-            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
-          >
-            Лого
-          </TabsTrigger>
-          <TabsTrigger 
-            value="fixation" 
-            className="rounded-full h-11 data-[state=active]:bg-white data-[state=active]:border-2 data-[state=active]:border-[#00D1B3] text-sm"
-          >
-            Фіксація
-          </TabsTrigger>
+      {/* Tabs */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
+        <TabsList className="grid w-full grid-cols-4 bg-gray-100 rounded-lg">
+          <TabsTrigger value="designs" className="text-xs">Дизайни</TabsTrigger>
+          <TabsTrigger value="sizes" className="text-xs">Розміри</TabsTrigger>
+          <TabsTrigger value="logo" className="text-xs">Лого</TabsTrigger>
+          <TabsTrigger value="fixation" className="text-xs">Фіксація</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="designs" className="space-y-4">
-          <div className="grid grid-cols-1 gap-3">
+        {/* Designs Tab */}
+        <TabsContent value="designs" className="mt-4 space-y-4">
+          <div className="grid grid-cols-2 gap-3">
             {designs.map((design) => (
               <button
                 key={design.name}
                 onClick={() => setSelectedDesign(design.name)}
-                className={`w-[180px] h-[72px] p-4 border-2 rounded-lg text-left transition-all shadow-sm ${
-                  selectedDesign === design.name ? 'border-[#00D1B3]' : 'border-gray-200'
+                className={`p-3 rounded-lg border text-left transition-colors ${
+                  selectedDesign === design.name
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-base">{design.name}</div>
-                <div className="text-sm text-gray-500">{design.colors}</div>
+                <div className="font-medium text-sm">{design.name}</div>
+                <div className="text-xs text-gray-500">{design.colors}</div>
               </button>
             ))}
           </div>
           
           <button 
             onClick={() => setIsDesignModalOpen(true)}
-            className="text-brand text-sm flex items-center gap-1 underline"
+            className="text-blue-600 text-sm flex items-center gap-1 underline"
           >
-            <Info size={16} />
             Детальніше про дизайни
           </button>
 
+          {/* Color selection for Carzo 1.0 */}
           {selectedDesign === 'Carzo 1.0' && (
-            <div className="flex items-center gap-2 mt-4">
-              <span className="text-sm font-medium">Колір:</span>
-              {colors.map((color) => (
-                <button
-                  key={color.value}
-                  onClick={() => setSelectedColor(color.name)}
-                  className={`w-6 h-6 rounded-full border-2 transition-all ${
-                    selectedColor === color.name ? 'border-black scale-110' : 'border-gray-300'
-                  }`}
-                  style={{ backgroundColor: color.value }}
-                  title={color.name}
-                />
-              ))}
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-3">Колір:</label>
+              <div className="flex gap-2">
+                {colors.map((color) => (
+                  <button
+                    key={color.name}
+                    onClick={() => setSelectedColor(color.name)}
+                    className={`w-8 h-8 rounded-full border-2 transition-all ${
+                      selectedColor === color.name
+                        ? 'border-gray-800 ring-2 ring-offset-2 ring-blue-500'
+                        : 'border-gray-300'
+                    }`}
+                    style={{ backgroundColor: color.value }}
+                    title={color.name}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </TabsContent>
 
-        <TabsContent value="sizes" className="space-y-4">
-          <div className="grid grid-cols-1 gap-3">
+        {/* Sizes Tab */}
+        <TabsContent value="sizes" className="mt-4">
+          <div className="grid grid-cols-2 gap-3">
             {sizes.map((size) => (
               <button
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
-                className={`w-[180px] h-[72px] p-4 border-2 rounded-lg text-left transition-all shadow-sm ${
-                  selectedSize === size.name ? 'border-[#00D1B3]' : 'border-gray-200'
+                className={`p-3 rounded-lg border text-left transition-colors ${
+                  selectedSize === size.name
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-base">{size.name}</div>
-                <div className="text-sm">
-                  <span className="font-semibold">{size.price} ₴</span>
-                  {size.oldPrice && (
-                    <span className="text-gray-500 line-through ml-2">{size.oldPrice} ₴</span>
-                  )}
-                </div>
+                <div className="font-medium text-sm">{size.name}</div>
+                <div className="text-xs text-gray-500">{size.price} ₴</div>
               </button>
             ))}
           </div>
-          <button 
-            onClick={() => setIsSizeModalOpen(true)}
-            className="text-brand text-sm flex items-center gap-1 underline"
-          >
-            <Info size={16} />
-            Детально про розміри
-          </button>
         </TabsContent>
 
-        <TabsContent value="logo" className="space-y-4">
-          <RadioGroup value={selectedLogo} onValueChange={setSelectedLogo} className="space-y-3">
-            {logoOptions.map((option) => (
-              <div key={option.name} className="flex items-center justify-between">
-                <label htmlFor={option.name} className="text-sm flex-1 cursor-pointer">
-                  <div className="font-medium">
-                    {option.name}
-                    {option.price > 0 && <span className="text-gray-500"> +{option.price} ₴</span>}
-                  </div>
-                </label>
-                <RadioGroupItem value={option.name} id={option.name} />
-              </div>
-            ))}
-          </RadioGroup>
-          
-          {selectedLogo !== 'без лого' && (
-            <div className="space-y-3">
-              <Select value={selectedCarBrand} onValueChange={setSelectedCarBrand}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Оберіть марку авто" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Toyota">Toyota</SelectItem>
-                  <SelectItem value="Honda">Honda</SelectItem>
-                  <SelectItem value="BMW">BMW</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              {selectedCarBrand && (
-                <div 
-                  className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:border-brand"
-                  onClick={() => setIsLogoImageModalOpen(true)}
-                >
-                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                    <Camera size={16} />
-                  </div>
-                  <span className="text-sm">Лого {selectedCarBrand} ({selectedLogo.includes('нержавіюча') ? 'нержавіюча сталь' : 'латунь'})</span>
-                </div>
-              )}
-            </div>
-          )}
-          
-          {selectedLogo === 'без лого' && (
-            <button 
-              onClick={() => setIsLogoModalOpen(true)}
-              className="text-brand text-sm flex items-center gap-1 underline"
-            >
-              <Info size={16} />
-              Детальніше про лого
-            </button>
-          )}
-        </TabsContent>
-
-        <TabsContent value="fixation" className="space-y-4">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Фіксація в багажнику</span>
-              <div 
-                className={`w-12 h-6 rounded-full p-1 cursor-pointer transition-colors ${
-                  selectedFixation ? 'bg-[#49d3b8]' : 'bg-gray-300'
+        {/* Logo Tab */}
+        <TabsContent value="logo" className="mt-4">
+          <div className="space-y-2">
+            {logoOptions.map((logo) => (
+              <button
+                key={logo.name}
+                onClick={() => setSelectedLogo(logo.name)}
+                className={`w-full p-3 rounded-lg border text-left transition-colors ${
+                  selectedLogo === logo.name
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300'
                 }`}
-                onClick={() => setSelectedFixation(!selectedFixation)}
               >
-                <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                  selectedFixation ? 'transform translate-x-6' : ''
-                }`}></div>
-              </div>
-            </div>
-            
-            {selectedFixation && (
-              <RadioGroup value={selectedFixationType} onValueChange={setSelectedFixationType} className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <label htmlFor="fixation-bottom" className="text-sm flex-1 cursor-pointer">
-                    <div className="font-medium">фікс.на дні 0 ₴</div>
-                  </label>
-                  <RadioGroupItem value="фікс.на дні" id="fixation-bottom" />
-                </div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="fixation-wall" className="text-sm flex-1 cursor-pointer">
-                    <div className="font-medium">фікс.на стінці 0 ₴</div>
-                  </label>
-                  <RadioGroupItem value="фікс.на стінці" id="fixation-wall" />
-                </div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="fixation-both" className="text-sm flex-1 cursor-pointer">
-                    <div className="font-medium">фікс.дно+стінка 80 ₴</div>
-                  </label>
-                  <RadioGroupItem value="фікс.дно+стінка" id="fixation-both" />
-                </div>
-              </RadioGroup>
-            )}
+                <div className="font-medium text-sm">{logo.name}</div>
+                {logo.price > 0 && (
+                  <div className="text-xs text-gray-500">+{logo.price} ₴</div>
+                )}
+              </button>
+            ))}
           </div>
-          
-          <button 
-            onClick={() => setIsFixationModalOpen(true)}
-            className="text-brand text-sm flex items-center gap-1 underline"
-          >
-            <Info size={16} />
-            Детальніше про фіксацію в багажнику
-          </button>
+        </TabsContent>
+
+        {/* Fixation Tab */}
+        <TabsContent value="fixation" className="mt-4">
+          <div className="space-y-2">
+            {fixationOptions.map((fixation) => (
+              <button
+                key={fixation.name}
+                onClick={() => {
+                  setSelectedFixationType(fixation.name);
+                  setSelectedFixation(fixation.name !== 'без фіксації');
+                }}
+                className={`w-full p-3 rounded-lg border text-left transition-colors ${
+                  selectedFixationType === fixation.name
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <div className="font-medium text-sm">{fixation.name}</div>
+                {fixation.price > 0 && (
+                  <div className="text-xs text-gray-500">+{fixation.price} ₴</div>
+                )}
+              </button>
+            ))}
+          </div>
         </TabsContent>
       </Tabs>
 
-      <button 
+      {/* Add to cart button */}
+      <button
         onClick={handleAddToCart}
-        className="w-full h-14 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 mb-6 text-base"
+        className="w-full bg-black text-white py-4 px-6 rounded-lg font-medium hover:bg-gray-900 transition-colors flex items-center justify-center"
       >
-        <ShoppingCart size={20} />
-        Купити {calculatePrice()} ₴ {product.oldPrice && <span className="line-through text-white/70">{product.oldPrice} ₴</span>}
+        <ShoppingCart className="w-5 h-5 mr-2" />
+        Купити {calculatePrice()} ₴
       </button>
 
-      {/* Circular Nav */}
-      <div className="flex gap-4 overflow-x-auto pb-2">
-        {[
-          { icon: Shield, label: 'Доставка', onClick: () => setIsDeliveryModalOpen(true) },
-          { icon: Heart, label: 'Оплата', onClick: () => setIsPaymentModalOpen(true) },
-          { icon: Star, label: 'Обмін', onClick: () => setIsExchangeModalOpen(true) },
-          { icon: Zap, label: 'Акції', onClick: () => setIsPromoModalOpen(true) },
-          { icon: Camera, label: 'Відгуки', onClick: () => setIsReviewsModalOpen(true) }
-        ].map((item, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center justify-center gap-1 min-w-[64px] cursor-pointer"
-            onClick={item.onClick}
-          >
-            <div className="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center hover:border-[#49d3b8] transition-colors">
-              <item.icon size={20} />
-            </div>
-            <span className="text-xs">{item.label}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* All Modals */}
+      {/* Design Modal */}
       <Modal
         isOpen={isDesignModalOpen}
         onClose={() => setIsDesignModalOpen(false)}
-        title="Детальніше про дизайни"
-        width="480px"
+        title="Дизайни автокейсів"
       >
         <div className="space-y-4">
-          {designs.map((design) => (
-            <div key={design.name} className="flex gap-4">
-              <div className="w-16 h-16 bg-gray-200 rounded"></div>
-              <div>
-                <h4 className="font-medium">{design.name}</h4>
-                <p className="text-sm text-gray-500">{design.colors}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isSizeModalOpen}
-        onClose={() => setIsSizeModalOpen(false)}
-        title="Детально про розміри"
-        width="480px"
-      >
-        <div className="space-y-4">
-          {sizes.map((size) => (
-            <div key={size.name} className="flex gap-4">
-              <div className="w-16 h-16 bg-gray-200 rounded"></div>
-              <div>
-                <h4 className="font-medium">{size.name}</h4>
-                <p className="text-sm text-gray-500">{size.price} ₴</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isLogoModalOpen}
-        onClose={() => setIsLogoModalOpen(false)}
-        title="Детальніше про лого"
-        width="480px"
-      >
-        <div className="space-y-4">
-          <p>Інформація про лого опції</p>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isLogoImageModalOpen}
-        onClose={() => setIsLogoImageModalOpen(false)}
-        title={`Лого ${selectedCarBrand} ${selectedLogo.includes('нержавіюча') ? '(нержавіюча сталь)' : '(латунь)'}`}
-        width="640px"
-      >
-        <div className="aspect-video bg-gray-200 rounded-lg"></div>
-        <p className="mt-2 text-center text-sm">Превʼю лого {selectedCarBrand}</p>
-      </Modal>
-
-      <Modal
-        isOpen={isFixationModalOpen}
-        onClose={() => setIsFixationModalOpen(false)}
-        title="Детальніше про фіксацію в багажнику"
-        width="480px"
-      >
-        <div className="space-y-4">
-          <p>Інформація про фіксацію в багажнику</p>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isDeliveryModalOpen}
-        onClose={() => setIsDeliveryModalOpen(false)}
-        title="Доставка"
-        width="480px"
-      >
-        <div className="space-y-4">
-          <p>Інформація про доставку</p>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        title="Оплата"
-        width="480px"
-      >
-        <div className="space-y-4">
-          <p>Інформація про оплату</p>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isExchangeModalOpen}
-        onClose={() => setIsExchangeModalOpen(false)}
-        title="Обмін"
-        width="480px"
-      >
-        <div className="space-y-4">
-          <p>Інформація про обмін</p>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isPromoModalOpen}
-        onClose={() => setIsPromoModalOpen(false)}
-        title="Акції"
-        width="480px"
-      >
-        <div className="space-y-4">
-          <p>Інформація про акції</p>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={isReviewsModalOpen}
-        onClose={() => setIsReviewsModalOpen(false)}
-        title="Відгуки"
-        width="640px"
-      >
-        <div className="space-y-4">
-          <p>Відгуки покупців</p>
+          <p>Інформація про різні дизайни автокейсів Carzo:</p>
+          <ul className="space-y-2">
+            <li><strong>Carzo 1.0:</strong> Класичний дизайн з 6 варіантами кольорів</li>
+            <li><strong>Carzo 2.0:</strong> Модернізований дизайн</li>
+            <li><strong>Carzo 3.0:</strong> Спортивний дизайн</li>
+            <li><strong>Carzo 4.0:</strong> Преміум дизайн</li>
+          </ul>
         </div>
       </Modal>
     </div>
