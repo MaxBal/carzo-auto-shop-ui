@@ -105,17 +105,17 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-5 px-1 md:px-0 mt-4 md:mt-0">
+    <div className="col-span-12 md:col-span-5 px-1 md:px-0 mt-2 md:mt-0">
 
 
       {/* Product title and details */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-1 md:mb-2">{product.name}</h1>
       <div className="text-sm text-gray-600 mb-4">
         арт. {generateSKU()} | водостійкий | логотип без фіксації
       </div>
 
       {/* Price */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-4 md:mb-6">
         <span className="text-3xl font-bold text-gray-900">{calculatePrice()} ₴</span>
         {product.oldPrice && (
           <span className="text-lg text-gray-500 line-through">{product.oldPrice} ₴</span>
