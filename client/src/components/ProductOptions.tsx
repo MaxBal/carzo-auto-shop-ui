@@ -137,7 +137,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             <button
               key={design.name}
               onClick={() => setSelectedDesign(design.name)}
-              className={`flex-1 py-3 px-4 rounded-md border text-center transition-all duration-300 ease-in-out transform ${
+              className={`flex-1 py-2 px-3 rounded-md border text-center transition-all duration-300 ease-in-out transform ${
                 selectedDesign === design.name
                   ? 'border-black bg-gray-200 scale-105'
                   : 'border-gray-200 hover:border-gray-300 hover:scale-102'
