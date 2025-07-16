@@ -44,7 +44,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
       </div>
 
       {/* Mobile Gallery */}
-      <div className="md:hidden col-span-12 -mx-4 -mt-20">
+<div className="md:hidden col-span-12 -mx-4 mt-0">
         <div 
           className="relative overflow-x-auto snap-x snap-mandatory w-screen"
           onScroll={(e) => {

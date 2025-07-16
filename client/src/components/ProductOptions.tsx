@@ -105,7 +105,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-5 px-1 md:px-0 mt-8 md:mt-0">
+    <div className="col-span-12 md:col-span-5 px-1 md:px-0 mt-4 md:mt-0">
 
 
       {/* Product title and details */}
@@ -221,10 +221,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
                 }`}>{size.name}</div>
                 <div className="flex items-center gap-2">
-                  <span className={`text-sm font-medium ${
+                  <span className={`text-base font-medium ${
                     selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
                   }`}>{size.price} ₴</span>
-                  <span className="text-sm text-gray-400 line-through">{size.oldPrice} ₴</span>
+                  <span className="text-base text-gray-400 line-through">{size.oldPrice} ₴</span>
                 </div>
               </button>
             ))}
@@ -248,7 +248,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
                 }`}>{logo.name}</div>
                 {logo.price > 0 && (
-                  <span className={`text-sm font-medium ${
+                  <span className={`text-base font-medium ${
                     selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
                   }`}>+{logo.price} ₴</span>
                 )}
@@ -277,7 +277,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
                 }`}>{fixation.name}</div>
                 {fixation.price > 0 && (
-                  <span className={`text-sm font-medium ${
+                  <span className={`text-base font-medium ${
                     selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
                   }`}>+{fixation.price} ₴</span>
                 )}
