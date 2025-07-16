@@ -211,7 +211,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <button
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
-                className={`h-12 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
+                className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
                   selectedSize === size.name
                     ? 'border-black bg-gray-200'
                     : 'border-gray-200 hover:border-gray-300'
