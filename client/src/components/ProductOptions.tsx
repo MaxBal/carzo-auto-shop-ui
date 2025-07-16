@@ -125,7 +125,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       {/* Design Selector */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-3">
-          <label className="text-sm font-medium text-gray-700">Дизайн:</label>
           <button
             onClick={() => setIsDesignModalOpen(true)}
             className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
@@ -154,7 +153,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 <button
                   key={color.name}
                   onClick={() => setSelectedColor(color.name)}
-                  className={`w-8 h-8 rounded-lg border-2 transition-all ${
+                  className={`w-8 h-8 rounded-full border-2 transition-all ${
                     selectedColor === color.name
                       ? 'border-gray-800 ring-2 ring-offset-2 ring-blue-500'
                       : 'border-gray-300'
@@ -170,7 +169,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
       {/* Tabs */}
       <div className="w-full mb-6">
-        <div className="flex border-b border-gray-200 justify-center">
+        <div className="flex border-b border-gray-200">
           <button
             onClick={() => setActiveTab('sizes')}
             className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
@@ -212,7 +211,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <button
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
-                className={`w-full h-12 p-4 rounded border text-left transition-colors flex items-center justify-between ${
+                className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
                   selectedSize === size.name
                     ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
@@ -239,7 +238,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <button
                 key={logo.name}
                 onClick={() => setSelectedLogo(logo.name)}
-                className={`w-full h-12 p-4 rounded border text-left transition-colors flex items-center justify-between ${
+                className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
                   selectedLogo === logo.name
                     ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
@@ -268,7 +267,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   setSelectedFixationType(fixation.name);
                   setSelectedFixation(fixation.name !== 'без фіксації');
                 }}
-                className={`w-full h-12 p-4 rounded border text-left transition-colors flex items-center justify-between ${
+                className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
                   selectedFixationType === fixation.name
                     ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
@@ -291,7 +290,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       {/* Add to cart button */}
       <button
         onClick={handleAddToCart}
-        className="w-full bg-black text-white py-3 px-6 rounded font-medium hover:bg-gray-900 transition-colors flex items-center justify-center"
+        className="w-full bg-black text-white py-3 px-6 rounded-md font-medium hover:bg-gray-900 transition-colors flex items-center justify-center"
       >
         <ShoppingCart className="w-5 h-5 mr-2" />
         Купити {calculatePrice()} ₴
