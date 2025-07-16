@@ -105,7 +105,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   return (
-    <div className="col-span-12 md:col-span-5 px-4 md:px-0 mt-8 md:mt-0">
+    <div className="col-span-12 md:col-span-4 px-4 md:px-0 mt-8 md:mt-0">
       {/* Shipping banner */}
       <div className="bg-green-100 border border-green-300 rounded-lg px-3 py-2 mb-6 flex items-center">
         <Shield className="w-4 h-4 text-green-600 mr-2" />
