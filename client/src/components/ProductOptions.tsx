@@ -206,12 +206,12 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
         {/* Sizes Tab */}
         {activeTab === 'sizes' && (
-          <div className="mt-4 space-y-3">
+          <div className="mt-4 grid grid-cols-2 gap-3">
             {sizes.map((size) => (
               <button
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
-                className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
+                className={`h-12 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
                   selectedSize === size.name
                     ? 'border-black bg-gray-200'
                     : 'border-gray-200 hover:border-gray-300'
@@ -220,12 +220,9 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 <div className={`font-medium text-sm ${
                   selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
                 }`}>{size.name}</div>
-                <div className="flex items-center gap-2">
-                  <span className={`text-base font-medium ${
-                    selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>{size.price} ₴</span>
-                  <span className="text-base text-gray-400 line-through">{size.oldPrice} ₴</span>
-                </div>
+                <div className={`text-base font-medium ${
+                  selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
+                }`}>{size.price} ₴</div>
               </button>
             ))}
           </div>
