@@ -132,18 +132,25 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             Різниця між дизайнами
           </button>
         </div>
-        <Select value={selectedDesign} onValueChange={setSelectedDesign}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Оберіть дизайн" />
-          </SelectTrigger>
-          <SelectContent>
-            {designs.map((design) => (
-              <SelectItem key={design.name} value={design.name}>
-                Дизайн {design.name} - {design.colors}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className="flex gap-2">
+          {designs.map((design) => (
+            <button
+              key={design.name}
+              onClick={() => setSelectedDesign(design.name)}
+              className={`flex-1 py-3 px-4 rounded-md border text-center transition-all duration-300 ease-in-out transform ${
+                selectedDesign === design.name
+                  ? 'border-black bg-gray-200 scale-105'
+                  : 'border-gray-200 hover:border-gray-300 hover:scale-102'
+              }`}
+            >
+              <span className={`text-sm font-medium ${
+                selectedDesign === design.name ? 'text-gray-900' : 'text-gray-500'
+              }`}>
+                {selectedDesign === design.name ? design.name : design.name.replace('Carzo ', '')}
+              </span>
+            </button>
+          ))}
+        </div>
         
         {/* Color selection for Carzo 1.0 */}
         {selectedDesign === 'Carzo 1.0' && (
