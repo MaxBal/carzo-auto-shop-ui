@@ -106,11 +106,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
   return (
     <div className="col-span-12 md:col-span-5 px-1 md:px-0 mt-8 md:mt-0">
-      {/* Shipping banner */}
-      <div className="bg-green-100 border border-green-300 rounded-lg px-3 py-2 mb-6 flex items-center">
-        <Shield className="w-4 h-4 text-green-600 mr-2" />
-        <span className="text-sm text-green-800">✓ Відправимо сьогодні після 18:00</span>
-      </div>
+
 
       {/* Product title and details */}
       <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
@@ -153,7 +149,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         {/* Color selection for Carzo 1.0 */}
         {selectedDesign === 'Carzo 1.0' && (
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-3">Колір:</label>
             <div className="flex gap-2">
               {colors.map((color) => (
                 <button
@@ -217,16 +212,20 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <button
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
-                className={`w-full p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
+                className={`w-full h-12 p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedSize === size.name
-                    ? 'border-black bg-gray-50'
+                    ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm text-gray-900">{size.name}</div>
+                <div className={`font-medium text-sm ${
+                  selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
+                }`}>{size.name}</div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-900">{size.price} ₴</span>
-                  <span className="text-sm text-gray-500 line-through">{size.oldPrice} ₴</span>
+                  <span className={`text-sm font-medium ${
+                    selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
+                  }`}>{size.price} ₴</span>
+                  <span className="text-sm text-gray-400 line-through">{size.oldPrice} ₴</span>
                 </div>
               </button>
             ))}
@@ -240,19 +239,20 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <button
                 key={logo.name}
                 onClick={() => setSelectedLogo(logo.name)}
-                className={`w-full p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
+                className={`w-full h-12 p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedLogo === logo.name
-                    ? 'border-black bg-gray-50'
+                    ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm text-gray-900">{logo.name}</div>
-                <div className="flex items-center gap-3">
-                  {logo.price > 0 && (
-                    <span className="text-sm font-medium text-gray-900">+{logo.price} ₴</span>
-                  )}
-                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-                </div>
+                <div className={`font-medium text-sm ${
+                  selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
+                }`}>{logo.name}</div>
+                {logo.price > 0 && (
+                  <span className={`text-sm font-medium ${
+                    selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
+                  }`}>+{logo.price} ₴</span>
+                )}
               </button>
             ))}
           </div>
@@ -268,19 +268,20 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   setSelectedFixationType(fixation.name);
                   setSelectedFixation(fixation.name !== 'без фіксації');
                 }}
-                className={`w-full p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
+                className={`w-full h-12 p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedFixationType === fixation.name
-                    ? 'border-black bg-gray-50'
+                    ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm text-gray-900">{fixation.name}</div>
-                <div className="flex items-center gap-3">
-                  {fixation.price > 0 && (
-                    <span className="text-sm font-medium text-gray-900">+{fixation.price} ₴</span>
-                  )}
-                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-                </div>
+                <div className={`font-medium text-sm ${
+                  selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
+                }`}>{fixation.name}</div>
+                {fixation.price > 0 && (
+                  <span className={`text-sm font-medium ${
+                    selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
+                  }`}>+{fixation.price} ₴</span>
+                )}
               </button>
             ))}
           </div>
@@ -290,7 +291,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       {/* Add to cart button */}
       <button
         onClick={handleAddToCart}
-        className="w-full bg-black text-white py-4 px-6 rounded-lg font-medium hover:bg-gray-900 transition-colors flex items-center justify-center"
+        className="w-full bg-black text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-900 transition-colors flex items-center justify-center"
       >
         <ShoppingCart className="w-5 h-5 mr-2" />
         Купити {calculatePrice()} ₴
