@@ -174,63 +174,93 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       </div>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
-        <TabsList className="grid w-full grid-cols-3 bg-gray-100 rounded-lg">
-          <TabsTrigger value="sizes" className="text-xs">Розміри</TabsTrigger>
-          <TabsTrigger value="logo" className="text-xs">Лого</TabsTrigger>
-          <TabsTrigger value="fixation" className="text-xs">Фіксація</TabsTrigger>
-        </TabsList>
+      <div className="w-full mb-6">
+        <div className="flex border-b border-gray-200">
+          <button
+            onClick={() => setActiveTab('sizes')}
+            className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === 'sizes'
+                ? 'border-black text-black'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Розміри
+          </button>
+          <button
+            onClick={() => setActiveTab('logo')}
+            className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === 'logo'
+                ? 'border-black text-black'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Лого
+          </button>
+          <button
+            onClick={() => setActiveTab('fixation')}
+            className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === 'fixation'
+                ? 'border-black text-black'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Фіксація
+          </button>
+        </div>
 
 
 
         {/* Sizes Tab */}
-        <TabsContent value="sizes" className="mt-4">
-          <div className="grid grid-cols-2 gap-3">
+        {activeTab === 'sizes' && (
+          <div className="mt-4 space-y-3">
             {sizes.map((size) => (
               <button
                 key={size.name}
                 onClick={() => setSelectedSize(size.name)}
-                className={`p-3 rounded-lg border text-left transition-colors ${
+                className={`w-full p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedSize === size.name
-                    ? 'border-blue-500 bg-blue-50'
+                    ? 'border-black bg-gray-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm">{size.name}</div>
-                <div className="text-xs text-gray-500">{size.price} ₴</div>
+                <div className="font-medium text-sm text-gray-900">{size.name}</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-gray-900">{size.price} ₴</span>
+                  <span className="text-sm text-gray-500 line-through">{size.oldPrice} ₴</span>
+                </div>
               </button>
             ))}
           </div>
-        </TabsContent>
+        )}
 
         {/* Logo Tab */}
-        <TabsContent value="logo" className="mt-4">
-          <div className="space-y-2">
+        {activeTab === 'logo' && (
+          <div className="mt-4 space-y-3">
             {logoOptions.map((logo) => (
               <button
                 key={logo.name}
                 onClick={() => setSelectedLogo(logo.name)}
-                className={`w-full p-3 rounded-lg border text-left transition-colors flex items-center justify-between ${
+                className={`w-full p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedLogo === logo.name
-                    ? 'border-blue-500 bg-blue-50'
+                    ? 'border-black bg-gray-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div>
-                  <div className="font-medium text-sm">{logo.name}</div>
+                <div className="font-medium text-sm text-gray-900">{logo.name}</div>
+                <div className="flex items-center gap-3">
                   {logo.price > 0 && (
-                    <div className="text-xs text-gray-500">+{logo.price} ₴</div>
+                    <span className="text-sm font-medium text-gray-900">+{logo.price} ₴</span>
                   )}
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
                 </div>
-                <div className="w-2 h-2 rounded-full bg-gray-400"></div>
               </button>
             ))}
           </div>
-        </TabsContent>
+        )}
 
         {/* Fixation Tab */}
-        <TabsContent value="fixation" className="mt-4">
-          <div className="space-y-2">
+        {activeTab === 'fixation' && (
+          <div className="mt-4 space-y-3">
             {fixationOptions.map((fixation) => (
               <button
                 key={fixation.name}
@@ -238,22 +268,24 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   setSelectedFixationType(fixation.name);
                   setSelectedFixation(fixation.name !== 'без фіксації');
                 }}
-                className={`w-full p-3 rounded-lg border text-left transition-colors flex items-center justify-between ${
+                className={`w-full p-4 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedFixationType === fixation.name
-                    ? 'border-blue-500 bg-blue-50'
+                    ? 'border-black bg-gray-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm">{fixation.name}</div>
-                <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-                {fixation.price > 0 && (
-                  <div className="text-xs text-gray-500">+{fixation.price} ₴</div>
-                )}
+                <div className="font-medium text-sm text-gray-900">{fixation.name}</div>
+                <div className="flex items-center gap-3">
+                  {fixation.price > 0 && (
+                    <span className="text-sm font-medium text-gray-900">+{fixation.price} ₴</span>
+                  )}
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                </div>
               </button>
             ))}
           </div>
-        </TabsContent>
-      </Tabs>
+        )}
+      </div>
 
       {/* Add to cart button */}
       <button
