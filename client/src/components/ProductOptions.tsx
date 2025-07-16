@@ -125,14 +125,13 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       {/* Design Selector */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-3">
-          <button
+          <HelpCircle 
+            className="w-4 h-4 text-gray-500 cursor-pointer hover:text-gray-700 transition-colors" 
             onClick={() => setIsDesignModalOpen(true)}
-            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
-          >
-            Різниця між дизайнами
-          </button>
+          />
+          <span className="text-sm font-medium text-gray-700">Оберіть дизайн:</span>
         </div>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-4 items-center">
           {designs.map((design) => (
             <button
               key={design.name}
