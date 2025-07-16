@@ -11,7 +11,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
   return (
     <>
       {/* Desktop Gallery */}
-      <div className="hidden md:block col-span-8">
+      <div className="hidden md:block col-span-7">
         <div className="flex gap-8">
           {/* Thumbnails */}
           <div className="flex flex-col gap-3">
@@ -45,7 +45,15 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
 
       {/* Mobile Gallery */}
       <div className="md:hidden col-span-12 -mx-4">
-        <div className="relative overflow-x-auto snap-x snap-mandatory w-screen">
+        <div 
+          className="relative overflow-x-auto snap-x snap-mandatory w-screen"
+          onScroll={(e) => {
+            const scrollLeft = e.currentTarget.scrollLeft;
+            const itemWidth = e.currentTarget.scrollWidth / images.length;
+            const newIndex = Math.round(scrollLeft / itemWidth);
+            setActiveImageIndex(newIndex);
+          }}
+        >
           <div className="flex">
             {images.map((image, index) => (
               <img
@@ -59,12 +67,12 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
           </div>
           
           {/* Indicators */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
             {images.map((_, index) => (
               <div
                 key={index}
-                className={`w-2 h-2 rounded-full ${
-                  index === activeImageIndex ? 'bg-[#00D1B3]' : 'bg-gray-300'
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  index === activeImageIndex ? 'bg-cyan-400 scale-125' : 'bg-gray-400'
                 }`}
               />
             ))}
