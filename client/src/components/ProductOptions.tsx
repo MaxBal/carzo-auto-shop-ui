@@ -132,15 +132,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             Різниця між дизайнами
           </button>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           {designs.map((design) => (
             <button
               key={design.name}
               onClick={() => setSelectedDesign(design.name)}
-              className={`flex-1 py-2 px-3 rounded-md border text-center transition-all duration-300 ease-in-out transform ${
+              className={`py-2 px-3 rounded-md border text-center transition-all duration-300 ease-in-out transform whitespace-nowrap ${
                 selectedDesign === design.name
-                  ? 'border-black bg-gray-200 scale-105'
-                  : 'border-gray-200 hover:border-gray-300 hover:scale-102'
+                  ? 'border-black bg-gray-200 scale-105 flex-1'
+                  : 'border-gray-200 hover:border-gray-300 hover:scale-102 flex-shrink-0'
               }`}
             >
               <span className={`text-sm font-medium ${
