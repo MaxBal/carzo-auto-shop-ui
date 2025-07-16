@@ -26,7 +26,7 @@ export const Header = () => {
     <>
       <header className={`fixed inset-x-0 top-0 h-14 z-50 transition-colors duration-300 ${
         isScrolled ? 'bg-[#181a19]/95 backdrop-blur-sm' : 'bg-[#181a19]'
-      }`}>
+      }`} style={{ position: 'fixed' }}>
         <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4">
           {/* Mobile burger menu */}
           <button
