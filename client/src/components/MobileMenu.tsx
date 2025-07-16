@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import { Link } from 'wouter';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -20,12 +21,12 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
       {/* Navigation links */}
       <div className="flex-1 flex flex-col gap-6 justify-center items-center text-white text-xl">
-        <a href="/" className="hover:text-brand transition-colors" onClick={onClose}>
+        <Link href="/" className="hover:text-brand transition-colors" onClick={onClose}>
           Автокейси
-        </a>
-        <a href="/bags" className="hover:text-brand transition-colors" onClick={onClose}>
+        </Link>
+        <Link href="/bags" className="hover:text-brand transition-colors" onClick={onClose}>
           Сумки
-        </a>
+        </Link>
         <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
           Накидки в салон
         </a>

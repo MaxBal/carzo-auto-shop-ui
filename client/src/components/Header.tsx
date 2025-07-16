@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ShoppingBag, Menu, X } from 'lucide-react';
+import { Link } from 'wouter';
 import { useCart } from '@/hooks/useCart';
 import { CartDrawer } from './CartDrawer';
 import { MobileMenu } from './MobileMenu';
@@ -37,15 +38,18 @@ export const Header = () => {
 
           {/* Logo */}
           <div className="flex-1">
-            <h1 className="text-white font-bold text-lg leading-[56px] hover:text-brand transition-colors cursor-pointer">
-              Carzo
-            </h1>
+            <Link href="/">
+              <h1 className="text-white font-bold text-lg leading-[56px] hover:text-brand transition-colors cursor-pointer">
+                Carzo
+              </h1>
+            </Link>
           </div>
 
           {/* Desktop navigation */}
           <nav className="hidden lg:flex gap-8 text-white text-sm">
-            <a href="/" className="hover:text-brand transition-colors">Головна сторінка</a>
-            <a href="/" className="hover:text-brand transition-colors">Автокейси</a>
+            <Link href="/" className="hover:text-brand transition-colors">Головна сторінка</Link>
+            <Link href="/" className="hover:text-brand transition-colors">Автокейси</Link>
+            <Link href="/bags" className="hover:text-brand transition-colors">Сумки</Link>
             <a href="#" className="hover:text-brand transition-colors">Накидки в салон</a>
             <a href="#" className="hover:text-brand transition-colors">Автокилимки</a>
             <a href="#" className="hover:text-brand transition-colors">Контакти</a>
