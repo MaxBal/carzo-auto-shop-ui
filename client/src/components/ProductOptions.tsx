@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye } from 'lucide-react';
+import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
@@ -18,7 +18,7 @@ interface ProductOptionsProps {
 }
 
 export const ProductOptions = ({ product }: ProductOptionsProps) => {
-  const [activeTab, setActiveTab] = useState('designs');
+  const [activeTab, setActiveTab] = useState('sizes');
   const [selectedDesign, setSelectedDesign] = useState('Carzo 1.0');
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
@@ -126,63 +126,62 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         )}
       </div>
 
+      {/* Design Selector */}
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <label className="text-sm font-medium text-gray-700">Дизайн:</label>
+          <button
+            onClick={() => setIsDesignModalOpen(true)}
+            className="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <HelpCircle size={16} />
+          </button>
+        </div>
+        <Select value={selectedDesign} onValueChange={setSelectedDesign}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Оберіть дизайн" />
+          </SelectTrigger>
+          <SelectContent>
+            {designs.map((design) => (
+              <SelectItem key={design.name} value={design.name}>
+                {design.name} - {design.colors}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        
+        {/* Color selection for Carzo 1.0 */}
+        {selectedDesign === 'Carzo 1.0' && (
+          <div className="mt-4">
+            <label className="block text-sm font-medium text-gray-700 mb-3">Колір:</label>
+            <div className="flex gap-2">
+              {colors.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={() => setSelectedColor(color.name)}
+                  className={`w-8 h-8 rounded-full border-2 transition-all ${
+                    selectedColor === color.name
+                      ? 'border-gray-800 ring-2 ring-offset-2 ring-blue-500'
+                      : 'border-gray-300'
+                  }`}
+                  style={{ backgroundColor: color.value }}
+                  title={color.name}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
-        <TabsList className="grid w-full grid-cols-4 bg-gray-100 rounded-lg">
-          <TabsTrigger value="designs" className="text-xs">Дизайни</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 bg-gray-100 rounded-lg">
           <TabsTrigger value="sizes" className="text-xs">Розміри</TabsTrigger>
           <TabsTrigger value="logo" className="text-xs">Лого</TabsTrigger>
           <TabsTrigger value="fixation" className="text-xs">Фіксація</TabsTrigger>
         </TabsList>
 
-        {/* Designs Tab */}
-        <TabsContent value="designs" className="mt-4 space-y-4">
-          <div className="grid grid-cols-2 gap-3">
-            {designs.map((design) => (
-              <button
-                key={design.name}
-                onClick={() => setSelectedDesign(design.name)}
-                className={`p-3 rounded-lg border text-left transition-colors ${
-                  selectedDesign === design.name
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="font-medium text-sm">{design.name}</div>
-                <div className="text-xs text-gray-500">{design.colors}</div>
-              </button>
-            ))}
-          </div>
-          
-          <button 
-            onClick={() => setIsDesignModalOpen(true)}
-            className="text-blue-600 text-sm flex items-center gap-1 underline"
-          >
-            Детальніше про дизайни
-          </button>
 
-          {/* Color selection for Carzo 1.0 */}
-          {selectedDesign === 'Carzo 1.0' && (
-            <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-3">Колір:</label>
-              <div className="flex gap-2">
-                {colors.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() => setSelectedColor(color.name)}
-                    className={`w-8 h-8 rounded-full border-2 transition-all ${
-                      selectedColor === color.name
-                        ? 'border-gray-800 ring-2 ring-offset-2 ring-blue-500'
-                        : 'border-gray-300'
-                    }`}
-                    style={{ backgroundColor: color.value }}
-                    title={color.name}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </TabsContent>
 
         {/* Sizes Tab */}
         <TabsContent value="sizes" className="mt-4">
