@@ -211,16 +211,23 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <button
                 key={logo.name}
                 onClick={() => setSelectedLogo(logo.name)}
-                className={`w-full p-3 rounded-lg border text-left transition-colors ${
+                className={`w-full p-3 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedLogo === logo.name
                     ? 'border-blue-500 bg-blue-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm">{logo.name}</div>
-                {logo.price > 0 && (
-                  <div className="text-xs text-gray-500">+{logo.price} ₴</div>
-                )}
+                <div>
+                  <div className="font-medium text-sm">{logo.name}</div>
+                  {logo.price > 0 && (
+                    <div className="text-xs text-gray-500">+{logo.price} ₴</div>
+                  )}
+                </div>
+                <div className="flex gap-1">
+                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
+                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
+                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
+                </div>
               </button>
             ))}
           </div>
@@ -236,13 +243,18 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   setSelectedFixationType(fixation.name);
                   setSelectedFixation(fixation.name !== 'без фіксації');
                 }}
-                className={`w-full p-3 rounded-lg border text-left transition-colors ${
+                className={`w-full p-3 rounded-lg border text-left transition-colors flex items-center justify-between ${
                   selectedFixationType === fixation.name
                     ? 'border-blue-500 bg-blue-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
                 <div className="font-medium text-sm">{fixation.name}</div>
+                <div className="flex gap-1">
+                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
+                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
+                  <div className="w-1 h-1 rounded-full bg-gray-400"></div>
+                </div>
                 {fixation.price > 0 && (
                   <div className="text-xs text-gray-500">+{fixation.price} ₴</div>
                 )}

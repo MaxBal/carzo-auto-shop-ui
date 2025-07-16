@@ -25,7 +25,7 @@ export const Header = () => {
   return (
     <>
       <header className={`fixed inset-x-0 top-0 h-14 z-50 transition-colors duration-300 ${
-        isScrolled ? 'bg-body/90 backdrop-blur-sm' : 'bg-body'
+        isScrolled ? 'bg-gray-900/95 backdrop-blur-sm' : 'bg-gray-900'
       }`}>
         <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4">
           {/* Mobile burger menu */}
