@@ -219,7 +219,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 onClick={() => setSelectedSize(size.name)}
                 className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
                   selectedSize === size.name
-                    ? 'border-black bg-gray-200'
+                    ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
@@ -243,7 +243,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 onClick={() => setSelectedLogo(logo.name)}
                 className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
                   selectedLogo === logo.name
-                    ? 'border-black bg-gray-200'
+                    ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
@@ -272,7 +272,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 }}
                 className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
                   selectedFixationType === fixation.name
-                    ? 'border-black bg-gray-200'
+                    ? 'border-black bg-gray-100'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
