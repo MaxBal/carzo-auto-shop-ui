@@ -132,7 +132,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             Різниця між дизайнами
           </button>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-3 items-center">
           {designs.map((design) => (
             <button
               key={design.name}
