@@ -49,7 +49,7 @@ export const FeatureSection = () => {
   ];
 
   return (
-    <div className="py-16 bg-black">
+    <div className="py-16 mt-16 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-16">
           {features.map((feature, index) => (
@@ -76,7 +76,7 @@ export const FeatureSection = () => {
                 </div>
                 
                 {feature.additionalInfo && (
-                  <div className="bg-gray-900 rounded-lg p-6 shadow-sm border border-gray-800">
+                  <div className="bg-[#181818] rounded-lg p-6 shadow-sm border border-gray-800">
                     <h5 className="font-semibold text-white mb-3">{feature.additionalInfo.title}</h5>
                     <p className="text-gray-300 leading-relaxed mb-3">{feature.additionalInfo.text}</p>
                     
