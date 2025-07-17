@@ -91,7 +91,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                   <img 
                     src={compartmentsImg} 
                     alt="Перегородки в кейсі" 
-                    className="w-full h-48 lg:h-80 object-contain rounded-lg bg-gray-100"
+                    className="w-full h-60 lg:h-80 object-contain rounded-lg"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Перегородки</h3>
@@ -107,7 +107,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                   <img 
                     src={pocketsImg} 
                     alt="Резинки на бокових дверцятах" 
-                    className="w-full h-48 lg:h-80 object-contain rounded-lg bg-gray-100"
+                    className="w-full h-60 lg:h-80 object-contain rounded-lg"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Резинки на бокових дверцятах</h3>
@@ -122,7 +122,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                   <img 
                     src={waterproofImg} 
                     alt="Захист багажнику" 
-                    className="w-full h-48 lg:h-80 object-contain rounded-lg bg-gray-100"
+                    className="w-full h-60 lg:h-80 object-contain rounded-lg"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Захист багажнику</h3>
