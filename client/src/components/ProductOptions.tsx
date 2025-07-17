@@ -26,7 +26,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedColor, setSelectedColor] = useState('чорний');
   const [selectedFixation, setSelectedFixation] = useState(false);
   const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
-  const [selectedCarBrand, setSelectedCarBrand] = useState('Toyota');
+  const [selectedCarBrand, setSelectedCarBrand] = useState('');
   const [selectedCarModel, setSelectedCarModel] = useState('');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
@@ -38,10 +38,27 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const generateArticle = () => {
     const sizeCode = selectedSize.split(' ')[0]; // Extract S, M, L, XL
     const designCode = selectedDesign; // Carzo 1.0, 2.0, etc.
-    const logoText = selectedLogo === 'без лого' ? 'без лого' : `логотип ${selectedCarBrand || 'Toyota'}`;
+    const logoText = selectedLogo === 'без лого' ? 'без лого' : `логотип ${selectedCarBrand || 'марка невідома'}`;
     const fixationText = selectedFixation ? selectedFixationType : 'Без фіксації';
     
-    return `арт. ${sizeCode} ${designCode} | колір ${selectedColor} | ${logoText} | ${fixationText}`;
+    // Only show color for Carzo 1.0
+    const colorText = selectedDesign === 'Carzo 1.0' ? ` | колір ${selectedColor}` : '';
+    
+    return `арт. ${sizeCode} ${designCode}${colorText} | ${logoText} | ${fixationText}`;
+  };
+
+  // Generate dynamic product title
+  const generateTitle = () => {
+    if (selectedLogo === 'без лого') {
+      return 'Автокейс без лого';
+    } else if (selectedCarBrand && selectedCarBrand !== 'Toyota') {
+      return `Автокейс з лого ${selectedCarBrand}`;
+    } else if (selectedCarModel) {
+      const modelName = carModels.find(m => m.value === selectedCarModel)?.name;
+      return `Автокейс з лого ${modelName}`;
+    } else {
+      return 'Автокейс з лого';
+    }
   };
 
   const designs = [
@@ -121,7 +138,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
 
       {/* Product title and details */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-1 md:mb-2">{product.name}</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-1 md:mb-2">{generateTitle()}</h1>
       <div className="text-sm text-gray-600 mb-4">
         {generateArticle()}
       </div>
@@ -283,6 +300,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                     setSelectedLogo(logo.name);
                     if (logo.name === 'без лого') {
                       setSelectedCarModel('');
+                      setSelectedCarBrand('');
                     }
                   }}
                   className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
@@ -325,7 +343,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                     : 'bg-white text-gray-900 border-gray-300 hover:border-gray-400'
                 }`}
               >
-                <option value="">Оберіть модель</option>
+                <option value="">Оберіть марку</option>
                 {carModels.map((model) => (
                   <option key={model.value} value={model.value}>{model.name}</option>
                 ))}
