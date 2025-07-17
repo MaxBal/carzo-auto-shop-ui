@@ -45,10 +45,10 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
       </div>
 
       {/* Mobile Gallery */}
-<div className="md:hidden col-span-12 -mx-4 mt-0">
+      <div className="md:hidden col-span-12 -mx-4 mt-0 relative">
         <div 
           ref={mobileGalleryRef}
-          className="mobile-gallery-container relative overflow-x-auto snap-x snap-mandatory w-screen"
+          className="mobile-gallery-container overflow-x-auto snap-x snap-mandatory w-screen"
           onScroll={(e) => {
             const scrollLeft = e.currentTarget.scrollLeft;
             const containerWidth = e.currentTarget.clientWidth;
@@ -69,25 +69,25 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
               />
             ))}
           </div>
-          
-          {/* Indicators */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setActiveImageIndex(index);
-                  if (mobileGalleryRef.current) {
-                    const containerWidth = mobileGalleryRef.current.clientWidth;
-                    mobileGalleryRef.current.scrollTo({ left: containerWidth * index, behavior: 'smooth' });
-                  }
-                }}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                  index === activeImageIndex ? 'bg-[#00d5b5] scale-125' : 'bg-gray-400'
-                }`}
-              />
-            ))}
-          </div>
+        </div>
+        
+        {/* Indicators */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg z-10">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setActiveImageIndex(index);
+                if (mobileGalleryRef.current) {
+                  const containerWidth = mobileGalleryRef.current.clientWidth;
+                  mobileGalleryRef.current.scrollTo({ left: containerWidth * index, behavior: 'smooth' });
+                }
+              }}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                index === activeImageIndex ? 'bg-[#00d5b5] scale-125' : 'bg-gray-400'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </>
