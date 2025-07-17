@@ -56,7 +56,7 @@ export const Header = () => {
           </div>
 
           {/* Desktop navigation - centered */}
-          <nav className="hidden lg:flex gap-10 text-white text-base flex-1 justify-center relative">
+          <nav className="hidden lg:flex gap-14 text-white text-base flex-1 justify-center relative">
             <Link href="/" className="hover:text-[#00d5b5] transition-colors">Головна</Link>
             
             {/* Catalog with dropdown */}
