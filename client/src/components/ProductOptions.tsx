@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle } from 'lucide-react';
+import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
@@ -214,28 +214,41 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
         {/* Sizes Tab */}
         {activeTab === 'sizes' && (
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            {sizes.map((size) => (
-              <button
-                key={size.name}
-                onClick={() => setSelectedSize(size.name)}
-                className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
-                  selectedSize === size.name
-                    ? 'border-2 border-[#00d5b5] bg-white'
-                    : 'border border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className={`font-medium text-sm ${
-                  selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
-                }`}>{size.name}</div>
-                <div className="flex items-center gap-2">
-                  <span className={`text-base font-medium ${
+          <div className="mt-4">
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {sizes.map((size) => (
+                <button
+                  key={size.name}
+                  onClick={() => setSelectedSize(size.name)}
+                  className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
+                    selectedSize === size.name
+                      ? 'border-2 border-[#00d5b5] bg-white'
+                      : 'border border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className={`font-medium text-sm ${
                     selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>{size.price} ₴</span>
-                  <span className="text-base text-gray-400 line-through">{size.oldPrice} ₴</span>
-                </div>
-              </button>
-            ))}
+                  }`}>{size.name}</div>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-base font-medium ${
+                      selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
+                    }`}>{size.price} ₴</span>
+                    <span className="text-base text-gray-400 line-through">{size.oldPrice} ₴</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+            
+            {/* Size Info Button */}
+            <button className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group">
+              <div className="flex items-center gap-3">
+                <Camera className="w-5 h-5 text-gray-600" />
+                <span className="font-medium">
+                  Як виглядає розмір {selectedSize} в середині
+                </span>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-gray-800 transition-colors" />
+            </button>
           </div>
         )}
 
