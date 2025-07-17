@@ -65,8 +65,10 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       </div>
 
       {/* Footer */}
-      <div className="text-sm text-white/70 mb-4 text-center">
-        Designed and manufactured in Ukraine
+      <div className="text-sm mb-4 text-center">
+        <span className="ukraine-text font-medium">
+          Designed and manufactured in Ukraine
+        </span>
       </div>
     </div>,
     document.body
