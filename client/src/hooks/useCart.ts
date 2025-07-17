@@ -44,6 +44,9 @@ export const useCart = () => {
   }, [items]);
 
   const addItem = (item: Omit<CartItem, 'id' | 'quantity'>) => {
+    console.log('useCart.addItem called with:', item);
+    console.log('Current items before add:', items);
+    
     const id = Math.random().toString(36).substr(2, 9);
     const existingItemIndex = items.findIndex(
       (cartItem) => 
@@ -54,9 +57,12 @@ export const useCart = () => {
     if (existingItemIndex >= 0) {
       const updatedItems = [...items];
       updatedItems[existingItemIndex].quantity += 1;
+      console.log('Updated existing item, new items:', updatedItems);
       setItems(updatedItems);
     } else {
-      setItems([...items, { ...item, id, quantity: 1 }]);
+      const newItems = [...items, { ...item, id, quantity: 1 }];
+      console.log('Added new item, new items:', newItems);
+      setItems(newItems);
     }
   };
 

@@ -119,7 +119,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   const handleAddToCart = () => {
-    addItem({
+    const itemToAdd = {
       name: product.name,
       article: product.article,
       image: product.image,
@@ -132,7 +132,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         color: selectedColor,
         fixation: selectedFixation ? selectedFixationType : 'без фіксації'
       }
-    });
+    };
+    
+    console.log('Adding item to cart:', itemToAdd);
+    addItem(itemToAdd);
 
     // Open cart drawer immediately
     openCart();
