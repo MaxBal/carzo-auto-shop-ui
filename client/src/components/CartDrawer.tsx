@@ -35,15 +35,15 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             {/* Items */}
             <div className="flex-1 overflow-y-auto">
               {items.map((item) => (
-                <div key={item.id} className="mx-4 my-2 p-4 flex items-start gap-3">
+                <div key={item.id} className="mx-4 my-2 p-4 flex items-start gap-4">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 object-cover rounded"
+                    className="w-16 h-16 object-cover rounded flex-shrink-0"
                   />
-                  <div className="flex-1">
-                    <h4 className="font-medium text-base">{item.name}</h4>
-                    <div className="text-sm text-gray-600 mt-2 space-y-1">
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-base mb-2 leading-tight">{item.name}</h4>
+                    <div className="text-sm text-gray-600 space-y-1.5">
                       {Object.entries(item.options)
                         .filter(([_, value]) => value)
                         .map(([key, value]) => {
@@ -55,43 +55,43 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                             fixation: 'Fixation'
                           };
                           return (
-                            <div key={key} className="flex">
-                              <span className="font-medium min-w-[70px]">{labelMap[key] || key}:</span>
-                              <span className="text-gray-800 ml-2">{value}</span>
+                            <div key={key} className="flex items-start">
+                              <span className="font-medium min-w-[70px] flex-shrink-0">{labelMap[key] || key}:</span>
+                              <span className="text-gray-800 ml-2 leading-tight break-words">{value}</span>
                             </div>
                           );
                         })}
                     </div>
                     
                     {/* Quantity controller and remove button */}
-                    <div className="flex items-center justify-between mt-2">
+                    <div className="flex items-center justify-between mt-3">
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-7 h-7 border rounded flex items-center justify-center hover:bg-gray-50"
+                          className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-50"
                         >
                           <Minus size={14} />
                         </button>
-                        <span className="w-8 text-center">{item.quantity}</span>
+                        <span className="w-8 text-center font-medium">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="w-7 h-7 border rounded flex items-center justify-center hover:bg-gray-50"
+                          className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-50"
                         >
                           <Plus size={14} />
                         </button>
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+                        className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
                         title="Видалити товар"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
                   </div>
                   
                   {/* Price */}
-                  <div className="font-semibold">
+                  <div className="font-semibold text-lg flex-shrink-0 ml-2">
                     {item.price * item.quantity} ₴
                   </div>
                 </div>
