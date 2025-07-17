@@ -303,7 +303,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 className={`w-full px-3 py-3 pr-12 border rounded-md text-sm h-12 md:h-auto ${
                   selectedLogo === 'без лого' 
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-300' 
-                    : 'bg-white text-gray-900 border-[#00d5b5] hover:border-[#00d5b5]'
+                    : 'bg-white text-gray-900 border-gray-300 hover:border-gray-400'
                 }`}
               >
                 <option value="">Оберіть модель</option>
