@@ -10,7 +10,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  const { items } = useCart();
+  const { getTotalItems } = useCart();
   const { isCartOpen, openCart, closeCart } = useCartDrawer();
 
   useEffect(() => {
@@ -32,7 +32,9 @@ export const Header = () => {
     };
   }, [isCatalogOpen]);
 
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = getTotalItems();
+  
+  console.log('Header - totalItems:', totalItems);
 
   return (
     <>

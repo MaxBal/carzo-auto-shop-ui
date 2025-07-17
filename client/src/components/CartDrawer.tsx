@@ -43,7 +43,7 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                   />
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium text-lg mb-3 leading-tight">{item.name}</h4>
-                    <div className="text-base text-gray-600 space-y-2">
+                    <div className="text-sm text-gray-600 space-y-2">
                       {Object.entries(item.options)
                         .filter(([_, value]) => value)
                         .map(([key, value]) => {
@@ -56,7 +56,7 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                           };
                           return (
                             <div key={key} className="flex items-start">
-                              <span className="font-medium min-w-[80px] flex-shrink-0">{labelMap[key] || key}:</span>
+                              <span className="font-normal min-w-[80px] flex-shrink-0">{labelMap[key] || key}:</span>
                               <span className="text-gray-800 ml-3 leading-tight break-words">{value}</span>
                             </div>
                           );

@@ -84,6 +84,12 @@ export const useCart = () => {
     return items.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  const getTotalItems = () => {
+    const total = items.reduce((total, item) => total + item.quantity, 0);
+    console.log('getTotalItems - items:', items, 'total:', total);
+    return total;
+  };
+
   const clearCart = () => {
     setItems([]);
   };
@@ -94,6 +100,7 @@ export const useCart = () => {
     updateQuantity,
     removeItem,
     getTotalPrice,
+    getTotalItems,
     clearCart
   };
 };
