@@ -26,13 +26,23 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedColor, setSelectedColor] = useState('чорний');
   const [selectedFixation, setSelectedFixation] = useState(false);
   const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
-  const [selectedCarBrand, setSelectedCarBrand] = useState('');
+  const [selectedCarBrand, setSelectedCarBrand] = useState('Toyota');
   const [selectedCarModel, setSelectedCarModel] = useState('');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
 
   const { toast } = useToast();
   const { addItem } = useCart();
+
+  // Generate dynamic article based on selections
+  const generateArticle = () => {
+    const sizeCode = selectedSize.split(' ')[0]; // Extract S, M, L, XL
+    const designCode = selectedDesign; // Carzo 1.0, 2.0, etc.
+    const logoText = selectedLogo === 'без лого' ? 'без лого' : `логотип ${selectedCarBrand || 'Toyota'}`;
+    const fixationText = selectedFixation ? selectedFixationType : 'Без фіксації';
+    
+    return `арт. ${sizeCode} ${designCode} | колір ${selectedColor} | ${logoText} | ${fixationText}`;
+  };
 
   const designs = [
     { name: 'Carzo 1.0', colors: '6 кольорів' },
@@ -69,21 +79,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
   const colors = [
     { name: 'чорний', value: '#000000', pattern: 'solid' },
-    { name: 'чорний-сірий', value: 'linear-gradient(45deg, #000000 50%, #9CA3AF 50%)', pattern: 'split' },
-    { name: 'чорний-синій', value: 'linear-gradient(45deg, #000000 50%, #3B82F6 50%)', pattern: 'split' },
-    { name: 'чорний-червоний', value: 'linear-gradient(45deg, #000000 50%, #EF4444 50%)', pattern: 'split' },
-    { name: 'коричневий', value: '#A0522D', pattern: 'solid' },
-    { name: 'бежевий', value: '#D2B48C', pattern: 'solid' }
+    { name: 'чорно-сріблястий', value: 'linear-gradient(45deg, #000000 50%, #C0C0C0 50%)', pattern: 'split' },
+    { name: 'чорно-синій', value: 'linear-gradient(45deg, #000000 50%, #3B82F6 50%)', pattern: 'split' },
+    { name: 'чорно-червоний', value: 'linear-gradient(45deg, #000000 50%, #EF4444 50%)', pattern: 'split' },
+    { name: 'коричневий', value: '#8B4513', pattern: 'solid' },
+    { name: 'бежевий', value: '#F5F5DC', pattern: 'solid' }
   ];
 
-  // Generate dynamic SKU
-  const generateSKU = () => {
-    const designCode = selectedDesign.replace('Carzo ', '').replace('.0', '');
-    const sizeCode = selectedSize.charAt(0); // S, M, L, XL
-    const logoCode = selectedLogo === 'без лого' ? 'N' : 'Y';
-    const fixCode = selectedFixation ? 'Y' : 'N';
-    return `M Carzo 1.0`;
-  };
+
 
   const calculatePrice = () => {
     const selectedSizeData = sizes.find(s => s.name === selectedSize);
@@ -120,7 +123,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       {/* Product title and details */}
       <h1 className="text-2xl font-bold text-gray-900 mb-1 md:mb-2">{product.name}</h1>
       <div className="text-sm text-gray-600 mb-4">
-        арт. {generateSKU()} | водостійкий | логотип без фіксації
+        {generateArticle()}
       </div>
 
       {/* Price */}
@@ -308,7 +311,13 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             <div className="mb-4">
               <select
                 value={selectedCarModel}
-                onChange={(e) => setSelectedCarModel(e.target.value)}
+                onChange={(e) => {
+                  setSelectedCarModel(e.target.value);
+                  const selectedModel = carModels.find(m => m.value === e.target.value);
+                  if (selectedModel) {
+                    setSelectedCarBrand(selectedModel.name);
+                  }
+                }}
                 disabled={selectedLogo === 'без лого'}
                 className={`w-full px-3 py-3 pr-12 border rounded-md text-sm h-12 md:h-auto ${
                   selectedLogo === 'без лого' 
