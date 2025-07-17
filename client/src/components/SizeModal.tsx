@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import compartmentsImg from '@assets/Розмір1_1752763072260.jpg';
@@ -13,6 +13,19 @@ interface SizeModalProps {
 
 export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
   const [activeTab, setActiveTab] = useState<'inside' | 'faq'>('inside');
+
+  // Блокування прокручування фону при відкритті модалки
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -39,7 +52,11 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
         {/* Tabs */}
         <div className="flex border-b border-gray-200 px-4 lg:px-6 flex-shrink-0">
           <button
-            onClick={() => setActiveTab('inside')}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setActiveTab('inside');
+            }}
             className={`py-3 px-1 mr-8 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'inside'
                 ? 'border-black text-black'
@@ -49,7 +66,11 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             Що в середині?
           </button>
           <button
-            onClick={() => setActiveTab('faq')}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setActiveTab('faq');
+            }}
             className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'faq'
                 ? 'border-black text-black'
