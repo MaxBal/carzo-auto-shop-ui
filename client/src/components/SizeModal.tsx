@@ -35,8 +35,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
       onClick={onClose}
     >
       <div 
-        className="lg:bg-black lg:rounded-2xl lg:shadow-2xl w-full h-auto lg:w-auto lg:h-auto bg-black lg:static fixed bottom-0 left-0 right-0 lg:max-w-[700px] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[95vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
-        style={{ width: window.innerWidth > 1024 ? "700px" : "100vw", maxWidth: "100vw", minHeight: window.innerWidth > 1024 ? "600px" : "auto" }}
+        className="lg:bg-black lg:rounded-2xl lg:shadow-2xl w-full h-auto lg:w-auto lg:h-auto bg-black lg:static fixed bottom-0 left-0 right-0 lg:max-w-[80vw] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[95vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
+        style={{ width: window.innerWidth > 1024 ? "80vw" : "100vw", maxWidth: "100vw", minHeight: window.innerWidth > 1024 ? "600px" : "auto" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -84,14 +84,14 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-4 lg:p-6 pb-12 lg:pb-16">
           {activeTab === 'inside' && (
-            <div className="space-y-8">
+            <div className="lg:grid lg:grid-cols-2 lg:gap-6 space-y-8 lg:space-y-0">
               {/* Перегородки */}
               <div>
                 <div className="mb-4 lg:-mx-6">
                   <img 
                     src={compartmentsImg} 
                     alt="Перегородки в кейсі" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-md lg:rounded-sm"
+                    className="w-full h-60 lg:h-80 object-contain rounded-xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Перегородки</h3>
@@ -107,7 +107,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                   <img 
                     src={pocketsImg} 
                     alt="Резинки на бокових дверцятах" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-md lg:rounded-sm"
+                    className="w-full h-60 lg:h-80 object-contain rounded-xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Резинки на бокових дверцятах</h3>
@@ -117,12 +117,12 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
               </div>
 
               {/* Захист багажнику */}
-              <div>
+              <div className="lg:col-span-2">
                 <div className="mb-4 lg:-mx-6">
                   <img 
                     src={waterproofImg} 
                     alt="Захист багажнику" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-md lg:rounded-sm"
+                    className="w-full h-60 lg:h-80 object-contain rounded-xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Захист багажнику</h3>
@@ -146,7 +146,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 </p>
               </div>
 
-              <div className="border-b border-gray-700 pb-6">
+              <div className="border border-gray-700 rounded-lg p-4 mb-4">
                 <h3 className="text-lg font-semibold text-white mb-3">
                   Чи можливо змінити ширину на нестандартну?
                 </h3>
@@ -155,7 +155,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 </p>
               </div>
 
-              <div className="border-b border-gray-700 pb-6">
+              <div className="border border-gray-700 rounded-lg p-4 mb-4">
                 <h3 className="text-lg font-semibold text-white mb-3">
                   Чи можливо змінити висоту чи глибину?
                 </h3>
@@ -164,7 +164,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 </p>
               </div>
 
-              <div>
+              <div className="border border-gray-700 rounded-lg p-4">
                 <h3 className="text-lg font-semibold text-white mb-3">
                   Який розмір мені підійде?
                 </h3>
