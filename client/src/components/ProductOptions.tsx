@@ -170,7 +170,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   onClick={() => setSelectedColor(color.name)}
                   className={`w-8 h-8 rounded-full border-2 transition-all ${
                     selectedColor === color.name
-                      ? 'border-gray-800 ring-2 ring-offset-2 ring-blue-500'
+                      ? 'border-gray-800 ring-2 ring-offset-2 ring-[#00d5b5]'
                       : 'border-gray-300'
                   }`}
                   style={{ backgroundColor: color.value }}
@@ -300,10 +300,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 value={selectedCarModel}
                 onChange={(e) => setSelectedCarModel(e.target.value)}
                 disabled={selectedLogo === 'без лого'}
-                className={`w-full p-3 pr-10 border rounded-md text-sm ${
+                className={`w-full p-3 pr-12 border rounded-md text-sm ${
                   selectedLogo === 'без лого' 
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                    : 'bg-white text-gray-900 hover:border-gray-300'
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-300' 
+                    : 'bg-white text-gray-900 border-[#00d5b5] hover:border-[#00d5b5]'
                 }`}
               >
                 <option value="">Оберіть модель</option>
