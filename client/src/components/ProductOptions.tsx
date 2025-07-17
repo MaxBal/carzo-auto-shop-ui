@@ -121,8 +121,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const handleAddToCart = () => {
     addItem({
       name: product.name,
+      article: product.article,
       image: product.image,
       price: calculatePrice(),
+      oldPrice: product.oldPrice,
       options: {
         design: selectedDesign,
         size: selectedSize,

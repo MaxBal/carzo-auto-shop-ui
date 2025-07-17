@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface CartItem {
   id: string;
   name: string;
+  article: string;
   image: string;
   price: number;
+  oldPrice?: number;
   quantity: number;
   options: {
     design?: string;
@@ -15,8 +17,31 @@ export interface CartItem {
   };
 }
 
+const CART_STORAGE_KEY = 'carzo-cart';
+
 export const useCart = () => {
   const [items, setItems] = useState<CartItem[]>([]);
+
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+      if (savedCart) {
+        setItems(JSON.parse(savedCart));
+      }
+    } catch (error) {
+      console.warn('Failed to load cart from localStorage:', error);
+    }
+  }, []);
+
+  // Save cart to localStorage whenever items change
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    } catch (error) {
+      console.warn('Failed to save cart to localStorage:', error);
+    }
+  }, [items]);
 
   const addItem = (item: Omit<CartItem, 'id' | 'quantity'>) => {
     const id = Math.random().toString(36).substr(2, 9);

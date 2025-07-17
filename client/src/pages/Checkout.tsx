@@ -55,15 +55,38 @@ export const CheckoutPage = () => {
         <div className="bg-white rounded-lg p-4 mb-6">
           <h3 className="font-semibold mb-4">Ваше замовлення</h3>
           {items.map((item) => (
-            <div key={item.id} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
-              <div>
-                <h4 className="font-medium">{item.name}</h4>
-                <p className="text-xs text-dim">Кількість: {item.quantity}</p>
+            <div key={item.id} className="py-3 border-b border-gray-100 last:border-0">
+              <div className="flex items-start gap-3">
+                <img 
+                  src={item.image} 
+                  alt={item.name}
+                  className="w-16 h-16 object-cover rounded"
+                />
+                <div className="flex-1">
+                  <h4 className="font-medium text-sm">{item.name}</h4>
+                  <p className="text-xs text-gray-500 mt-1">{item.article}</p>
+                  <div className="text-xs text-gray-600 mt-1 space-y-0.5">
+                    {Object.entries(item.options)
+                      .filter(([_, value]) => value)
+                      .map(([key, value]) => (
+                        <div key={key} className="flex">
+                          <span className="capitalize min-w-[50px]">{key}:</span>
+                          <span className="text-gray-800">{value}</span>
+                        </div>
+                      ))}
+                  </div>
+                  <p className="text-xs text-gray-600 mt-1">Кількість: {item.quantity}</p>
+                </div>
+                <div className="text-right">
+                  <div className="font-semibold">{item.price * item.quantity} ₴</div>
+                  {item.oldPrice && (
+                    <div className="text-xs text-gray-500 line-through">{item.oldPrice * item.quantity} ₴</div>
+                  )}
+                </div>
               </div>
-              <span className="font-semibold">{item.price * item.quantity} ₴</span>
             </div>
           ))}
-          <div className="flex justify-between items-center pt-4 text-lg font-bold">
+          <div className="flex justify-between items-center pt-4 text-lg font-bold border-t">
             <span>Всього:</span>
             <span>{getTotalPrice()} ₴</span>
           </div>

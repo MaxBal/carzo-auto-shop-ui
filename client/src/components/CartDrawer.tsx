@@ -1,4 +1,4 @@
-import { X, ShoppingBag, Minus, Plus } from 'lucide-react';
+import { X, ShoppingBag, Minus, Plus, Trash2 } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useCart } from '@/hooks/useCart';
 
@@ -8,7 +8,7 @@ interface CartDrawerProps {
 }
 
 export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
-  const { items, updateQuantity, getTotalPrice } = useCart();
+  const { items, updateQuantity, removeItem, getTotalPrice } = useCart();
 
   if (!isOpen) return null;
 
@@ -42,28 +42,42 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                     className="w-20 h-20 object-cover rounded"
                   />
                   <div className="flex-1">
-                    <h4 className="font-medium">{item.name}</h4>
-                    <p className="text-xs text-dim mt-1">
+                    <h4 className="font-medium text-sm">{item.name}</h4>
+                    <p className="text-xs text-gray-500 mt-1">{item.article}</p>
+                    <div className="text-xs text-gray-600 mt-1 space-y-0.5">
                       {Object.entries(item.options)
                         .filter(([_, value]) => value)
-                        .map(([key, value]) => `${key}: ${value}`)
-                        .join(' | ')}
-                    </p>
+                        .map(([key, value]) => (
+                          <div key={key} className="flex">
+                            <span className="capitalize min-w-[60px]">{key}:</span>
+                            <span className="text-gray-800">{value}</span>
+                          </div>
+                        ))}
+                    </div>
                     
-                    {/* Quantity controller */}
-                    <div className="flex items-center gap-2 mt-2">
+                    {/* Quantity controller and remove button */}
+                    <div className="flex items-center justify-between mt-2">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="w-7 h-7 border rounded flex items-center justify-center hover:bg-gray-50"
+                        >
+                          <Minus size={14} />
+                        </button>
+                        <span className="w-8 text-center">{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="w-7 h-7 border rounded flex items-center justify-center hover:bg-gray-50"
+                        >
+                          <Plus size={14} />
+                        </button>
+                      </div>
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-7 h-7 border rounded flex items-center justify-center hover:bg-gray-50"
+                        onClick={() => removeItem(item.id)}
+                        className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+                        title="Видалити товар"
                       >
-                        <Minus size={14} />
-                      </button>
-                      <span className="w-8 text-center">{item.quantity}</span>
-                      <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-7 h-7 border rounded flex items-center justify-center hover:bg-gray-50"
-                      >
-                        <Plus size={14} />
+                        <Trash2 size={14} />
                       </button>
                     </div>
                   </div>
