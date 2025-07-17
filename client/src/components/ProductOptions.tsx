@@ -3,6 +3,7 @@ import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCi
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
+import { SizeModal } from './SizeModal';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
@@ -28,6 +29,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
   const [selectedCarModel, setSelectedCarModel] = useState('');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
+  const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
 
   const { toast } = useToast();
   const { addItem } = useCart();
@@ -252,7 +254,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             </div>
             
             {/* Size Info Button */}
-            <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black">
+            <button 
+              onClick={() => setIsSizeModalOpen(true)}
+              className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black"
+            >
               <div className="flex items-center gap-3">
                 <Camera className="w-4 h-4 text-gray-600" />
                 <span className="font-medium">
@@ -404,6 +409,13 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           </p>
         </div>
       </Modal>
+
+      {/* Size Modal */}
+      <SizeModal
+        isOpen={isSizeModalOpen}
+        onClose={() => setIsSizeModalOpen(false)}
+        size={selectedSize.split(' ')[0]}
+      />
     </div>
   );
 };
