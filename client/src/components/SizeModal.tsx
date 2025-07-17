@@ -22,8 +22,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
       onClick={onClose}
     >
       <div 
-        className="lg:bg-white lg:rounded-2xl lg:shadow-2xl lg:min-h-0 lg:max-h-[90vh] w-full h-auto lg:w-auto lg:h-auto bg-white lg:static fixed bottom-0 left-0 right-0 lg:max-w-[700px] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[90vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
-        style={{ width: window.innerWidth > 1024 ? "700px" : "100vw", maxWidth: "100vw" }}
+        className="lg:bg-white lg:rounded-2xl lg:shadow-2xl w-full h-auto lg:w-auto lg:h-auto bg-white lg:static fixed bottom-0 left-0 right-0 lg:max-w-[700px] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[95vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
+        style={{ width: window.innerWidth > 1024 ? "700px" : "100vw", maxWidth: "100vw", minHeight: window.innerWidth > 1024 ? "600px" : "auto" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -34,10 +34,6 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
               <X size={24} />
             </button>
           </div>
-          <p className="text-gray-600 text-sm lg:text-base">
-            Розміри між собою відрізняються шириною та кількістю перегородок. 
-            Висота та глибина у всіх розмірах складає 30 та 30 см.
-          </p>
         </div>
 
         {/* Tabs */}
@@ -46,7 +42,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             onClick={() => setActiveTab('inside')}
             className={`py-3 px-1 mr-8 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'inside'
-                ? 'border-[#00d5b5] text-[#00d5b5]'
+                ? 'border-black text-black'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
             }`}
           >
@@ -56,7 +52,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             onClick={() => setActiveTab('faq')}
             className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'faq'
-                ? 'border-[#00d5b5] text-[#00d5b5]'
+                ? 'border-black text-black'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
             }`}
           >
@@ -65,7 +61,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4 lg:p-6">
+        <div className="flex-1 overflow-y-auto p-4 lg:p-6 pb-8 lg:pb-10">
           {activeTab === 'inside' && (
             <div className="space-y-8">
               {/* Перегородки */}
@@ -118,6 +114,17 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
 
           {activeTab === 'faq' && (
             <div className="space-y-6">
+              {/* Info Block */}
+              <div className="bg-[#00d5b5]/10 border border-[#00d5b5]/30 rounded-lg p-4 flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-[#00d5b5] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-white text-xs font-bold">i</span>
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  Розміри між собою відрізняються шириною та кількістю перегородок. 
+                  Висота та глибина у всіх розмірах складає 30 та 30 см.
+                </p>
+              </div>
+
               <div className="border-b border-gray-200 pb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Чи можливо змінити ширину на нестандартну?
