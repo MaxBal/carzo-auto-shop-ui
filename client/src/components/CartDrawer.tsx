@@ -35,23 +35,32 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             {/* Items */}
             <div className="flex-1 overflow-y-auto">
               {items.map((item) => (
-                <div key={item.id} className="mx-4 my-2 p-4 border rounded-lg flex items-start gap-3">
+                <div key={item.id} className="mx-4 my-2 p-4 flex items-start gap-3">
                   <img
                     src={item.image}
                     alt={item.name}
                     className="w-20 h-20 object-cover rounded"
                   />
                   <div className="flex-1">
-                    <h4 className="font-medium text-sm">{item.name}</h4>
-                    <div className="text-xs text-gray-600 mt-1 space-y-0.5">
+                    <h4 className="font-medium text-base">{item.name}</h4>
+                    <div className="text-sm text-gray-600 mt-2 space-y-1">
                       {Object.entries(item.options)
                         .filter(([_, value]) => value)
-                        .map(([key, value]) => (
-                          <div key={key} className="flex">
-                            <span className="capitalize min-w-[60px]">{key}:</span>
-                            <span className="text-gray-800">{value}</span>
-                          </div>
-                        ))}
+                        .map(([key, value]) => {
+                          const labelMap: { [key: string]: string } = {
+                            design: 'Design',
+                            size: 'Size',
+                            logo: 'Logo',
+                            color: 'Color',
+                            fixation: 'Fixation'
+                          };
+                          return (
+                            <div key={key} className="flex">
+                              <span className="font-medium min-w-[70px]">{labelMap[key] || key}:</span>
+                              <span className="text-gray-800 ml-2">{value}</span>
+                            </div>
+                          );
+                        })}
                     </div>
                     
                     {/* Quantity controller and remove button */}
