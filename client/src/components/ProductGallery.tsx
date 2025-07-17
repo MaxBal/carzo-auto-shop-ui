@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface ProductGalleryProps {
   images: string[];
@@ -7,6 +7,7 @@ interface ProductGalleryProps {
 
 export const ProductGallery = ({ images }: ProductGalleryProps) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const mobileGalleryRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -46,12 +47,15 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
       {/* Mobile Gallery */}
 <div className="md:hidden col-span-12 -mx-4 mt-0">
         <div 
+          ref={mobileGalleryRef}
           className="mobile-gallery-container relative overflow-x-auto snap-x snap-mandatory w-screen"
           onScroll={(e) => {
             const scrollLeft = e.currentTarget.scrollLeft;
-            const itemWidth = e.currentTarget.scrollWidth / images.length;
-            const newIndex = Math.round(scrollLeft / itemWidth);
-            setActiveImageIndex(newIndex);
+            const containerWidth = e.currentTarget.clientWidth;
+            const newIndex = Math.round(scrollLeft / containerWidth);
+            if (newIndex !== activeImageIndex && newIndex >= 0 && newIndex < images.length) {
+              setActiveImageIndex(newIndex);
+            }
           }}
         >
           <div className="flex">
@@ -73,10 +77,9 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
                 key={index}
                 onClick={() => {
                   setActiveImageIndex(index);
-                  const container = document.querySelector('.mobile-gallery-container');
-                  if (container) {
-                    const itemWidth = container.scrollWidth / images.length;
-                    container.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+                  if (mobileGalleryRef.current) {
+                    const containerWidth = mobileGalleryRef.current.clientWidth;
+                    mobileGalleryRef.current.scrollTo({ left: containerWidth * index, behavior: 'smooth' });
                   }
                 }}
                 className={`w-2 h-2 rounded-full transition-all duration-200 ${
