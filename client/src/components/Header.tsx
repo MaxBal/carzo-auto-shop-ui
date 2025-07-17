@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, X } from 'lucide-react';
+import { ShoppingCart, ChevronDown } from 'lucide-react';
 import { Link } from 'wouter';
 import { useCart } from '@/hooks/useCart';
 import { CartDrawer } from './CartDrawer';
@@ -9,6 +9,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const { items } = useCart();
 
   useEffect(() => {
@@ -16,17 +17,25 @@ export const Header = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isCatalogOpen) {
+        setIsCatalogOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isCatalogOpen]);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 h-14 z-50 transition-colors duration-300 ${
-        isScrolled ? 'bg-[#181a19]/95 backdrop-blur-sm' : 'bg-[#181a19]'
-      }`} style={{ position: 'fixed' }}>
+      <header className="fixed inset-x-0 top-0 h-14 z-50 bg-[#00d5b5]" style={{ position: 'fixed' }}>
         <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4">
           {/* Mobile burger menu */}
           <button
@@ -38,32 +47,58 @@ export const Header = () => {
           </button>
 
           {/* Logo */}
-          <div className="flex-1 ml-4 lg:ml-0">
+          <div className="lg:flex-none lg:mr-8">
             <Link href="/">
-              <h1 className="text-white font-bold text-lg leading-[56px] hover:text-brand transition-colors cursor-pointer">
+              <h1 className="text-white font-bold text-lg leading-[56px] hover:text-white/80 transition-colors cursor-pointer">
                 Carzo
               </h1>
             </Link>
           </div>
 
-          {/* Desktop navigation */}
-          <nav className="hidden lg:flex gap-8 text-white text-sm">
-            <Link href="/" className="hover:text-brand transition-colors">Головна сторінка</Link>
-            <Link href="/" className="hover:text-brand transition-colors">Автокейси</Link>
-            <Link href="/bags" className="hover:text-brand transition-colors">Сумки</Link>
-            <a href="#" className="hover:text-brand transition-colors">Накидки в салон</a>
-            <a href="#" className="hover:text-brand transition-colors">Автокилимки</a>
-            <a href="#" className="hover:text-brand transition-colors">Контакти</a>
+          {/* Desktop navigation - centered */}
+          <nav className="hidden lg:flex gap-8 text-white text-sm flex-1 justify-center relative">
+            <Link href="/" className="hover:text-white/80 transition-colors">Головна</Link>
+            
+            {/* Catalog with dropdown */}
+            <div className="relative">
+              <button 
+                onClick={() => setIsCatalogOpen(!isCatalogOpen)}
+                className="hover:text-white/80 transition-colors flex items-center gap-1"
+              >
+                Каталог
+                <ChevronDown size={16} className={`transition-transform ${isCatalogOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isCatalogOpen && (
+                <div className="absolute top-full left-0 mt-2 bg-white rounded-md shadow-lg py-2 min-w-[200px] z-50">
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                    Автокейси
+                  </Link>
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                    Автокилимки
+                  </Link>
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                    Накидки в салон
+                  </Link>
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                    Захист спинки сидіння
+                  </Link>
+                </div>
+              )}
+            </div>
+            
+            <Link href="#" className="hover:text-white/80 transition-colors">B2B</Link>
+            <Link href="#" className="hover:text-white/80 transition-colors">Контакти</Link>
           </nav>
 
           {/* Cart button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative text-white ml-auto lg:ml-0"
+            className="relative text-white"
           >
             <ShoppingCart size={24} />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand text-[10px] flex items-center justify-center rounded-full text-white font-medium">
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-white text-[#00d5b5] text-[10px] flex items-center justify-center rounded-full font-medium">
                 {totalItems}
               </span>
             )}

@@ -11,7 +11,7 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-body/90 backdrop-blur-sm z-50 flex flex-col">
+    <div className="fixed inset-0 bg-[#00d5b5] z-50 flex flex-col">
       {/* Top bar */}
       <div className="h-14 flex items-center justify-start px-4">
         <button onClick={onClose} className="text-white">
@@ -19,23 +19,34 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
         </button>
       </div>
 
-      {/* Navigation links */}
-      <div className="flex-1 flex flex-col gap-6 justify-center items-center text-white text-xl">
-        <Link href="/" className="hover:text-brand transition-colors" onClick={onClose}>
-          Автокейси
+      {/* Navigation links - left aligned on mobile */}
+      <div className="flex-1 flex flex-col gap-6 justify-start items-start px-4 pt-8 text-white text-xl">
+        <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
+          Головна
         </Link>
-        <Link href="/bags" className="hover:text-brand transition-colors" onClick={onClose}>
-          Сумки
+        <div>
+          <div className="font-medium mb-3">Каталог</div>
+          <div className="flex flex-col gap-3 pl-4 text-lg">
+            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
+              Автокейси
+            </Link>
+            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
+              Автокилимки
+            </Link>
+            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
+              Накидки в салон
+            </Link>
+            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
+              Захист спинки сидіння
+            </Link>
+          </div>
+        </div>
+        <Link href="#" className="hover:text-white/80 transition-colors" onClick={onClose}>
+          B2B
         </Link>
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
-          Накидки в салон
-        </a>
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
-          Автокилимки
-        </a>
-        <a href="#" className="hover:text-brand transition-colors" onClick={onClose}>
+        <Link href="#" className="hover:text-white/80 transition-colors" onClick={onClose}>
           Контакти
-        </a>
+        </Link>
       </div>
 
       {/* Footer */}
