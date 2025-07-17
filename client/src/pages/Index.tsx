@@ -1,7 +1,6 @@
 import { Header } from '@/components/Header';
 import { ProductGallery } from '@/components/ProductGallery';
 import { ProductOptions } from '@/components/ProductOptions';
-import { ServiceBadges } from '@/components/ServiceBadges';
 import { FeatureSection } from '@/components/FeatureSection';
 import productMain from '@/assets/product-main.jpg';
 import productSide from '@/assets/product-side.jpg';
@@ -28,7 +27,6 @@ const Index = () => {
         <ProductOptions product={product} />
       </main>
 
-      <ServiceBadges />
       <FeatureSection />
     </div>
   );
