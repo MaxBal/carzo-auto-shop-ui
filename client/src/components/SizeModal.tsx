@@ -35,22 +35,22 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
       onClick={onClose}
     >
       <div 
-        className="lg:bg-white lg:rounded-2xl lg:shadow-2xl w-full h-auto lg:w-auto lg:h-auto bg-white lg:static fixed bottom-0 left-0 right-0 lg:max-w-[700px] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[95vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
+        className="lg:bg-black lg:rounded-2xl lg:shadow-2xl w-full h-auto lg:w-auto lg:h-auto bg-black lg:static fixed bottom-0 left-0 right-0 lg:max-w-[700px] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[95vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
         style={{ width: window.innerWidth > 1024 ? "700px" : "100vw", maxWidth: "100vw", minHeight: window.innerWidth > 1024 ? "600px" : "auto" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="p-4 pb-2 lg:p-6 lg:pb-4 flex-shrink-0">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">Розмір {size}</h2>
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1">
+            <h2 className="text-2xl lg:text-3xl font-bold text-white">Розмір {size}</h2>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-300 transition-colors p-1">
               <X size={24} />
             </button>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 px-4 lg:px-6 flex-shrink-0">
+        <div className="flex border-b border-gray-700 px-4 lg:px-6 flex-shrink-0">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -59,11 +59,11 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             }}
             className={`py-3 px-1 mr-8 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'inside'
-                ? 'border-black text-black'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-white text-white'
+                : 'border-transparent text-gray-400 hover:text-gray-300'
             }`}
           >
-            Що в середині?
+            Що в середині в розмірі {size}?
           </button>
           <button
             onClick={(e) => {
@@ -73,8 +73,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             }}
             className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'faq'
-                ? 'border-black text-black'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-white text-white'
+                : 'border-transparent text-gray-400 hover:text-gray-300'
             }`}
           >
             Часті питання
@@ -94,8 +94,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                     className="w-full h-48 lg:h-64 object-cover rounded-lg"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Перегородки</h3>
-                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                <h3 className="text-xl font-semibold text-white mb-3">Перегородки</h3>
+                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
                   На перегородках присутні кармани для дрібних аксесуарів, перегородки можливо переміщувати 
                   по всій ширині кейсу, тим самим регулюючі 3 відділення так як вам потрібно.
                 </p>
@@ -110,8 +110,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                     className="w-full h-48 lg:h-64 object-cover rounded-lg"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Резинки на бокових дверцятах</h3>
-                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                <h3 className="text-xl font-semibold text-white mb-3">Резинки на бокових дверцятах</h3>
+                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
                   Для фіксації аксесуарів в вертикальному положені.
                 </p>
               </div>
@@ -125,8 +125,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                     className="w-full h-48 lg:h-64 object-cover rounded-lg"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Захист багажнику</h3>
-                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                <h3 className="text-xl font-semibold text-white mb-3">Захист багажнику</h3>
+                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
                   Всередині непромокаюча підкладка, яка у разі розливу буде захищати багажник авто від рідини.
                 </p>
               </div>
@@ -140,7 +140,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 <div className="w-5 h-5 rounded-full bg-[#00d5b5] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-white text-xs font-bold">i</span>
                 </div>
-                <p className="text-gray-700 text-sm leading-relaxed">
+                <p className="text-gray-300 text-sm leading-relaxed">
                   Розміри між собою відрізняються шириною та кількістю перегородок. 
                   Висота та глибина у всіх розмірах складає 30 та 30 см.
                 </p>
