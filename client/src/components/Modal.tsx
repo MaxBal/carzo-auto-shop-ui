@@ -35,9 +35,9 @@ export const Modal = ({ isOpen, onClose, title, children, width = "400px" }: Mod
         }
       }}
     >
-      <div className="lg:bg-white lg:rounded-2xl lg:shadow-2xl lg:min-h-0 lg:max-h-[90vh] w-full h-full lg:w-auto lg:h-auto bg-white lg:static fixed bottom-0 left-0 right-0 lg:max-w-[600px] rounded-t-3xl lg:rounded-2xl max-h-[85vh] lg:max-h-[90vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4"
+      <div className="lg:bg-white lg:rounded-2xl lg:shadow-2xl lg:min-h-0 lg:max-h-[90vh] w-full h-auto lg:w-auto lg:h-auto bg-white lg:static fixed bottom-0 left-0 right-0 lg:max-w-[600px] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[90vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4"
            style={{ width: window.innerWidth > 1024 ? "600px" : "100vw", maxWidth: "100vw" }}>
-        <div className="p-6 lg:p-8 flex flex-col min-h-0">
+        <div className="p-4 pb-6 lg:p-8 flex flex-col min-h-0">
           <div className="flex items-center justify-between mb-6 flex-shrink-0">
             <h3 className="text-xl lg:text-2xl font-semibold text-gray-900">{title}</h3>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors p-1">
