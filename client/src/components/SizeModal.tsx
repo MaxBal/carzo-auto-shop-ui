@@ -50,7 +50,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-700 px-4 lg:px-6 flex-shrink-0">
+        <div className="flex border-b border-[#3d3d3d] px-4 lg:px-6 flex-shrink-0">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -91,7 +91,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                   <img 
                     src={compartmentsImg} 
                     alt="Перегородки в кейсі" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-xl"
+                    className="w-full h-60 lg:h-80 object-cover rounded-2xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Перегородки</h3>
@@ -107,7 +107,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                   <img 
                     src={pocketsImg} 
                     alt="Резинки на бокових дверцятах" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-xl"
+                    className="w-full h-60 lg:h-80 object-cover rounded-2xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Резинки на бокових дверцятах</h3>
@@ -117,12 +117,12 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
               </div>
 
               {/* Захист багажнику */}
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 lg:col-start-1 lg:mt-8">
                 <div className="mb-4 lg:-mx-6">
                   <img 
                     src={waterproofImg} 
                     alt="Захист багажнику" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-xl"
+                    className="w-full h-60 lg:h-80 object-cover rounded-2xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Захист багажнику</h3>
@@ -146,7 +146,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 </p>
               </div>
 
-              <div className="border border-gray-700 rounded-lg p-4 mb-4">
+              <div className="border border-[#3d3d3d] rounded-lg p-4 mb-4">
                 <h3 className="text-lg font-semibold text-white mb-3">
                   Чи можливо змінити ширину на нестандартну?
                 </h3>
@@ -155,7 +155,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 </p>
               </div>
 
-              <div className="border border-gray-700 rounded-lg p-4 mb-4">
+              <div className="border border-[#3d3d3d] rounded-lg p-4 mb-4">
                 <h3 className="text-lg font-semibold text-white mb-3">
                   Чи можливо змінити висоту чи глибину?
                 </h3>
@@ -164,7 +164,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 </p>
               </div>
 
-              <div className="border border-gray-700 rounded-lg p-4">
+              <div className="border border-[#3d3d3d] rounded-lg p-4">
                 <h3 className="text-lg font-semibold text-white mb-3">
                   Який розмір мені підійде?
                 </h3>
