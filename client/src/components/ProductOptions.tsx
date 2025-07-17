@@ -4,6 +4,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
 import { SizeModal } from './SizeModal';
+import { LogoModal } from './LogoModal';
+import { FixationModal } from './FixationModal';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
@@ -30,6 +32,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedCarModel, setSelectedCarModel] = useState('');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
+  const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
+  const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
 
   const { toast } = useToast();
   const { addItem } = useCart();
@@ -358,7 +362,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             </div>
             
             {/* Logo Info Button */}
-            <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black">
+            <button 
+              onClick={() => setIsLogoModalOpen(true)}
+              className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black"
+            >
               <div className="flex items-center gap-3">
                 <Camera className="w-4 h-4 text-gray-600" />
                 <span className="font-medium">
@@ -403,7 +410,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             </div>
             
             {/* Fixation Info Button */}
-            <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black">
+            <button 
+              onClick={() => setIsFixationModalOpen(true)}
+              className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black"
+            >
               <div className="flex items-center gap-3">
                 <Camera className="w-4 h-4 text-gray-600" />
                 <span className="font-medium">
@@ -449,6 +459,18 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         isOpen={isSizeModalOpen}
         onClose={() => setIsSizeModalOpen(false)}
         size={selectedSize.split(' ')[0]}
+      />
+
+      {/* Logo Modal */}
+      <LogoModal
+        isOpen={isLogoModalOpen}
+        onClose={() => setIsLogoModalOpen(false)}
+      />
+
+      {/* Fixation Modal */}
+      <FixationModal
+        isOpen={isFixationModalOpen}
+        onClose={() => setIsFixationModalOpen(false)}
       />
     </div>
   );
