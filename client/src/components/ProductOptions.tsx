@@ -499,21 +499,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           {/* Logo Details - Left Aligned with Icons */}
           <div className="space-y-4 text-gray-700">
             <div className="flex items-center gap-3 text-sm">
-              <div className="w-6 h-6 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
-                <Ruler className="w-3 h-3 text-white" />
-              </div>
+              <Ruler className="w-5 h-5 text-black flex-shrink-0" />
               <span><span className="font-medium">Розміри:</span> 82 на 18 мм</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
-              <div className="w-6 h-6 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
-                <Wrench className="w-3 h-3 text-white" />
-              </div>
+              <Wrench className="w-5 h-5 text-black flex-shrink-0" />
               <span><span className="font-medium">Матеріал:</span> латунь</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
-              <div className="w-6 h-6 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
-                <Award className="w-3 h-3 text-white" />
-              </div>
+              <Award className="w-5 h-5 text-black flex-shrink-0" />
               <span className="font-medium">Власне виробництво</span>
             </div>
           </div>
