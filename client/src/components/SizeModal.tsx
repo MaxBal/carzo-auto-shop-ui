@@ -35,15 +35,15 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
       onClick={onClose}
     >
       <div 
-        className="lg:bg-black lg:rounded-2xl lg:shadow-2xl w-full h-auto lg:w-auto lg:h-auto bg-black lg:static fixed bottom-0 left-0 right-0 lg:max-w-[80vw] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[95vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
+        className="lg:bg-white lg:rounded-2xl lg:shadow-2xl w-full h-auto lg:w-auto lg:h-auto bg-white lg:static fixed bottom-0 left-0 right-0 lg:max-w-[80vw] rounded-t-xl lg:rounded-2xl max-h-[90vh] lg:max-h-[95vh] animate-slide-in-right lg:animate-scale-in flex flex-col lg:mx-4 overflow-hidden"
         style={{ width: window.innerWidth > 1024 ? "80vw" : "100vw", maxWidth: "100vw", minHeight: window.innerWidth > 1024 ? "600px" : "auto" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="p-4 pb-2 lg:p-6 lg:pb-4 flex-shrink-0">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-2xl lg:text-3xl font-bold text-white">Розмір {size}</h2>
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-300 transition-colors p-1">
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">Розмір {size}</h2>
+            <button onClick={onClose} className="text-gray-600 hover:text-gray-800 transition-colors p-1">
               <X size={24} />
             </button>
           </div>
@@ -59,8 +59,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             }}
             className={`py-3 px-1 mr-8 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'inside'
-                ? 'border-white text-white'
-                : 'border-transparent text-gray-500 hover:text-gray-300'
+                ? 'border-gray-900 text-gray-900'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
             }`}
           >
             Що в середині в розмірі {size}?
@@ -73,8 +73,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             }}
             className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'faq'
-                ? 'border-white text-white'
-                : 'border-transparent text-gray-500 hover:text-gray-300'
+                ? 'border-gray-900 text-gray-900'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
             }`}
           >
             Часті питання
@@ -94,8 +94,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                     className="w-full h-48 lg:h-60 object-cover rounded-2xl"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Перегородки</h3>
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Перегородки</h3>
+                <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
                   На перегородках присутні кармани для дрібних аксесуарів, перегородки можливо переміщувати 
                   по всій ширині кейсу, тим самим регулюючі 3 відділення так як вам потрібно.
                 </p>
@@ -110,8 +110,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                     className="w-full h-48 lg:h-60 object-cover rounded-2xl"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Резинки на бокових дверцятах</h3>
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Резинки на бокових дверцятах</h3>
+                <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
                   Для фіксації аксесуарів в вертикальному положені.
                 </p>
               </div>
@@ -125,8 +125,8 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                     className="w-full h-48 lg:h-60 object-cover rounded-2xl"
                   />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Захист багажнику</h3>
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Захист багажнику</h3>
+                <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
                   Всередині непромокаюча підкладка, яка у разі розливу буде захищати багажник авто від рідини.
                 </p>
               </div>
@@ -140,35 +140,35 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 <div className="w-5 h-5 rounded-full bg-[#00d5b5] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-white text-xs font-bold">i</span>
                 </div>
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-gray-700 text-sm leading-relaxed">
                   Розміри між собою відрізняються шириною та кількістю перегородок. 
                   Висота та глибина у всіх розмірах складає 30 та 30 см.
                 </p>
               </div>
 
               <div className="border border-[#3d3d3d] rounded-lg p-4 mb-4">
-                <h3 className="text-lg font-semibold text-white mb-3">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Чи можливо змінити ширину на нестандартну?
                 </h3>
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
+                <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
                   Так, будь-який розмір від мінімум 35 см до 100 см. Кінцеву вартість Вам повідомить менеджер.
                 </p>
               </div>
 
               <div className="border border-[#3d3d3d] rounded-lg p-4 mb-4">
-                <h3 className="text-lg font-semibold text-white mb-3">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Чи можливо змінити висоту чи глибину?
                 </h3>
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
+                <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
                   Ні, зазначені сторони являються незмінними.
                 </p>
               </div>
 
               <div className="border border-[#3d3d3d] rounded-lg p-4">
-                <h3 className="text-lg font-semibold text-white mb-3">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   Який розмір мені підійде?
                 </h3>
-                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
+                <p className="text-gray-700 text-sm lg:text-base leading-relaxed">
                   Сторони автокейсу висота (30 см), глибина (30 см) та ширина (80 см) найбільшого нашого стандартного розміру підходить практично під авто.
                   Це все залежить від ваших потреб. 
                   Розмір М та L являються лідерами наших продажів.
