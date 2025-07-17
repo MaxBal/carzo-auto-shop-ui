@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle, ChevronRight, Check } from 'lucide-react';
+import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
@@ -489,8 +489,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         <div className="space-y-6">
           {/* Logo Image - Full Width */}
           <div className="w-full">
-            <div className="w-full h-48 bg-gray-200 rounded-2xl flex items-center justify-center border">
-              <span className="text-4xl font-bold text-gray-600">
+            <div className="w-full h-48 lg:h-80 bg-gray-200 rounded-2xl flex items-center justify-center border">
+              <span className="text-4xl lg:text-6xl font-bold text-gray-600">
                 {carModels.find(m => m.value === selectedCarModel)?.name || ''}
               </span>
             </div>
@@ -499,20 +499,20 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           {/* Logo Details - Left Aligned with Icons */}
           <div className="space-y-4 text-gray-700">
             <div className="flex items-center gap-3 text-sm">
-              <div className="w-5 h-5 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-xs">📏</span>
+              <div className="w-6 h-6 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
+                <Ruler className="w-3 h-3 text-white" />
               </div>
               <span><span className="font-medium">Розміри:</span> 82 на 18 мм</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
-              <div className="w-5 h-5 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-xs">🔧</span>
+              <div className="w-6 h-6 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
+                <Wrench className="w-3 h-3 text-white" />
               </div>
               <span><span className="font-medium">Матеріал:</span> латунь</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
-              <div className="w-5 h-5 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-xs">⭐</span>
+              <div className="w-6 h-6 bg-[#00d5b5] rounded-full flex items-center justify-center flex-shrink-0">
+                <Award className="w-3 h-3 text-white" />
               </div>
               <span className="font-medium">Власне виробництво</span>
             </div>
