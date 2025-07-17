@@ -300,7 +300,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 value={selectedCarModel}
                 onChange={(e) => setSelectedCarModel(e.target.value)}
                 disabled={selectedLogo === 'без лого'}
-                className={`w-full p-3 pr-12 border rounded-md text-sm ${
+                className={`w-full p-3 md:p-3 py-4 pr-12 border rounded-md text-sm ${
                   selectedLogo === 'без лого' 
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-300' 
                     : 'bg-white text-gray-900 border-[#00d5b5] hover:border-[#00d5b5]'
