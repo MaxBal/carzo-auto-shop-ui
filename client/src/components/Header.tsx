@@ -73,17 +73,17 @@ export const Header = () => {
               </button>
               
               {isCatalogOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-white rounded-md shadow-lg py-2 min-w-[200px] z-50">
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
+                <div className="absolute top-full left-0 mt-2 bg-black rounded-md shadow-lg py-2 min-w-[200px] z-50 border border-white/20">
+                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
                     Автокейси
                   </Link>
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
+                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
                     Автокилимки
                   </Link>
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
+                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
                     Накидки в салон
                   </Link>
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
+                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
                     Захист спинки сидіння
                   </Link>
                 </div>
