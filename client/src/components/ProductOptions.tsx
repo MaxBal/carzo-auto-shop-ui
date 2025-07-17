@@ -331,30 +331,43 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
         {/* Fixation Tab */}
         {activeTab === 'fixation' && (
-          <div className="mt-4 space-y-3">
-            {fixationOptions.map((fixation) => (
-              <button
-                key={fixation.name}
-                onClick={() => {
-                  setSelectedFixationType(fixation.name);
-                  setSelectedFixation(fixation.name !== 'без фіксації');
-                }}
-                className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
-                  selectedFixationType === fixation.name
-                    ? 'border-2 border-[#00d5b5] bg-white'
-                    : 'border border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className={`font-medium text-sm ${
-                  selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
-                }`}>{fixation.name}</div>
-                {fixation.price > 0 && (
+          <div className="mt-4">
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {fixationOptions.map((fixation) => (
+                <button
+                  key={fixation.name}
+                  onClick={() => {
+                    setSelectedFixationType(fixation.name);
+                    setSelectedFixation(fixation.name !== 'без фіксації');
+                  }}
+                  className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
+                    selectedFixationType === fixation.name
+                      ? 'border-2 border-[#00d5b5] bg-white'
+                      : 'border border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className={`font-medium text-sm ${
+                    selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
+                  }`}>{fixation.name}</div>
                   <span className={`text-base font-medium ${
                     selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>+{fixation.price} ₴</span>
-                )}
-              </button>
-            ))}
+                  }`}>
+                    {fixation.price > 0 ? `+${fixation.price} ₴` : '0 ₴'}
+                  </span>
+                </button>
+              ))}
+            </div>
+            
+            {/* Fixation Info Button */}
+            <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black">
+              <div className="flex items-center gap-3">
+                <Camera className="w-4 h-4 text-gray-600" />
+                <span className="font-medium">
+                  Про фіксацію з багажником
+                </span>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
+            </button>
           </div>
         )}
       </div>
