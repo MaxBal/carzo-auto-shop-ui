@@ -172,7 +172,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                     onClick={() => setSelectedColor(color.name)}
                     className={`w-6 h-6 md:w-8 md:h-8 rounded-full border-2 transition-all flex-shrink-0 ${
                       selectedColor === color.name
-                        ? 'border-orange-500 border-[3px]'
+                        ? 'border-[#00d5b5] border-[3px]'
                         : 'border-gray-300'
                     }`}
                     style={{ 
