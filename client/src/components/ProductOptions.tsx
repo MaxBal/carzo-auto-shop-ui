@@ -124,12 +124,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
       {/* Design Selector */}
       <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <HelpCircle 
-            className="w-4 h-4 text-gray-500 cursor-pointer hover:text-gray-700 transition-colors" 
-            onClick={() => setIsDesignModalOpen(true)}
-          />
+        <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-medium text-gray-700">Оберіть дизайн:</span>
+          <button
+            onClick={() => setIsDesignModalOpen(true)}
+            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
+          >
+            В чому різниця?
+          </button>
         </div>
         <div className="flex gap-4 items-center justify-start">
           {designs.map((design) => (
@@ -226,9 +228,12 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 <div className={`font-medium text-sm ${
                   selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
                 }`}>{size.name}</div>
-                <div className={`text-base font-medium ${
-                  selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
-                }`}>{size.price} ₴</div>
+                <div className="flex items-center gap-2">
+                  <span className={`text-base font-medium ${
+                    selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
+                  }`}>{size.price} ₴</span>
+                  <span className="text-base text-gray-400 line-through">{size.oldPrice} ₴</span>
+                </div>
               </button>
             ))}
           </div>
