@@ -64,7 +64,6 @@ export const CheckoutPage = () => {
                 />
                 <div className="flex-1">
                   <h4 className="font-medium text-sm">{item.name}</h4>
-                  <p className="text-xs text-gray-500 mt-1">{item.article}</p>
                   <div className="text-xs text-gray-600 mt-1 space-y-0.5">
                     {Object.entries(item.options)
                       .filter(([_, value]) => value)

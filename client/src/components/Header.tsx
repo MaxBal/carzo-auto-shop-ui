@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import { ShoppingCart, ChevronDown } from 'lucide-react';
 import { Link } from 'wouter';
 import { useCart } from '@/hooks/useCart';
+import { useCartDrawer } from '@/contexts/CartContext';
 import { CartDrawer } from './CartDrawer';
 import { MobileMenu } from './MobileMenu';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const { items } = useCart();
+  const { isCartOpen, openCart, closeCart } = useCartDrawer();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,7 +97,7 @@ export const Header = () => {
 
           {/* Cart button */}
           <button
-            onClick={() => setIsCartOpen(true)}
+            onClick={openCart}
             className="relative text-white"
           >
             <ShoppingCart size={24} />
@@ -113,7 +114,7 @@ export const Header = () => {
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
       {/* Cart Drawer */}
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
     </>
   );
 };

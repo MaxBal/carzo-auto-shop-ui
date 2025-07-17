@@ -43,7 +43,6 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                   />
                   <div className="flex-1">
                     <h4 className="font-medium text-sm">{item.name}</h4>
-                    <p className="text-xs text-gray-500 mt-1">{item.article}</p>
                     <div className="text-xs text-gray-600 mt-1 space-y-0.5">
                       {Object.entries(item.options)
                         .filter(([_, value]) => value)
@@ -98,9 +97,9 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
               </div>
               <button 
                 onClick={() => window.location.href = '/checkout'}
-                className="w-full h-11 mt-4 bg-brand text-white rounded-full font-medium hover:bg-brand/90 transition-colors"
+                className="w-full h-11 mt-4 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
               >
-                Перейти до оформлення
+                Оформити замовлення
               </button>
             </div>
           </>

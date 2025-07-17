@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
+import { useCartDrawer } from '@/contexts/CartContext';
 import { Modal } from './Modal';
 import { SizeModal } from './SizeModal';
 import { LogoModal } from './LogoModal';
@@ -36,8 +36,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
   const [isBrandLogoModalOpen, setIsBrandLogoModalOpen] = useState(false);
 
-  const { toast } = useToast();
   const { addItem } = useCart();
+  const { openCart } = useCartDrawer();
 
   // Generate dynamic article based on selections
   const generateArticle = () => {
@@ -134,10 +134,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       }
     });
 
-    toast({
-      title: "Додано до кошика",
-      description: `${product.name} успішно додано до вашого кошика`,
-    });
+    // Open cart drawer immediately
+    openCart();
   };
 
   return (
