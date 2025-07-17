@@ -22,7 +22,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="max-w-[1280px] mx-auto mt-20 md:mt-20 grid grid-cols-12 gap-8 px-4 md:px-4">
+      <main className="max-w-[1280px] mx-auto mt-0 md:mt-20 grid grid-cols-12 gap-8 px-4 md:px-4">
         <ProductGallery images={productImages} />
         <ProductOptions product={product} />
       </main>
