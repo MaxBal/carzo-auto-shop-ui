@@ -170,7 +170,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                   <button
                     key={color.name}
                     onClick={() => setSelectedColor(color.name)}
-                    className={`w-6 h-6 md:w-8 md:h-8 rounded-full border-2 transition-all flex-shrink-0 ${
+                    className={`w-8 h-8 md:w-8 md:h-8 rounded-full border-2 transition-all flex-shrink-0 ${
                       selectedColor === color.name
                         ? 'border-[#00d5b5] border-[3px]'
                         : 'border-gray-300'
