@@ -23,49 +23,49 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       </div>
 
       {/* Navigation links - left aligned on mobile */}
-      <div className="flex-1 flex flex-col gap-6 justify-start items-start px-4 pt-8 text-white text-xl">
-        <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+      <div className="flex-1 flex flex-col justify-start items-start px-4 pt-8 text-white text-xl">
+        <Link href="/" className="hover:text-[#00d5b5] transition-colors py-4 border-b border-white/10 w-full" onClick={onClose}>
           Головна
         </Link>
         
         {/* Catalog with collapsible dropdown */}
-        <div className="w-full">
+        <div className="w-full border-b border-white/10">
           <button 
             onClick={() => setIsCatalogOpen(!isCatalogOpen)}
-            className="font-medium mb-3 flex items-center gap-2 hover:text-[#00d5b5] transition-colors"
+            className="font-medium py-4 flex items-center gap-2 hover:text-[#00d5b5] transition-colors w-full"
           >
             Каталог
             <ChevronDown size={20} className={`transition-transform ${isCatalogOpen ? 'rotate-180' : ''}`} />
           </button>
           
           {isCatalogOpen && (
-            <div className="flex flex-col gap-3 pl-4 text-lg">
-              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+            <div className="flex flex-col pb-4">
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors py-3 pl-4 text-lg border-b border-white/5" onClick={onClose}>
                 Автокейси
               </Link>
-              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors py-3 pl-4 text-lg border-b border-white/5" onClick={onClose}>
                 Автокилимки
               </Link>
-              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors py-3 pl-4 text-lg border-b border-white/5" onClick={onClose}>
                 Накидки в салон
               </Link>
-              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors py-3 pl-4 text-lg" onClick={onClose}>
                 Захист спинки сидіння
               </Link>
             </div>
           )}
         </div>
         
-        <Link href="#" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+        <Link href="#" className="hover:text-[#00d5b5] transition-colors py-4 border-b border-white/10 w-full" onClick={onClose}>
           B2B
         </Link>
-        <Link href="#" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+        <Link href="#" className="hover:text-[#00d5b5] transition-colors py-4 w-full" onClick={onClose}>
           Контакти
         </Link>
       </div>
 
       {/* Footer */}
-      <div className="text-xs text-white/70 mb-4 text-center">
+      <div className="text-sm text-white/70 mb-4 text-center">
         Designed and manufactured in Ukraine
       </div>
     </div>,
