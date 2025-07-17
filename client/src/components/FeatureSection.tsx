@@ -1,69 +1,110 @@
-import { Shield, Zap, Heart, Star } from 'lucide-react';
+import materialsImg from '@assets/photo (1)_1752773566279.jpg';
+import magneticImg from '@assets/IMG_5902_1752773566287.jpg';
+import handlesImg from '@assets/_230903_1752773566287.jpg';
+import edgingImg from '@assets/IMG_5903_1752773566288.jpg';
 
 export const FeatureSection = () => {
+  const features = [
+    {
+      image: materialsImg,
+      title: "Основні матеріали",
+      subtitle: "Автомобільна еко-шкірка",
+      description: "Основним матеріалом автокейсу являється преміальна автомобільна еко-шкіра німецького виробництва, максимальна стійка до механічних пошкоджень.",
+      additionalInfo: {
+        title: "Міцний корпус",
+        text: "Корпус виготовлений з італьянського кожкартону, завдяки чому кейс буде зберігати форму довгі роки."
+      }
+    },
+    {
+      image: magneticImg,
+      title: "Магнітна система",
+      subtitle: "Функціональність та зручність",
+      description: "З легкістю відкривайте кришку кейсу однією рукою завдяки спеціальній магнітній системі фіксації.",
+      additionalInfo: {
+        title: "Магніти чи ліпучка?",
+        text: "Окрім функціональності про яку зазначено вище, магніти мають перевагу над ліпучкою в наступних аспектах:",
+        list: [
+          "В порівнянні з магнітами, ліпучка будь-якої якості має обмежений термін експлуатації, тобто функція зщеплення кришки кейсу поступово буде погіршуватись.",
+          "Заміна ліпучки на кришці кейсу являється досить проблемним питанням по причині трудомісткої технології відшивання.",
+          "Окрім цього, на відміну від магнітів, багаторазове використання ліпучки впливає на її естетичний вигляд."
+        ]
+      }
+    },
+    {
+      image: handlesImg,
+      title: "Ручки автокейсу",
+      subtitle: "Надійність та довговічність",
+      description: "Ручки на кейсах прошиті армованою ниткою, укріплені від зносу, кріпляться до кейсу заклепками. На наших кейсах фурнітура високої якості, що являється ще однією характерною відмінністю від інших виробників."
+    },
+    {
+      image: edgingImg,
+      title: "Якісна окантовка",
+      subtitle: "Естетична складова",
+      description: "Окантовка кейсу виконана з преміум еко-шкіри. В свою чергу хочемо зазначити, що основна більшість виробників для полегшення процесу виготовлення автокейсу, використовує в якості окантовки тканину, що в свою чергу значно погіршує естетичний вигляд виробу.",
+      additionalInfo: {
+        title: "Порівняння для більшого розуміння",
+        text: "\"Окантовка з тканини на автокейсах з еко-шкіри - це як одягнути класичні туфлі під спортивні штани\""
+      }
+    }
+  ];
+
   return (
-    <>
-      {/* Dark Section */}
-      <section className="bg-body py-20">
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
-          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start">
-            <Shield size={32} className="text-brand flex-shrink-0" />
-            <div>
-              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
-                Безпека
-              </span>
-              <h4 className="font-semibold text-lg">Захист багажника</h4>
-              <p className="text-dim text-sm mt-1">
-                Міцні матеріали та надійна фіксація захищають ваш автомобіль від пошкоджень
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start">
-            <Zap size={32} className="text-brand flex-shrink-0" />
-            <div>
-              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
-                Якість
-              </span>
-              <h4 className="font-semibold text-lg">Преміум матеріали</h4>
-              <p className="text-dim text-sm mt-1">
-                Використовуємо тільки найкращі матеріали для максимальної довговічності
-              </p>
-            </div>
-          </div>
+    <div className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Переваги наших автокейсів</h2>
+          <p className="text-lg text-gray-600">Якість та функціональність в кожній деталі</p>
         </div>
-      </section>
-
-      {/* Light Section */}
-      <section className="bg-white py-20">
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 px-4">
-          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start border border-gray-100">
-            <Heart size={32} className="text-brand flex-shrink-0" />
-            <div>
-              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
-                Комфорт
-              </span>
-              <h4 className="font-semibold text-lg">Зручність використання</h4>
-              <p className="text-dim text-sm mt-1">
-                Продуманий дизайн для максимального комфорту щоденного використання
-              </p>
+        
+        <div className="space-y-16">
+          {features.map((feature, index) => (
+            <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 lg:gap-12`}>
+              {/* Image */}
+              <div className="w-full lg:w-1/2">
+                <div className="aspect-video rounded-2xl overflow-hidden shadow-lg">
+                  <img 
+                    src={feature.image} 
+                    alt={feature.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              
+              {/* Content */}
+              <div className="w-full lg:w-1/2 space-y-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{feature.title}</h3>
+                  <h4 className="text-lg font-semibold text-[#00d5b5] mb-4">{feature.subtitle}</h4>
+                  <p className="text-gray-700 leading-relaxed">{feature.description}</p>
+                </div>
+                
+                {feature.additionalInfo && (
+                  <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                    <h5 className="font-semibold text-gray-900 mb-3">{feature.additionalInfo.title}</h5>
+                    <p className="text-gray-700 leading-relaxed mb-3">{feature.additionalInfo.text}</p>
+                    
+                    {feature.additionalInfo.list && (
+                      <ul className="space-y-2">
+                        {feature.additionalInfo.list.map((item, idx) => (
+                          <li key={idx} className="text-sm text-gray-600 flex items-start">
+                            <span className="w-2 h-2 bg-[#00d5b5] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-8 flex flex-col lg:flex-row gap-6 items-start border border-gray-100">
-            <Star size={32} className="text-brand flex-shrink-0" />
-            <div>
-              <span className="inline-block bg-brand text-white text-xs px-2 py-0.5 rounded-full mb-2">
-                Надійність
-              </span>
-              <h4 className="font-semibold text-lg">Українське виробництво</h4>
-              <p className="text-dim text-sm mt-1">
-                Розроблено та виготовлено в Україні з гарантією якості
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
-    </>
+        
+        {/* Signature */}
+        <div className="text-center mt-16 pt-8 border-t border-gray-200">
+          <p className="text-gray-600 italic">З повагою, команда Carzo</p>
+        </div>
+      </div>
+    </div>
   );
 };
