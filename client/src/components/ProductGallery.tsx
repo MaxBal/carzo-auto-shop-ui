@@ -83,7 +83,7 @@ export const ProductGallery = ({ images }: ProductGalleryProps) => {
                   mobileGalleryRef.current.scrollTo({ left: containerWidth * index, behavior: 'smooth' });
                 }
               }}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+              className={`w-2 h-2 rounded-full transition-all duration-200 ${
                 index === activeImageIndex ? 'bg-[#00d5b5] scale-125' : 'bg-gray-400'
               }`}
             />
