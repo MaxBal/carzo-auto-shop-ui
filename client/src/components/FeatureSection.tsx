@@ -69,14 +69,14 @@ export const FeatureSection = () => {
               <div className="w-full lg:w-1/2 space-y-6">
                 <div>
                   <h3 className="text-2xl font-bold text-white mb-2">{feature.title}</h3>
-                  <div className="inline-block bg-[#00d5b5] text-white text-sm px-3 py-1 rounded-full mb-4">
+                  <div className="inline-block bg-[#00d5b5] text-black text-sm px-3 py-1 rounded-full mb-4">
                     {feature.subtitle}
                   </div>
                   <p className="text-gray-300 leading-relaxed">{feature.description}</p>
                 </div>
                 
                 {feature.additionalInfo && (
-                  <div className="bg-[#181818] rounded-lg p-6 shadow-sm border border-gray-800">
+                  <div className="bg-[#181818] rounded-lg p-6 shadow-sm border border-[#2a2a2a]">
                     <h5 className="font-semibold text-white mb-3">{feature.additionalInfo.title}</h5>
                     <p className="text-gray-300 leading-relaxed mb-3">{feature.additionalInfo.text}</p>
                     
