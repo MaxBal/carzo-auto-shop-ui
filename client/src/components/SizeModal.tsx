@@ -84,14 +84,14 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-4 lg:p-6 pb-12 lg:pb-16">
           {activeTab === 'inside' && (
-            <div className="lg:grid lg:grid-cols-2 lg:gap-6 space-y-8 lg:space-y-0">
+            <div className="lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0">
               {/* Перегородки */}
               <div>
-                <div className="mb-4 lg:-mx-6">
+                <div className="mb-4 lg:mx-2">
                   <img 
                     src={compartmentsImg} 
                     alt="Перегородки в кейсі" 
-                    className="w-full h-60 lg:h-80 object-cover rounded-2xl"
+                    className="w-full h-48 lg:h-60 object-cover rounded-2xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Перегородки</h3>
@@ -103,11 +103,11 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
 
               {/* Резинки на бокових дверцятах */}
               <div>
-                <div className="mb-4 lg:-mx-6">
+                <div className="mb-4 lg:mx-2">
                   <img 
                     src={pocketsImg} 
                     alt="Резинки на бокових дверцятах" 
-                    className="w-full h-60 lg:h-80 object-cover rounded-2xl"
+                    className="w-full h-48 lg:h-60 object-cover rounded-2xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Резинки на бокових дверцятах</h3>
@@ -117,12 +117,12 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
               </div>
 
               {/* Захист багажнику */}
-              <div className="lg:col-span-2 lg:col-start-1 lg:mt-8">
-                <div className="mb-4 lg:-mx-6">
+              <div className="lg:col-span-2 lg:col-start-1 lg:mt-12">
+                <div className="mb-4 lg:mx-2">
                   <img 
                     src={waterproofImg} 
                     alt="Захист багажнику" 
-                    className="w-full h-60 lg:h-80 object-cover rounded-2xl"
+                    className="w-full h-48 lg:h-60 object-cover rounded-2xl"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Захист багажнику</h3>
