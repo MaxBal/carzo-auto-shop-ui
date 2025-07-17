@@ -117,7 +117,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
               </div>
 
               {/* Захист багажнику */}
-              <div className="lg:col-span-2 lg:col-start-1 lg:mt-12">
+              <div className="lg:col-span-1 lg:col-start-1 lg:mt-12">
                 <div className="mb-4 lg:mx-2">
                   <img 
                     src={waterproofImg} 
