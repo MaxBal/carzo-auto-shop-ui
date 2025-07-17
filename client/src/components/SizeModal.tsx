@@ -60,7 +60,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             className={`py-3 px-1 mr-8 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'inside'
                 ? 'border-white text-white'
-                : 'border-transparent text-[#3d3d3d] hover:text-gray-300'
+                : 'border-transparent text-gray-500 hover:text-gray-300'
             }`}
           >
             Що в середині в розмірі {size}?
@@ -74,7 +74,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
               activeTab === 'faq'
                 ? 'border-white text-white'
-                : 'border-transparent text-[#3d3d3d] hover:text-gray-300'
+                : 'border-transparent text-gray-500 hover:text-gray-300'
             }`}
           >
             Часті питання
