@@ -362,31 +362,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               </select>
             </div>
             
-            {/* Selected Brand Logo Display */}
-            {selectedCarModel && selectedLogo !== 'без лого' && (
-              <div className="mb-4">
-                <button 
-                  onClick={() => setIsBrandLogoModalOpen(true)}
-                  className="w-full bg-white border border-gray-300 py-3 px-4 rounded-md hover:border-gray-400 transition-colors flex items-center justify-between group"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                      <span className="text-xs font-bold text-gray-600">
-                        {carModels.find(m => m.value === selectedCarModel)?.name?.charAt(0) || ''}
-                      </span>
-                    </div>
-                    <span className="font-medium text-gray-900">
-                      Лого {carModels.find(m => m.value === selectedCarModel)?.name || ''}
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
-                </button>
-              </div>
-            )}
-            
             {/* Logo Info Button */}
             <button 
-              onClick={() => setIsLogoModalOpen(true)}
+              onClick={() => {
+                if (selectedCarModel && selectedLogo !== 'без лого') {
+                  setIsBrandLogoModalOpen(true);
+                } else {
+                  setIsLogoModalOpen(true);
+                }
+              }}
               className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black"
             >
               <div className="flex items-center gap-3">
@@ -394,7 +378,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 <span className="font-medium">
                   {selectedCarModel && selectedLogo !== 'без лого' 
                     ? `Лого ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`
-                    : 'Дельніше про лого'
+                    : 'Детальніше про лого'
                   }
                 </span>
               </div>
