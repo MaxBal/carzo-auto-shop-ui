@@ -66,12 +66,12 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   ];
 
   const colors = [
-    { name: 'чорний', value: '#000000' },
-    { name: 'сірий', value: '#6B7280' },
-    { name: 'синій', value: '#2563EB' },
-    { name: 'червоний', value: '#DC2626' },
-    { name: 'коричневий', value: '#92400E' },
-    { name: 'бежевий', value: '#D4A574' }
+    { name: 'чорний', value: '#000000', pattern: 'solid' },
+    { name: 'чорний-сірий', value: 'linear-gradient(45deg, #000000 50%, #9CA3AF 50%)', pattern: 'split' },
+    { name: 'чорний-синій', value: 'linear-gradient(45deg, #000000 50%, #3B82F6 50%)', pattern: 'split' },
+    { name: 'чорний-червоний', value: 'linear-gradient(45deg, #000000 50%, #EF4444 50%)', pattern: 'split' },
+    { name: 'коричневий', value: '#A0522D', pattern: 'solid' },
+    { name: 'бежевий', value: '#D2B48C', pattern: 'solid' }
   ];
 
   // Generate dynamic SKU
@@ -163,20 +163,25 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         {/* Color selection for Carzo 1.0 */}
         {selectedDesign === 'Carzo 1.0' && (
           <div className="mt-4">
-            <div className="flex gap-2">
-              {colors.map((color) => (
-                <button
-                  key={color.name}
-                  onClick={() => setSelectedColor(color.name)}
-                  className={`w-8 h-8 rounded-full border-2 transition-all ${
-                    selectedColor === color.name
-                      ? 'border-gray-800 ring-2 ring-offset-2 ring-[#00d5b5]'
-                      : 'border-gray-300'
-                  }`}
-                  style={{ backgroundColor: color.value }}
-                  title={color.name}
-                />
-              ))}
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-medium text-gray-700 whitespace-nowrap">Колір:</span>
+              <div className="flex gap-2 flex-wrap">
+                {colors.map((color) => (
+                  <button
+                    key={color.name}
+                    onClick={() => setSelectedColor(color.name)}
+                    className={`w-6 h-6 md:w-8 md:h-8 rounded-full border-2 transition-all flex-shrink-0 ${
+                      selectedColor === color.name
+                        ? 'border-orange-500 border-[3px]'
+                        : 'border-gray-300'
+                    }`}
+                    style={{ 
+                      background: color.pattern === 'split' ? color.value : color.value 
+                    }}
+                    title={color.name}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         )}
