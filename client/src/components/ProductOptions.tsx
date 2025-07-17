@@ -138,8 +138,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               onClick={() => setSelectedDesign(design.name)}
               className={`py-2 px-3 rounded-md border text-center transition-all duration-300 ease-in-out transform whitespace-nowrap flex-shrink-0 ${
                 selectedDesign === design.name
-                  ? 'border-[#00d5b5] bg-gray-100 scale-105'
-                  : 'border-gray-200 hover:border-gray-300 hover:scale-102'
+                  ? 'border-2 border-[#00d5b5] bg-white scale-105'
+                  : 'border border-gray-200 hover:border-gray-300 hover:scale-102'
               }`}
             >
               <span className={`text-sm font-medium ${
@@ -219,8 +219,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 onClick={() => setSelectedSize(size.name)}
                 className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
                   selectedSize === size.name
-                    ? 'border-[#00d5b5] bg-gray-100'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-2 border-[#00d5b5] bg-white'
+                    : 'border border-gray-200 hover:border-gray-300'
                 }`}
               >
                 <div className={`font-medium text-sm ${
@@ -243,8 +243,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 onClick={() => setSelectedLogo(logo.name)}
                 className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
                   selectedLogo === logo.name
-                    ? 'border-[#00d5b5] bg-gray-100'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-2 border-[#00d5b5] bg-white'
+                    : 'border border-gray-200 hover:border-gray-300'
                 }`}
               >
                 <div className={`font-medium text-sm ${
@@ -272,8 +272,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 }}
                 className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
                   selectedFixationType === fixation.name
-                    ? 'border-[#00d5b5] bg-gray-100'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-2 border-[#00d5b5] bg-white'
+                    : 'border border-gray-200 hover:border-gray-300'
                 }`}
               >
                 <div className={`font-medium text-sm ${
