@@ -380,9 +380,9 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       {/* Add to cart button */}
       <button
         onClick={handleAddToCart}
-        className="w-full bg-black text-white py-3 px-6 rounded-md font-medium hover:bg-gray-900 transition-colors flex items-center justify-center"
+        className="w-full bg-black text-white py-3 px-6 rounded-md font-medium transition-colors flex items-center justify-center group"
       >
-        <ShoppingCart className="w-5 h-5 mr-2" />
+        <ShoppingCart className="w-5 h-5 mr-2 transition-colors group-hover:text-[#00d5b5]" />
         Купити {calculatePrice()} ₴
       </button>
 
