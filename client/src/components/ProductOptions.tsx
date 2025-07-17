@@ -34,6 +34,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
   const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
+  const [isBrandLogoModalOpen, setIsBrandLogoModalOpen] = useState(false);
 
   const { toast } = useToast();
   const { addItem } = useCart();
@@ -361,6 +362,28 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               </select>
             </div>
             
+            {/* Selected Brand Logo Display */}
+            {selectedCarModel && selectedLogo !== 'без лого' && (
+              <div className="mb-4">
+                <button 
+                  onClick={() => setIsBrandLogoModalOpen(true)}
+                  className="w-full bg-white border border-gray-300 py-3 px-4 rounded-md hover:border-gray-400 transition-colors flex items-center justify-between group"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                      <span className="text-xs font-bold text-gray-600">
+                        {carModels.find(m => m.value === selectedCarModel)?.name?.charAt(0) || ''}
+                      </span>
+                    </div>
+                    <span className="font-medium text-gray-900">
+                      Лого {carModels.find(m => m.value === selectedCarModel)?.name || ''}
+                    </span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
+                </button>
+              </div>
+            )}
+            
             {/* Logo Info Button */}
             <button 
               onClick={() => setIsLogoModalOpen(true)}
@@ -472,6 +495,37 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         isOpen={isFixationModalOpen}
         onClose={() => setIsFixationModalOpen(false)}
       />
+
+      {/* Brand Logo Modal */}
+      <Modal
+        isOpen={isBrandLogoModalOpen}
+        onClose={() => setIsBrandLogoModalOpen(false)}
+        title={`Лого ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`}
+      >
+        <div className="text-center space-y-6">
+          {/* Logo Image */}
+          <div className="flex justify-center">
+            <div className="w-32 h-32 bg-gray-200 rounded-2xl flex items-center justify-center border">
+              <span className="text-3xl font-bold text-gray-600">
+                {carModels.find(m => m.value === selectedCarModel)?.name || ''}
+              </span>
+            </div>
+          </div>
+          
+          {/* Logo Details */}
+          <div className="space-y-3 text-gray-700">
+            <div className="text-sm">
+              <span className="font-medium">Розміри:</span> 82 на 18 мм
+            </div>
+            <div className="text-sm">
+              <span className="font-medium">Матеріал:</span> латунь
+            </div>
+            <div className="text-sm">
+              <span className="font-medium">Власне виробництво</span>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
