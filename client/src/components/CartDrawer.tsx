@@ -35,11 +35,11 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             {/* Items */}
             <div className="flex-1 overflow-y-auto">
               {items.map((item) => (
-                <div key={item.id} className="mx-6 my-4 p-5 flex items-start gap-5">
+                <div key={item.id} className="mx-6 my-4 p-5 flex items-start gap-3">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 object-cover rounded flex-shrink-0"
+                    className="w-16 h-16 object-cover rounded flex-shrink-0"
                   />
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium text-lg mb-3 leading-tight">{item.name}</h4>
