@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle, ChevronRight } from 'lucide-react';
+import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle, ChevronRight, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/useCart';
 import { Modal } from './Modal';
@@ -139,8 +139,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
       {/* Product title and details */}
       <h1 className="text-2xl font-bold text-gray-900 mb-1 md:mb-2">{generateTitle()}</h1>
-      <div className="text-sm text-gray-600 mb-4">
-        {generateArticle()}
+      
+      {/* Article Info Block */}
+      <div className="bg-[#00d5b5]/10 border border-[#00d5b5]/30 rounded-lg p-4 flex items-start gap-3 mb-4">
+        <div className="w-5 h-5 rounded-full bg-[#00d5b5] flex items-center justify-center flex-shrink-0 mt-0.5">
+          <Check size={12} className="text-white" />
+        </div>
+        <p className="text-gray-700 text-sm leading-relaxed">
+          {generateArticle()}
+        </p>
       </div>
 
       {/* Price */}
