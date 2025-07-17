@@ -87,11 +87,11 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
             <div className="space-y-8">
               {/* Перегородки */}
               <div>
-                <div className="mb-4">
+                <div className="mb-4 lg:-mx-6">
                   <img 
                     src={compartmentsImg} 
                     alt="Перегородки в кейсі" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-lg"
+                    className="w-full h-60 lg:h-80 object-contain rounded-md lg:rounded-sm"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Перегородки</h3>
@@ -103,11 +103,11 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
 
               {/* Резинки на бокових дверцятах */}
               <div>
-                <div className="mb-4">
+                <div className="mb-4 lg:-mx-6">
                   <img 
                     src={pocketsImg} 
                     alt="Резинки на бокових дверцятах" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-lg"
+                    className="w-full h-60 lg:h-80 object-contain rounded-md lg:rounded-sm"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Резинки на бокових дверцятах</h3>
@@ -118,11 +118,11 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
 
               {/* Захист багажнику */}
               <div>
-                <div className="mb-4">
+                <div className="mb-4 lg:-mx-6">
                   <img 
                     src={waterproofImg} 
                     alt="Захист багажнику" 
-                    className="w-full h-60 lg:h-80 object-contain rounded-lg"
+                    className="w-full h-60 lg:h-80 object-contain rounded-md lg:rounded-sm"
                   />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Захист багажнику</h3>
