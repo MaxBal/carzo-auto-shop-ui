@@ -49,19 +49,14 @@ export const FeatureSection = () => {
   ];
 
   return (
-    <div className="py-16 bg-gray-50">
+    <div className="py-16 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Переваги наших автокейсів</h2>
-          <p className="text-lg text-gray-600">Якість та функціональність в кожній деталі</p>
-        </div>
-        
         <div className="space-y-16">
           {features.map((feature, index) => (
             <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 lg:gap-12`}>
               {/* Image */}
               <div className="w-full lg:w-1/2">
-                <div className="aspect-video rounded-2xl overflow-hidden shadow-lg">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
                   <img 
                     src={feature.image} 
                     alt={feature.title}
@@ -73,20 +68,22 @@ export const FeatureSection = () => {
               {/* Content */}
               <div className="w-full lg:w-1/2 space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{feature.title}</h3>
-                  <h4 className="text-lg font-semibold text-[#00d5b5] mb-4">{feature.subtitle}</h4>
-                  <p className="text-gray-700 leading-relaxed">{feature.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">{feature.title}</h3>
+                  <div className="inline-block bg-[#00d5b5] text-white text-sm px-3 py-1 rounded-full mb-4">
+                    {feature.subtitle}
+                  </div>
+                  <p className="text-gray-300 leading-relaxed">{feature.description}</p>
                 </div>
                 
                 {feature.additionalInfo && (
-                  <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-                    <h5 className="font-semibold text-gray-900 mb-3">{feature.additionalInfo.title}</h5>
-                    <p className="text-gray-700 leading-relaxed mb-3">{feature.additionalInfo.text}</p>
+                  <div className="bg-gray-900 rounded-lg p-6 shadow-sm border border-gray-800">
+                    <h5 className="font-semibold text-white mb-3">{feature.additionalInfo.title}</h5>
+                    <p className="text-gray-300 leading-relaxed mb-3">{feature.additionalInfo.text}</p>
                     
                     {feature.additionalInfo.list && (
                       <ul className="space-y-2">
                         {feature.additionalInfo.list.map((item, idx) => (
-                          <li key={idx} className="text-sm text-gray-600 flex items-start">
+                          <li key={idx} className="text-sm text-gray-400 flex items-start">
                             <span className="w-2 h-2 bg-[#00d5b5] rounded-full mt-2 mr-3 flex-shrink-0"></span>
                             {item}
                           </li>
@@ -101,8 +98,8 @@ export const FeatureSection = () => {
         </div>
         
         {/* Signature */}
-        <div className="text-center mt-16 pt-8 border-t border-gray-200">
-          <p className="text-gray-600 italic">З повагою, команда Carzo</p>
+        <div className="text-center mt-16 pt-8 border-t border-gray-800">
+          <p className="text-gray-400 italic">З повагою, команда Carzo</p>
         </div>
       </div>
     </div>
