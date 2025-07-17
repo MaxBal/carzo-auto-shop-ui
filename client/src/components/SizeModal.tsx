@@ -82,7 +82,7 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-4 lg:p-6 pb-8 lg:pb-10">
+        <div className="flex-1 overflow-y-auto p-4 lg:p-6 pb-12 lg:pb-16">
           {activeTab === 'inside' && (
             <div className="space-y-8">
               {/* Перегородки */}
@@ -146,30 +146,32 @@ export const SizeModal = ({ isOpen, onClose, size }: SizeModalProps) => {
                 </p>
               </div>
 
-              <div className="border-b border-gray-200 pb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              <div className="border-b border-gray-700 pb-6">
+                <h3 className="text-lg font-semibold text-white mb-3">
                   Чи можливо змінити ширину на нестандартну?
                 </h3>
-                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
                   Так, будь-який розмір від мінімум 35 см до 100 см. Кінцеву вартість Вам повідомить менеджер.
                 </p>
               </div>
 
-              <div className="border-b border-gray-200 pb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              <div className="border-b border-gray-700 pb-6">
+                <h3 className="text-lg font-semibold text-white mb-3">
                   Чи можливо змінити висоту чи глибину?
                 </h3>
-                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
                   Ні, зазначені сторони являються незмінними.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                <h3 className="text-lg font-semibold text-white mb-3">
                   Який розмір мені підійде?
                 </h3>
-                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
-                  Це все залежить від ваших потреб, розмір М та L являються лідерами продажів.
+                <p className="text-gray-300 text-sm lg:text-base leading-relaxed">
+                  Сторони автокейсу висота (30 см), глибина (30 см) та ширина (80 см) найбільшого нашого стандартного розміру підходить практично під авто.
+                  Це все залежить від ваших потреб. 
+                  Розмір М та L являються лідерами наших продажів.
                 </p>
               </div>
             </div>

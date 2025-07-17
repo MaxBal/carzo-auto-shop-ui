@@ -288,7 +288,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <div className="flex items-center gap-3">
                 <Camera className="w-4 h-4 text-gray-600" />
                 <span className="font-medium">
-                  Розмір {selectedSize.split(' ')[0]} в середині
+                  Що в середині в розмірі {selectedSize.split(' ')[0]}?
                 </span>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
