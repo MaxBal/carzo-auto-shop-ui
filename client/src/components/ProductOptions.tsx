@@ -131,15 +131,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           />
           <span className="text-sm font-medium text-gray-700">Оберіть дизайн:</span>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center justify-start">
           {designs.map((design) => (
             <button
               key={design.name}
               onClick={() => setSelectedDesign(design.name)}
-              className={`py-2 px-3 rounded-md border text-center transition-all duration-300 ease-in-out transform whitespace-nowrap ${
+              className={`py-2 px-3 rounded-md border text-center transition-all duration-300 ease-in-out transform whitespace-nowrap flex-shrink-0 ${
                 selectedDesign === design.name
-                  ? 'border-black bg-gray-100 scale-105 flex-1'
-                  : 'border-gray-200 hover:border-gray-300 hover:scale-102 flex-shrink-0'
+                  ? 'border-black bg-gray-100 scale-105'
+                  : 'border-gray-200 hover:border-gray-300 hover:scale-102'
               }`}
             >
               <span className={`text-sm font-medium ${
