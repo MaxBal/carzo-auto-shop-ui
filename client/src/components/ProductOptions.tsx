@@ -145,14 +145,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             <button
               key={design.name}
               onClick={() => setSelectedDesign(design.name)}
-              className={`py-2 px-3 rounded-md border text-center transition-all duration-300 ease-in-out transform whitespace-nowrap flex-shrink-0 ${
+              className={`py-2 px-3 rounded-md text-center transition-all duration-300 ease-in-out transform whitespace-nowrap flex-shrink-0 ${
                 selectedDesign === design.name
-                  ? 'border-2 border-[#00d5b5] bg-white scale-105'
+                  ? 'bg-black text-white scale-105'
                   : 'border border-gray-200 hover:border-gray-300 hover:scale-102'
               }`}
             >
               <span className={`text-sm font-medium ${
-                selectedDesign === design.name ? 'text-gray-900' : 'text-gray-500'
+                selectedDesign === design.name ? 'text-white' : 'text-gray-500'
               }`}>
                 {selectedDesign === design.name ? design.name : design.name.replace('Carzo ', '')}
               </span>
@@ -300,7 +300,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 value={selectedCarModel}
                 onChange={(e) => setSelectedCarModel(e.target.value)}
                 disabled={selectedLogo === 'без лого'}
-                className={`w-full p-3 border rounded-md text-sm ${
+                className={`w-full p-3 pr-10 border rounded-md text-sm ${
                   selectedLogo === 'без лого' 
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                     : 'bg-white text-gray-900 hover:border-gray-300'
