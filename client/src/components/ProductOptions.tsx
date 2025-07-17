@@ -240,14 +240,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             </div>
             
             {/* Size Info Button */}
-            <button className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group">
+            <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black">
               <div className="flex items-center gap-3">
-                <Camera className="w-5 h-5 text-gray-600" />
+                <Camera className="w-4 h-4 text-gray-600" />
                 <span className="font-medium">
-                  Як виглядає розмір {selectedSize} в середині
+                  Розмір {selectedSize.split(' ')[0]} в середині
                 </span>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-600 group-hover:text-gray-800 transition-colors" />
+              <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
             </button>
           </div>
         )}
