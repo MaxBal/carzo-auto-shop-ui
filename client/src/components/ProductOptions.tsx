@@ -26,6 +26,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [selectedFixation, setSelectedFixation] = useState(false);
   const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
+  const [selectedCarModel, setSelectedCarModel] = useState('');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
 
   const { toast } = useToast();
@@ -47,8 +48,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
   const logoOptions = [
     { name: 'без лого', price: 0 },
-    { name: 'з лого (нержавіюча сталь)', price: 280 },
     { name: 'з лого (латунь)', price: 200 }
+  ];
+
+  const carModels = [
+    { name: 'BMW', value: 'bmw' },
+    { name: 'Audi', value: 'audi' },
+    { name: 'Toyota', value: 'toyota' },
+    { name: 'Tesla', value: 'tesla' }
   ];
 
   const fixationOptions = [
@@ -254,27 +261,71 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
         {/* Logo Tab */}
         {activeTab === 'logo' && (
-          <div className="mt-4 space-y-3">
-            {logoOptions.map((logo) => (
-              <button
-                key={logo.name}
-                onClick={() => setSelectedLogo(logo.name)}
-                className={`w-full h-12 p-4 rounded-md border text-left transition-colors flex items-center justify-between ${
-                  selectedLogo === logo.name
-                    ? 'border-2 border-[#00d5b5] bg-white'
-                    : 'border border-gray-200 hover:border-gray-300'
+          <div className="mt-4">
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {logoOptions.map((logo) => (
+                <button
+                  key={logo.name}
+                  onClick={() => {
+                    setSelectedLogo(logo.name);
+                    if (logo.name === 'без лого') {
+                      setSelectedCarModel('');
+                    }
+                  }}
+                  className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
+                    selectedLogo === logo.name
+                      ? 'border-2 border-[#00d5b5] bg-white'
+                      : 'border border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className={`font-medium text-sm ${
+                    selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
+                  }`}>{logo.name}</div>
+                  {logo.price > 0 ? (
+                    <span className={`text-base font-medium ${
+                      selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
+                    }`}>{logo.price} ₴</span>
+                  ) : (
+                    <span className={`text-base font-medium ${
+                      selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
+                    }`}>0 ₴</span>
+                  )}
+                </button>
+              ))}
+            </div>
+            
+            {/* Car Model Select */}
+            <div className="mb-4">
+              <select
+                value={selectedCarModel}
+                onChange={(e) => setSelectedCarModel(e.target.value)}
+                disabled={selectedLogo === 'без лого'}
+                className={`w-full p-3 border rounded-md text-sm ${
+                  selectedLogo === 'без лого' 
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                    : 'bg-white text-gray-900 hover:border-gray-300'
                 }`}
               >
-                <div className={`font-medium text-sm ${
-                  selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
-                }`}>{logo.name}</div>
-                {logo.price > 0 && (
-                  <span className={`text-base font-medium ${
-                    selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>+{logo.price} ₴</span>
-                )}
-              </button>
-            ))}
+                <option value="">Оберіть модель</option>
+                {carModels.map((model) => (
+                  <option key={model.value} value={model.value}>{model.name}</option>
+                ))}
+              </select>
+            </div>
+            
+            {/* Logo Info Button */}
+            <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black">
+              <div className="flex items-center gap-3">
+                <Camera className="w-4 h-4 text-gray-600" />
+                <span className="font-medium">
+                  {selectedCarModel && selectedLogo !== 'без лого' 
+                    ? `Лого ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`
+                    : 'Дельніше про лого'
+                  }
+                </span>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
+            </button>
           </div>
         )}
 
