@@ -8,7 +8,7 @@ import productInterior from '@/assets/product-interior.jpg';
 import productLogo from '@/assets/product-logo.jpg';
 
 const Index = () => {
-  const productImages = [productMain, productSide, productInterior, productLogo];
+  const productImages = [productSide, productMain, productInterior, productLogo];
   
   const product = {
     name: "Автокейс з лого Toyota",
