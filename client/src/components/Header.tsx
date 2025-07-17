@@ -56,14 +56,17 @@ export const Header = () => {
           </div>
 
           {/* Desktop navigation - centered */}
-          <nav className="hidden lg:flex gap-8 text-white text-sm flex-1 justify-center relative">
-            <Link href="/" className="hover:text-white/80 transition-colors">Головна</Link>
+          <nav className="hidden lg:flex gap-10 text-white text-base flex-1 justify-center relative">
+            <Link href="/" className="hover:text-[#00d5b5] transition-colors">Головна</Link>
             
             {/* Catalog with dropdown */}
             <div className="relative">
               <button 
-                onClick={() => setIsCatalogOpen(!isCatalogOpen)}
-                className="hover:text-white/80 transition-colors flex items-center gap-1"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsCatalogOpen(!isCatalogOpen);
+                }}
+                className="hover:text-[#00d5b5] transition-colors flex items-center gap-1"
               >
                 Каталог
                 <ChevronDown size={16} className={`transition-transform ${isCatalogOpen ? 'rotate-180' : ''}`} />
@@ -71,24 +74,24 @@ export const Header = () => {
               
               {isCatalogOpen && (
                 <div className="absolute top-full left-0 mt-2 bg-white rounded-md shadow-lg py-2 min-w-[200px] z-50">
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
                     Автокейси
                   </Link>
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
                     Автокилимки
                   </Link>
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
                     Накидки в салон
                   </Link>
-                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                  <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-[#00d5b5] transition-colors">
                     Захист спинки сидіння
                   </Link>
                 </div>
               )}
             </div>
             
-            <Link href="#" className="hover:text-white/80 transition-colors">B2B</Link>
-            <Link href="#" className="hover:text-white/80 transition-colors">Контакти</Link>
+            <Link href="#" className="hover:text-[#00d5b5] transition-colors">B2B</Link>
+            <Link href="#" className="hover:text-[#00d5b5] transition-colors">Контакти</Link>
           </nav>
 
           {/* Cart button */}

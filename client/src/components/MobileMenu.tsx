@@ -1,6 +1,7 @@
-import { X } from 'lucide-react';
+import { X, ChevronDown } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { Link } from 'wouter';
+import { useState } from 'react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -8,6 +9,8 @@ interface MobileMenuProps {
 }
 
 export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
+  const [isCatalogOpen, setIsCatalogOpen] = useState(true);
+  
   if (!isOpen) return null;
 
   return createPortal(
@@ -21,30 +24,42 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
       {/* Navigation links - left aligned on mobile */}
       <div className="flex-1 flex flex-col gap-6 justify-start items-start px-4 pt-8 text-white text-xl">
-        <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
+        <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
           Головна
         </Link>
-        <div>
-          <div className="font-medium mb-3">Каталог</div>
-          <div className="flex flex-col gap-3 pl-4 text-lg">
-            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
-              Автокейси
-            </Link>
-            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
-              Автокилимки
-            </Link>
-            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
-              Накидки в салон
-            </Link>
-            <Link href="/" className="hover:text-white/80 transition-colors" onClick={onClose}>
-              Захист спинки сидіння
-            </Link>
-          </div>
+        
+        {/* Catalog with collapsible dropdown */}
+        <div className="w-full">
+          <button 
+            onClick={() => setIsCatalogOpen(!isCatalogOpen)}
+            className="font-medium mb-3 flex items-center gap-2 hover:text-[#00d5b5] transition-colors"
+          >
+            Каталог
+            <ChevronDown size={20} className={`transition-transform ${isCatalogOpen ? 'rotate-180' : ''}`} />
+          </button>
+          
+          {isCatalogOpen && (
+            <div className="flex flex-col gap-3 pl-4 text-lg">
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+                Автокейси
+              </Link>
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+                Автокилимки
+              </Link>
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+                Накидки в салон
+              </Link>
+              <Link href="/" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
+                Захист спинки сидіння
+              </Link>
+            </div>
+          )}
         </div>
-        <Link href="#" className="hover:text-white/80 transition-colors" onClick={onClose}>
+        
+        <Link href="#" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
           B2B
         </Link>
-        <Link href="#" className="hover:text-white/80 transition-colors" onClick={onClose}>
+        <Link href="#" className="hover:text-[#00d5b5] transition-colors" onClick={onClose}>
           Контакти
         </Link>
       </div>
