@@ -35,7 +35,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 h-14 z-50 bg-[#00d5b5]" style={{ position: 'fixed' }}>
+      <header className="fixed inset-x-0 top-0 h-14 z-50 bg-black" style={{ position: 'fixed' }}>
         <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4">
           {/* Mobile burger menu */}
           <button
@@ -98,7 +98,7 @@ export const Header = () => {
           >
             <ShoppingCart size={24} />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-white text-[#00d5b5] text-[10px] flex items-center justify-center rounded-full font-medium">
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#00d5b5] text-white text-[10px] flex items-center justify-center rounded-full font-medium">
                 {totalItems}
               </span>
             )}

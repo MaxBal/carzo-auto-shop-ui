@@ -11,7 +11,7 @@ export const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-[#00d5b5] z-50 flex flex-col">
+    <div className="fixed inset-0 bg-black z-50 flex flex-col">
       {/* Top bar */}
       <div className="h-14 flex items-center justify-start px-4">
         <button onClick={onClose} className="text-white">
