@@ -128,7 +128,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
     const itemToAdd = {
       name: product.name,
-      article: product.article,
+      article: generateArticle(),
       image: product.image,
       price: calculatePrice(),
       oldPrice: product.oldPrice,
