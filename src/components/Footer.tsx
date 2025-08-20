@@ -1,5 +1,5 @@
 import React from "react";
-import { Instagram, Telegram, Youtube, Facebook, Send, Phone } from "lucide-react";
+import { Instagram, Instagram as Telegram, Youtube, Facebook, Send, Phone } from "lucide-react";
 
 const paymentIcons = {
   // Мини SVG без внешних ассетов
