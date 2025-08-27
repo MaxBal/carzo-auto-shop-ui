@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import Bags from "./pages/Bags";
 import { CheckoutPage as Checkout } from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
-import { Footer } from "../../src/components/Footer";
+import { Footer } from "@/components/Footer";
 
 const queryClient = new QueryClient();
 
