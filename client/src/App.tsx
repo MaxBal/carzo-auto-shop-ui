@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Bags from "./pages/Bags";
 import { CheckoutPage as Checkout } from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
+import { Footer } from "@/components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/checkout" component={Checkout} />
           <Route component={NotFound} />
         </Switch>
+        <Footer />
       </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
