@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, Camera, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
+import { toast } from 'sonner';
 import { useCart } from '@/hooks/useCart';
 import { useCartDrawer } from '@/contexts/CartContext';
 import { SizeModal } from './SizeModal';
@@ -106,15 +107,21 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   const handleAddToCart = () => {
+    // Check if logo is selected but brand is not
+    if (selectedLogo !== 'без лого' && !selectedCarBrand) {
+      toast.error('Оберіть будь-ласка модель лого. Або ж оберіть варіант без лого.');
+      return;
+    }
+
     // Generate the logo text with brand info for cart display
-    const logoDisplayText = selectedLogo === 'без лого' 
-      ? 'без лого' 
-      : selectedCarBrand 
-        ? `${selectedLogo} ${selectedCarBrand}` 
+    const logoDisplayText = selectedLogo === 'без лого'
+      ? 'без лого'
+      : selectedCarBrand
+        ? `${selectedLogo} ${selectedCarBrand}`
         : selectedLogo;
 
     const itemToAdd = {
-      name: product.name,
+      name: generateTitle(),
       article: generateArticle(),
       image: product.image,
       price: calculatePrice(),
@@ -126,14 +133,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         fixation: selectedFixation ? selectedFixationType : 'без фіксації'
       }
     };
-    
-    console.log('Adding item to cart:', itemToAdd);
-    console.log('selectedLogo:', selectedLogo);
-    console.log('selectedCarBrand:', selectedCarBrand);
-    console.log('logoDisplayText:', logoDisplayText);
-    addItem(itemToAdd);
 
-    // Open cart drawer immediately
+    addItem(itemToAdd);
     openCart();
   };
 

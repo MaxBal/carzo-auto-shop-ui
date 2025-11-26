@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useCart } from '@/hooks/useCart';
+import { ArrowLeft } from 'lucide-react';
+import { useLocation } from 'wouter';
 
 export const CheckoutPage = () => {
   const { items, getTotalPrice, clearCart } = useCart();
+  const [, setLocation] = useLocation();
   const [formData, setFormData] = useState({
     lastName: '',
     firstName: '',
@@ -49,6 +52,13 @@ export const CheckoutPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-lg mx-auto py-8 px-4">
+        <button
+          onClick={() => setLocation('/')}
+          className="flex items-center gap-2 text-gray-700 hover:text-gray-900 mb-6 transition-colors"
+        >
+          <ArrowLeft size={20} />
+          <span className="font-medium">Повернутись до покупок</span>
+        </button>
         <h1 className="text-2xl font-bold mb-6">Оформлення замовлення</h1>
 
         {/* Cart Summary */}
@@ -184,9 +194,9 @@ export const CheckoutPage = () => {
 
           <button
             type="submit"
-            className="w-full h-12 bg-body text-white rounded-full font-semibold mt-4 hover:bg-gray-900 transition-colors"
+            className="w-full h-12 bg-black text-white rounded-md font-semibold mt-4 hover:bg-gray-800 transition-colors"
           >
-            Оформити замовлення {getTotalPrice()} ₴
+            Підтвердити замовлення
           </button>
         </form>
       </div>
