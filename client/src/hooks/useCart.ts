@@ -45,25 +45,28 @@ export const useCart = () => {
 
   const addItem = (item: Omit<CartItem, 'id' | 'quantity'>) => {
     console.log('useCart.addItem called with:', item);
-    console.log('Current items before add:', items);
-    
-    const id = Math.random().toString(36).substr(2, 9);
-    const existingItemIndex = items.findIndex(
-      (cartItem) => 
-        cartItem.name === item.name &&
-        JSON.stringify(cartItem.options) === JSON.stringify(item.options)
-    );
 
-    if (existingItemIndex >= 0) {
-      const updatedItems = [...items];
-      updatedItems[existingItemIndex].quantity += 1;
-      console.log('Updated existing item, new items:', updatedItems);
-      setItems(updatedItems);
-    } else {
-      const newItems = [...items, { ...item, id, quantity: 1 }];
-      console.log('Added new item, new items:', newItems);
-      setItems(newItems);
-    }
+    setItems(currentItems => {
+      console.log('Current items before add:', currentItems);
+
+      const id = Math.random().toString(36).substr(2, 9);
+      const existingItemIndex = currentItems.findIndex(
+        (cartItem) =>
+          cartItem.name === item.name &&
+          JSON.stringify(cartItem.options) === JSON.stringify(item.options)
+      );
+
+      if (existingItemIndex >= 0) {
+        const updatedItems = [...currentItems];
+        updatedItems[existingItemIndex].quantity += 1;
+        console.log('Updated existing item, new items:', updatedItems);
+        return updatedItems;
+      } else {
+        const newItems = [...currentItems, { ...item, id, quantity: 1 }];
+        console.log('Added new item, new items:', newItems);
+        return newItems;
+      }
+    });
   };
 
   const updateQuantity = (id: string, quantity: number) => {

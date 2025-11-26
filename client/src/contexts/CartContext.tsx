@@ -4,6 +4,8 @@ interface CartContextType {
   isCartOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
+  cartVersion: number;
+  refreshCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -22,12 +24,14 @@ interface CartProviderProps {
 
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartVersion, setCartVersion] = useState(0);
 
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
+  const refreshCart = () => setCartVersion(v => v + 1);
 
   return (
-    <CartContext.Provider value={{ isCartOpen, openCart, closeCart }}>
+    <CartContext.Provider value={{ isCartOpen, openCart, closeCart, cartVersion, refreshCart }}>
       {children}
     </CartContext.Provider>
   );
