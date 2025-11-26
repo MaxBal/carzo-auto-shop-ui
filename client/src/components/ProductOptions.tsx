@@ -5,6 +5,7 @@ import { useCartDrawer } from '@/contexts/CartContext';
 import { SizeModal } from './SizeModal';
 import { LogoModal } from './LogoModal';
 import { FixationModal } from './FixationModal';
+import { Modal } from './Modal';
 
 interface ProductOptionsProps {
   product: {
