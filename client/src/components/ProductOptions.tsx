@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, CircleHelp as HelpCircle, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
+import { ShoppingCart, Camera, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useCartDrawer } from '@/contexts/CartContext';
-import { Modal } from './Modal';
 import { SizeModal } from './SizeModal';
 import { LogoModal } from './LogoModal';
 import { FixationModal } from './FixationModal';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './ui/tabs';
-import { RadioGroup, RadioGroupItem } from './ui/radio-group';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 interface ProductOptionsProps {
   product: {
@@ -446,11 +442,18 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       />
 
       {/* Brand Logo Modal */}
-      <Modal
-        isOpen={isBrandLogoModalOpen}
-        onClose={() => setIsBrandLogoModalOpen(false)}
-        title={`Лого ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`}
-      >
+      {isBrandLogoModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setIsBrandLogoModalOpen(false)}
+        >
+          <div 
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Лого {carModels.find(m => m.value === selectedCarModel)?.name || ''}
+            </h2>
         <div className="space-y-6">
           {/* Logo Image - Full Width */}
           <div className="w-full">
@@ -477,7 +480,9 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             </div>
           </div>
         </div>
-      </Modal>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
