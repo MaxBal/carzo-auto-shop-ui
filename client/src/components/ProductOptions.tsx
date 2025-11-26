@@ -22,10 +22,9 @@ interface ProductOptionsProps {
 
 export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [activeTab, setActiveTab] = useState('sizes');
-  const [selectedDesign, setSelectedDesign] = useState('Carzo 1.0');
+  const [selectedDesign, setSelectedDesign] = useState('Carzo 2.0');
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
-  const [selectedColor, setSelectedColor] = useState('чорний');
   const [selectedFixation, setSelectedFixation] = useState(false);
   const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
@@ -46,10 +45,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     const logoText = selectedLogo === 'без лого' ? 'без лого' : `логотип ${selectedCarBrand || 'марка невідома'}`;
     const fixationText = selectedFixation ? selectedFixationType : 'Без фіксації';
     
-    // Only show color for Carzo 1.0
-    const colorText = selectedDesign === 'Carzo 1.0' ? ` | колір ${selectedColor}` : '';
-    
-    return `арт. ${sizeCode} ${designCode}${colorText} | ${logoText} | ${fixationText}`;
+    return `арт. ${sizeCode} ${designCode} | ${logoText} | ${fixationText}`;
   };
 
   // Generate dynamic product title
@@ -67,7 +63,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   };
 
   const designs = [
-    { name: 'Carzo 1.0', colors: '6 кольорів' },
     { name: 'Carzo 2.0', colors: '1 колір' },
     { name: 'Carzo 3.0', colors: '1 колір' },
     { name: 'Carzo 4.0', colors: '1 колір' }
@@ -99,17 +94,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     { name: 'фікс.дно+стінка', price: 80 }
   ];
 
-  const colors = [
-    { name: 'чорний', value: '#000000', pattern: 'solid' },
-    { name: 'чорно-сріблястий', value: 'linear-gradient(45deg, #000000 50%, #C0C0C0 50%)', pattern: 'split' },
-    { name: 'чорно-синій', value: 'linear-gradient(45deg, #000000 50%, #3B82F6 50%)', pattern: 'split' },
-    { name: 'чорно-червоний', value: 'linear-gradient(45deg, #000000 50%, #EF4444 50%)', pattern: 'split' },
-    { name: 'коричневий', value: '#8B4513', pattern: 'solid' },
-    { name: 'бежевий', value: '#F5F5DC', pattern: 'solid' }
-  ];
-
-
-
   const calculatePrice = () => {
     const selectedSizeData = sizes.find(s => s.name === selectedSize);
     const basePrice = selectedSizeData?.price || product.price;
@@ -136,7 +120,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         design: selectedDesign,
         size: selectedSize,
         logo: logoDisplayText,
-        color: selectedColor,
         fixation: selectedFixation ? selectedFixationType : 'без фіксації'
       }
     };
@@ -207,31 +190,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           ))}
         </div>
         
-        {/* Color selection for Carzo 1.0 */}
-        {selectedDesign === 'Carzo 1.0' && (
-          <div className="mt-4">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-gray-700 whitespace-nowrap">Колір:</span>
-              <div className="flex gap-2 flex-wrap">
-                {colors.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() => setSelectedColor(color.name)}
-                    className={`w-8 h-8 md:w-8 md:h-8 rounded-full border-2 transition-all flex-shrink-0 ${
-                      selectedColor === color.name
-                        ? 'border-[#00d5b5] border-[3px]'
-                        : 'border-gray-300'
-                    }`}
-                    style={{ 
-                      background: color.pattern === 'split' ? color.value : color.value 
-                    }}
-                    title={color.name}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Tabs */}
@@ -463,13 +421,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       >
         <div className="space-y-4 text-gray-700 text-sm leading-relaxed">
           <p>
-            Дизайни Сarzo 2.0, 3.0, 4.0 нічим окрім візернку між собою не відрізняються, в зазначених дизайнах використовується автомобільна німецька максимально зносостійка еко-шкіра, зазначений матеріал ми використовуємо також при виготовлені авто килимків. Представлені в 1 кольорі - чорний з чорною строчкою.
-          </p>
-          <p>
-            Дизайн Сarzo 1.0 відрізняється від дизайну зазначених вище тим, що при виготовлені ми використовуємо іншу еко-шкіру, яка по своїм характеристикам йде класом нижче. Зазначений дизайн представлений в різних кольорах.
-          </p>
-          <p>
-            Більше нічим автокейси між собою не відрізняються, все інше в них ідентичне.
+            Дизайни Сarzo 2.0, 3.0, 4.0 нічим окрім візерунку між собою не відрізняються. В усіх дизайнах використовується автомобільна німецька максимально зносостійка еко-шкіра, зазначений матеріал ми використовуємо також при виготовленні авто килимків. Всі дизайни представлені в чорному кольорі з чорною строчкою.
           </p>
         </div>
       </Modal>
