@@ -39,9 +39,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const generateArticle = () => {
     const sizeCode = selectedSize.split(' ')[0]; // Extract S, M, L, XL
     const designCode = selectedDesign; // Carzo 1.0, 2.0, etc.
-    const logoText = selectedLogo === 'без лого' ? 'без лого' : `логотип ${selectedCarBrand || 'марка невідома'}`;
+    let logoText = 'без лого';
+    if (selectedLogo !== 'без лого' && selectedCarBrand) {
+      logoText = `${selectedLogo} ${selectedCarBrand}`;
+    } else if (selectedLogo !== 'без лого') {
+      logoText = selectedLogo;
+    }
     const fixationText = selectedFixation ? selectedFixationType : 'Без фіксації';
-    
+
     return `арт. ${sizeCode} ${designCode} | ${logoText} | ${fixationText}`;
   };
 
@@ -74,7 +79,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
   const logoOptions = [
     { name: 'без лого', price: 0 },
-    { name: 'з лого (латунь)', price: 200 }
+    { name: 'лого (латунь)', price: 200 },
+    { name: 'лого (нерж. сталь)', price: 250 }
   ];
 
   const carModels = [
@@ -272,36 +278,32 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         {/* Logo Tab */}
         {activeTab === 'logo' && (
           <div className="mt-4">
-            <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="space-y-3 mb-4">
               {logoOptions.map((logo) => (
-                <button
+                <label
                   key={logo.name}
-                  onClick={() => {
-                    setSelectedLogo(logo.name);
-                    if (logo.name === 'без лого') {
-                      setSelectedCarModel('');
-                      setSelectedCarBrand('');
-                    }
-                  }}
-                  className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
-                    selectedLogo === logo.name
-                      ? 'border-2 border-[#00d5b5] bg-white'
-                      : 'border border-gray-200 hover:border-gray-300'
-                  }`}
+                  className="flex items-center justify-between p-4 border rounded-md cursor-pointer hover:bg-gray-50 transition-colors"
                 >
-                  <div className={`font-medium text-sm ${
-                    selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>{logo.name}</div>
-                  {logo.price > 0 ? (
-                    <span className={`text-base font-medium ${
-                      selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
-                    }`}>{logo.price} ₴</span>
-                  ) : (
-                    <span className={`text-base font-medium ${
-                      selectedLogo === logo.name ? 'text-gray-900' : 'text-gray-500'
-                    }`}>0 ₴</span>
-                  )}
-                </button>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="logo"
+                      checked={selectedLogo === logo.name}
+                      onChange={() => {
+                        setSelectedLogo(logo.name);
+                        if (logo.name === 'без лого') {
+                          setSelectedCarModel('');
+                          setSelectedCarBrand('');
+                        }
+                      }}
+                      className="w-5 h-5 text-[#00d5b5] border-gray-300 focus:ring-[#00d5b5]"
+                    />
+                    <span className="text-gray-900 font-medium">{logo.name}</span>
+                  </div>
+                  <span className="text-gray-900 font-medium">
+                    {logo.price > 0 ? `+${logo.price} ₴` : ''}
+                  </span>
+                </label>
               ))}
             </div>
             
@@ -330,8 +332,15 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               </select>
             </div>
             
+            {/* Display selected logo info */}
+            {selectedCarModel && selectedLogo !== 'без лого' && (
+              <div className="mb-4 p-3 bg-gray-50 rounded-md text-sm text-gray-700">
+                {selectedLogo} {selectedCarBrand}
+              </div>
+            )}
+
             {/* Logo Info Button */}
-            <button 
+            <button
               onClick={() => {
                 if (selectedCarModel && selectedLogo !== 'без лого') {
                   setIsBrandLogoModalOpen(true);
@@ -344,7 +353,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               <div className="flex items-center gap-3">
                 <Camera className="w-4 h-4 text-gray-600" />
                 <span className="font-medium">
-                  {selectedCarModel && selectedLogo !== 'без лого' 
+                  {selectedCarModel && selectedLogo !== 'без лого'
                     ? `Лого ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`
                     : 'Детальніше про лого'
                   }
@@ -443,18 +452,11 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       />
 
       {/* Brand Logo Modal */}
-      {isBrandLogoModalOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setIsBrandLogoModalOpen(false)}
-        >
-          <div 
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Лого {carModels.find(m => m.value === selectedCarModel)?.name || ''}
-            </h2>
+      <Modal
+        isOpen={isBrandLogoModalOpen}
+        onClose={() => setIsBrandLogoModalOpen(false)}
+        title={`${selectedLogo} ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`}
+      >
         <div className="space-y-6">
           {/* Logo Image - Full Width */}
           <div className="w-full">
@@ -464,7 +466,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               </span>
             </div>
           </div>
-          
+
           {/* Logo Details - Left Aligned with Icons */}
           <div className="space-y-4 text-gray-700">
             <div className="flex items-center gap-3 text-sm">
@@ -473,7 +475,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             </div>
             <div className="flex items-center gap-3 text-sm">
               <Wrench className="w-5 h-5 text-black flex-shrink-0" />
-              <span><span className="font-medium">Матеріал:</span> латунь</span>
+              <span><span className="font-medium">Матеріал:</span> {selectedLogo === 'лого (латунь)' ? 'латунь' : 'нержавіюча сталь'}</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <Award className="w-5 h-5 text-black flex-shrink-0" />
@@ -481,9 +483,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
             </div>
           </div>
         </div>
-          </div>
-        </div>
-      )}
+      </Modal>
     </div>
   );
 };
