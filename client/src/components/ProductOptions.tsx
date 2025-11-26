@@ -278,11 +278,11 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         {/* Logo Tab */}
         {activeTab === 'logo' && (
           <div className="mt-4">
-            <div className="space-y-3 mb-4">
+            <div className="space-y-2 mb-4">
               {logoOptions.map((logo) => (
                 <label
                   key={logo.name}
-                  className="flex items-center justify-between p-4 border rounded-md cursor-pointer hover:bg-gray-50 transition-colors"
+                  className="flex items-center justify-between py-2 cursor-pointer hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <input
@@ -296,11 +296,11 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                           setSelectedCarBrand('');
                         }
                       }}
-                      className="w-5 h-5 text-[#00d5b5] border-gray-300 focus:ring-[#00d5b5]"
+                      className="w-4 h-4 text-[#00d5b5] border-gray-300 focus:ring-[#00d5b5]"
                     />
-                    <span className="text-gray-900 font-medium">{logo.name}</span>
+                    <span className="text-gray-900 text-sm">{logo.name}</span>
                   </div>
-                  <span className="text-gray-900 font-medium">
+                  <span className="text-gray-700 text-sm">
                     {logo.price > 0 ? `+${logo.price} ₴` : ''}
                   </span>
                 </label>
@@ -332,13 +332,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
               </select>
             </div>
             
-            {/* Display selected logo info */}
-            {selectedCarModel && selectedLogo !== 'без лого' && (
-              <div className="mb-4 p-3 bg-gray-50 rounded-md text-sm text-gray-700">
-                {selectedLogo} {selectedCarBrand}
-              </div>
-            )}
-
             {/* Logo Info Button */}
             <button
               onClick={() => {
@@ -354,7 +347,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
                 <Camera className="w-4 h-4 text-gray-600" />
                 <span className="font-medium">
                   {selectedCarModel && selectedLogo !== 'без лого'
-                    ? `Лого ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`
+                    ? `${selectedLogo} ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`
                     : 'Детальніше про лого'
                   }
                 </span>
