@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, HelpCircle, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
+import { ShoppingCart, Camera, Heart, Star, Shield, Zap, Ship, Info, Eye, CircleHelp as HelpCircle, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useCartDrawer } from '@/contexts/CartContext';
 import { Modal } from './Modal';
