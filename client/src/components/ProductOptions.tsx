@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, ChevronRight, Check, Ruler, Wrench, Award } from 'lucide-react';
+import { ShoppingCart, Camera, ChevronRight, Check, Ruler, Wrench, Award, RefreshCcw, Truck, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCart } from '@/hooks/useCart';
 import { useCartDrawer } from '@/contexts/CartContext';
@@ -299,6 +299,32 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       </div>
         </>
       )}
+
+      {/* Info blocks */}
+      <div className="mb-4 space-y-2 text-sm">
+        <div className="flex items-start gap-2">
+          <RefreshCcw className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
+          <span className="text-gray-700">
+            <span className="font-medium">Обмін та повернення 14 дн.</span>{' '}
+            <button className="text-gray-500 underline hover:text-gray-700 transition-colors">
+              детальніше
+            </button>
+          </span>
+        </div>
+        <div className="flex items-start gap-2">
+          <Truck className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
+          <span className="text-gray-700 font-medium">Відправлення 5 березня</span>
+        </div>
+        <div className="flex items-start gap-2">
+          <CreditCard className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
+          <span className="text-gray-700">
+            <span className="font-medium">Оплата та доставка</span>{' '}
+            <button className="text-gray-500 underline hover:text-gray-700 transition-colors">
+              детальніше
+            </button>
+          </span>
+        </div>
+      </div>
 
       {/* Add to cart button */}
       <button
