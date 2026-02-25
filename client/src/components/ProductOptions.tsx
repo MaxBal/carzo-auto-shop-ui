@@ -19,13 +19,11 @@ interface ProductOptionsProps {
 }
 
 export const ProductOptions = ({ product }: ProductOptionsProps) => {
-  const [selectedDesign, setSelectedDesign] = useState('Carzo 2.0');
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
   const [selectedFixationType, setSelectedFixationType] = useState('без фіксації');
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
   const [selectedLogoValue, setSelectedLogoValue] = useState('без лого');
-  const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
   const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
@@ -36,7 +34,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   // Generate dynamic article based on selections
   const generateArticle = () => {
     const sizeCode = selectedSize.split(' ')[0];
-    const designCode = selectedDesign;
     let logoText = 'без лого';
     if (selectedLogo !== 'без лого' && selectedCarBrand) {
       logoText = `${selectedLogo} ${selectedCarBrand}`;
@@ -45,7 +42,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     }
     const fixationText = selectedFixationType;
 
-    return `арт. ${sizeCode} ${designCode} | ${logoText} | ${fixationText}`;
+    return `арт. ${sizeCode} | ${logoText} | ${fixationText}`;
   };
 
   // Generate dynamic product title
@@ -59,11 +56,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     }
   };
 
-  const designs = [
-    { name: 'Carzo 2.0', colors: '1 колір' },
-    { name: 'Carzo 3.0', colors: '1 колір' },
-    { name: 'Carzo 4.0', colors: '1 колір' }
-  ];
 
   const sizes = [
     { name: 'S 40×30×30 см', price: 1690, oldPrice: 2090 },
@@ -113,7 +105,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       price: calculatePrice(),
       oldPrice: product.oldPrice,
       options: {
-        design: selectedDesign,
         size: selectedSize,
         logo: logoDisplayText,
         fixation: selectedFixationType
@@ -147,39 +138,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         {product.oldPrice && (
           <span className="text-lg text-gray-500 line-through">{product.oldPrice} ₴</span>
         )}
-      </div>
-
-      {/* Design Selector */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-gray-700">Оберіть дизайн:</span>
-          <button
-            onClick={() => setIsDesignModalOpen(true)}
-            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
-          >
-            В чому різниця?
-          </button>
-        </div>
-        <div className="flex gap-4 items-center justify-start">
-          {designs.map((design) => (
-            <button
-              key={design.name}
-              onClick={() => setSelectedDesign(design.name)}
-              className={`py-2 px-3 rounded-md text-center transition-all duration-300 ease-in-out transform whitespace-nowrap flex-shrink-0 ${
-                selectedDesign === design.name
-                  ? 'bg-black text-white scale-105'
-                  : 'border border-gray-200 hover:border-gray-300 hover:scale-102'
-              }`}
-            >
-              <span className={`text-sm font-medium ${
-                selectedDesign === design.name ? 'text-white' : 'text-gray-500'
-              }`}>
-                {selectedDesign === design.name ? design.name : design.name.replace('Carzo ', '')}
-              </span>
-            </button>
-          ))}
-        </div>
-        
       </div>
 
       {/* Sizes Section */}
@@ -281,19 +239,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         <ShoppingCart className="w-5 h-5 mr-2 transition-colors group-hover:text-[#00d5b5]" />
         Купити {calculatePrice()} ₴
       </button>
-
-      {/* Design Modal */}
-      <Modal
-        isOpen={isDesignModalOpen}
-        onClose={() => setIsDesignModalOpen(false)}
-        title="Чим відрізняються дизайни?"
-      >
-        <div className="space-y-4 text-gray-700 text-sm leading-relaxed">
-          <p>
-            Дизайни Сarzo 2.0, 3.0, 4.0 нічим окрім візерунку між собою не відрізняються. В усіх дизайнах використовується автомобільна німецька максимально зносостійка еко-шкіра, зазначений матеріал ми використовуємо також при виготовленні авто килимків. Всі дизайни представлені в чорному кольорі з чорною строчкою.
-          </p>
-        </div>
-      </Modal>
 
       {/* Size Modal */}
       <SizeModal
