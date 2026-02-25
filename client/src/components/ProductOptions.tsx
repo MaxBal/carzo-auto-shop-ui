@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, ChevronRight, Check, Ruler, Wrench, Award, RefreshCcw, Truck, CreditCard } from 'lucide-react';
+import { ShoppingCart, Camera, ChevronRight, Check, Ruler, Wrench, Award, RefreshCcw, Truck, CreditCard, Magnet } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCart } from '@/hooks/useCart';
 import { useCartDrawer } from '@/contexts/CartContext';
