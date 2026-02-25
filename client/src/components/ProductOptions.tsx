@@ -131,13 +131,26 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
 
       {/* Product title and details */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-4 md:mb-6">{generateTitle()}</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-2">{generateTitle()}</h1>
+
+      {/* Features */}
+      <div className="flex items-center gap-2 mb-4 text-xs flex-wrap">
+        <div className="flex items-center gap-1 text-gray-600">
+          <Magnet className="w-3.5 h-3.5" />
+          <span>Магнітна система</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1 text-gray-600">
+          <span className="text-base">🇩🇪</span>
+          <span>Німецька авто еко-шкіра</span>
+        </div>
+      </div>
 
       {/* Price */}
       <div className="flex items-center gap-3 mb-4 md:mb-6">
-        <span className="text-3xl font-bold text-gray-900">{calculatePrice()} ₴</span>
+        <span className="text-2xl font-bold text-gray-900">{calculatePrice()} ₴</span>
         {product.oldPrice && (
-          <span className="text-lg text-gray-500 line-through">{product.oldPrice} ₴</span>
+          <span className="text-base text-gray-500 line-through">{product.oldPrice} ₴</span>
         )}
       </div>
 
