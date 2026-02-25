@@ -2,7 +2,7 @@ import { Header } from '@/components/Header';
 import { ProductGallery } from '@/components/ProductGallery';
 import { ProductOptions } from '@/components/ProductOptions';
 import { FeatureSection } from '@/components/FeatureSection';
-import productMain from '@/assets/product-main.jpg';
+import productMain from '@/assets/amg-bag.png';
 import productSide from '@/assets/product-side.jpg';
 import productInterior from '@/assets/product-interior.jpg';
 import productLogo from '@/assets/product-logo.jpg';
