@@ -134,14 +134,14 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       <h1 className="text-2xl font-bold text-gray-900 mb-2">{generateTitle()}</h1>
 
       {/* Features */}
-      <div className="flex items-center gap-2 mb-4 text-xs flex-wrap">
-        <div className="flex items-center gap-1 text-gray-600">
-          <Magnet className="w-3.5 h-3.5" />
+      <div className="flex items-center gap-2.5 mb-4 text-sm flex-wrap">
+        <div className="flex items-center gap-1.5 text-gray-700">
+          <Magnet className="w-4 h-4" />
           <span>Магнітна система</span>
         </div>
         <span className="text-gray-300">|</span>
-        <div className="flex items-center gap-1 text-gray-600">
-          <span className="text-base">🇩🇪</span>
+        <div className="flex items-center gap-1.5 text-gray-700">
+          <span className="text-lg">🇩🇪</span>
           <span>Німецька авто еко-шкіра</span>
         </div>
       </div>
