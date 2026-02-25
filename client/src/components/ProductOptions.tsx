@@ -19,34 +19,31 @@ interface ProductOptionsProps {
 }
 
 export const ProductOptions = ({ product }: ProductOptionsProps) => {
-  const [activeTab, setActiveTab] = useState('sizes');
   const [selectedDesign, setSelectedDesign] = useState('Carzo 2.0');
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
-  const [selectedFixation, setSelectedFixation] = useState(false);
-  const [selectedFixationType, setSelectedFixationType] = useState('фікс.на дні');
+  const [selectedFixationType, setSelectedFixationType] = useState('без фіксації');
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
-  const [selectedCarModel, setSelectedCarModel] = useState('');
+  const [selectedLogoValue, setSelectedLogoValue] = useState('без лого');
   const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
   const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
-  const [isBrandLogoModalOpen, setIsBrandLogoModalOpen] = useState(false);
 
   const { addItem } = useCart();
   const { openCart } = useCartDrawer();
 
   // Generate dynamic article based on selections
   const generateArticle = () => {
-    const sizeCode = selectedSize.split(' ')[0]; // Extract S, M, L, XL
-    const designCode = selectedDesign; // Carzo 1.0, 2.0, etc.
+    const sizeCode = selectedSize.split(' ')[0];
+    const designCode = selectedDesign;
     let logoText = 'без лого';
     if (selectedLogo !== 'без лого' && selectedCarBrand) {
       logoText = `${selectedLogo} ${selectedCarBrand}`;
     } else if (selectedLogo !== 'без лого') {
       logoText = selectedLogo;
     }
-    const fixationText = selectedFixation ? selectedFixationType : 'Без фіксації';
+    const fixationText = selectedFixationType;
 
     return `арт. ${sizeCode} ${designCode} | ${logoText} | ${fixationText}`;
   };
@@ -55,11 +52,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const generateTitle = () => {
     if (selectedLogo === 'без лого') {
       return 'Автокейс без лого';
-    } else if (selectedCarBrand && selectedCarBrand !== 'Toyota') {
+    } else if (selectedCarBrand) {
       return `Автокейс з лого ${selectedCarBrand}`;
-    } else if (selectedCarModel) {
-      const modelName = carModels.find(m => m.value === selectedCarModel)?.name;
-      return `Автокейс з лого ${modelName}`;
     } else {
       return 'Автокейс з лого';
     }
@@ -78,17 +72,16 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     { name: 'XL 80×30×30 см', price: 2790, oldPrice: 3100 }
   ];
 
-  const logoOptions = [
-    { name: 'без лого', price: 0 },
-    { name: 'лого (латунь)', price: 200 },
-    { name: 'лого (нерж. сталь)', price: 250 }
-  ];
-
-  const carModels = [
-    { name: 'BMW', value: 'bmw' },
-    { name: 'Audi', value: 'audi' },
-    { name: 'Toyota', value: 'toyota' },
-    { name: 'Tesla', value: 'tesla' }
+  const logoOptionsWithBrands = [
+    { value: 'без лого', label: 'без лого 0 грн', brand: '', logoType: 'без лого', price: 0 },
+    { value: 'bmw-brass', label: 'BMW (латунь) +200 ₴', brand: 'BMW', logoType: 'лого (латунь)', price: 200 },
+    { value: 'bmw-steel', label: 'BMW (нерж. сталь) +250 ₴', brand: 'BMW', logoType: 'лого (нерж. сталь)', price: 250 },
+    { value: 'audi-brass', label: 'Audi (латунь) +200 ₴', brand: 'Audi', logoType: 'лого (латунь)', price: 200 },
+    { value: 'audi-steel', label: 'Audi (нерж. сталь) +250 ₴', brand: 'Audi', logoType: 'лого (нерж. сталь)', price: 250 },
+    { value: 'toyota-brass', label: 'Toyota (латунь) +200 ₴', brand: 'Toyota', logoType: 'лого (латунь)', price: 200 },
+    { value: 'toyota-steel', label: 'Toyota (нерж. сталь) +250 ₴', brand: 'Toyota', logoType: 'лого (нерж. сталь)', price: 250 },
+    { value: 'tesla-brass', label: 'Tesla (латунь) +200 ₴', brand: 'Tesla', logoType: 'лого (латунь)', price: 200 },
+    { value: 'tesla-steel', label: 'Tesla (нерж. сталь) +250 ₴', brand: 'Tesla', logoType: 'лого (нерж. сталь)', price: 250 }
   ];
 
   const fixationOptions = [
@@ -101,19 +94,12 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const calculatePrice = () => {
     const selectedSizeData = sizes.find(s => s.name === selectedSize);
     const basePrice = selectedSizeData?.price || product.price;
-    const logoPrice = logoOptions.find(l => l.name === selectedLogo)?.price || 0;
-    const fixationPrice = selectedFixation ? (fixationOptions.find(f => f.name === selectedFixationType)?.price || 0) : 0;
+    const logoPrice = logoOptionsWithBrands.find(l => l.value === selectedLogoValue)?.price || 0;
+    const fixationPrice = fixationOptions.find(f => f.name === selectedFixationType)?.price || 0;
     return basePrice + logoPrice + fixationPrice;
   };
 
   const handleAddToCart = () => {
-    // Check if logo is selected but brand is not
-    if (selectedLogo !== 'без лого' && !selectedCarBrand) {
-      toast.error('Оберіть будь-ласка модель лого. Або ж оберіть варіант без лого.');
-      return;
-    }
-
-    // Generate the logo text with brand info for cart display
     const logoDisplayText = selectedLogo === 'без лого'
       ? 'без лого'
       : selectedCarBrand
@@ -130,7 +116,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         design: selectedDesign,
         size: selectedSize,
         logo: logoDisplayText,
-        fixation: selectedFixation ? selectedFixationType : 'без фіксації'
+        fixation: selectedFixationType
       }
     };
 
@@ -196,212 +182,95 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         
       </div>
 
-      {/* Tabs */}
-      <div className="w-full mb-6">
-        <div className="flex border-b border-gray-200">
+      {/* Sizes Section */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium text-gray-700">Розміри:</span>
           <button
-            onClick={() => setActiveTab('sizes')}
-            className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === 'sizes'
-                ? 'border-black text-black'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
+            onClick={() => setIsSizeModalOpen(true)}
+            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
           >
-            Розміри
-          </button>
-          <button
-            onClick={() => setActiveTab('logo')}
-            className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === 'logo'
-                ? 'border-black text-black'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Лого
-          </button>
-          <button
-            onClick={() => setActiveTab('fixation')}
-            className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === 'fixation'
-                ? 'border-black text-black'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Фіксація
+            Що в середині?
           </button>
         </div>
-
-
-
-        {/* Sizes Tab */}
-        {activeTab === 'sizes' && (
-          <div className="mt-4">
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              {sizes.map((size) => (
-                <button
-                  key={size.name}
-                  onClick={() => setSelectedSize(size.name)}
-                  className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
-                    selectedSize === size.name
-                      ? 'border-2 border-[#00d5b5] bg-white'
-                      : 'border border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className={`font-medium text-sm ${
-                    selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>{size.name}</div>
-                  <div className="flex items-center gap-2">
-                    <span className={`text-base font-medium ${
-                      selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
-                    }`}>{size.price} ₴</span>
-                    <span className="text-base text-gray-400 line-through">{size.oldPrice} ₴</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            
-            {/* Size Info Button */}
-            <button 
-              onClick={() => setIsSizeModalOpen(true)}
-              className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black"
-            >
-              <div className="flex items-center gap-3">
-                <Camera className="w-4 h-4 text-gray-600" />
-                <span className="font-medium">
-                  Що в середині в розмірі {selectedSize.split(' ')[0]}?
-                </span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
-            </button>
-          </div>
-        )}
-
-        {/* Logo Tab */}
-        {activeTab === 'logo' && (
-          <div className="mt-4">
-            <div className="space-y-2 mb-4">
-              {logoOptions.map((logo) => (
-                <label
-                  key={logo.name}
-                  className="flex items-center justify-between py-2 cursor-pointer hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="logo"
-                      checked={selectedLogo === logo.name}
-                      onChange={() => {
-                        setSelectedLogo(logo.name);
-                        if (logo.name === 'без лого') {
-                          setSelectedCarModel('');
-                          setSelectedCarBrand('');
-                        }
-                      }}
-                      className="w-4 h-4 text-[#00d5b5] border-gray-300 focus:ring-[#00d5b5]"
-                    />
-                    <span className="text-gray-900 text-sm">{logo.name}</span>
-                  </div>
-                  <span className="text-gray-700 text-sm">
-                    {logo.price > 0 ? `+${logo.price} ₴` : ''}
-                  </span>
-                </label>
-              ))}
-            </div>
-            
-            {/* Car Model Select */}
-            <div className="mb-4">
-              <select
-                value={selectedCarModel}
-                onChange={(e) => {
-                  setSelectedCarModel(e.target.value);
-                  const selectedModel = carModels.find(m => m.value === e.target.value);
-                  if (selectedModel) {
-                    setSelectedCarBrand(selectedModel.name);
-                  }
-                }}
-                disabled={selectedLogo === 'без лого'}
-                className={`w-full px-3 py-3 pr-12 border rounded-md text-sm h-12 md:h-auto ${
-                  selectedLogo === 'без лого' 
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-300' 
-                    : 'bg-white text-gray-900 border-gray-300 hover:border-gray-400'
-                }`}
-              >
-                <option value="">Оберіть марку</option>
-                {carModels.map((model) => (
-                  <option key={model.value} value={model.value}>{model.name}</option>
-                ))}
-              </select>
-            </div>
-            
-            {/* Logo Info Button */}
+        <div className="grid grid-cols-2 gap-3">
+          {sizes.map((size) => (
             <button
-              onClick={() => {
-                if (selectedCarModel && selectedLogo !== 'без лого') {
-                  setIsBrandLogoModalOpen(true);
-                } else {
-                  setIsLogoModalOpen(true);
-                }
-              }}
-              className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black"
+              key={size.name}
+              onClick={() => setSelectedSize(size.name)}
+              className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
+                selectedSize === size.name
+                  ? 'border-2 border-[#00d5b5] bg-white'
+                  : 'border border-gray-200 hover:border-gray-300'
+              }`}
             >
-              <div className="flex items-center gap-3">
-                <Camera className="w-4 h-4 text-gray-600" />
-                <span className="font-medium">
-                  {selectedCarModel && selectedLogo !== 'без лого'
-                    ? `${selectedLogo} ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`
-                    : 'Детальніше про лого'
-                  }
-                </span>
+              <div className={`font-medium text-sm ${
+                selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
+              }`}>{size.name}</div>
+              <div className="flex items-center gap-2">
+                <span className={`text-base font-medium ${
+                  selectedSize === size.name ? 'text-gray-900' : 'text-gray-500'
+                }`}>{size.price} ₴</span>
+                <span className="text-base text-gray-400 line-through">{size.oldPrice} ₴</span>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
             </button>
-          </div>
-        )}
+          ))}
+        </div>
+      </div>
 
-        {/* Fixation Tab */}
-        {activeTab === 'fixation' && (
-          <div className="mt-4">
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              {fixationOptions.map((fixation) => (
-                <button
-                  key={fixation.name}
-                  onClick={() => {
-                    setSelectedFixationType(fixation.name);
-                    setSelectedFixation(fixation.name !== 'без фіксації');
-                  }}
-                  className={`h-16 p-4 rounded-md border text-left transition-colors flex flex-col justify-center ${
-                    selectedFixationType === fixation.name
-                      ? 'border-2 border-[#00d5b5] bg-white'
-                      : 'border border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className={`font-medium text-sm ${
-                    selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>{fixation.name}</div>
-                  <span className={`text-base font-medium ${
-                    selectedFixationType === fixation.name ? 'text-gray-900' : 'text-gray-500'
-                  }`}>
-                    {fixation.price > 0 ? `+${fixation.price} ₴` : '0 ₴'}
-                  </span>
-                </button>
-              ))}
-            </div>
-            
-            {/* Fixation Info Button */}
-            <button 
-              onClick={() => setIsFixationModalOpen(true)}
-              className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-between group border border-black"
-            >
-              <div className="flex items-center gap-3">
-                <Camera className="w-4 h-4 text-gray-600" />
-                <span className="font-medium">
-                  Про фіксацію з багажником
-                </span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-gray-800 transition-colors" />
-            </button>
-          </div>
-        )}
+      {/* Logo Section */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium text-gray-700">Лого:</span>
+          <button
+            onClick={() => setIsLogoModalOpen(true)}
+            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
+          >
+            Детальніше
+          </button>
+        </div>
+        <select
+          value={selectedLogoValue}
+          onChange={(e) => {
+            const selectedOption = logoOptionsWithBrands.find(l => l.value === e.target.value);
+            if (selectedOption) {
+              setSelectedLogoValue(selectedOption.value);
+              setSelectedLogo(selectedOption.logoType);
+              setSelectedCarBrand(selectedOption.brand);
+            }
+          }}
+          className="w-full h-12 px-4 py-3 border border-gray-300 rounded-md text-sm bg-white text-gray-900 hover:border-gray-400 transition-colors"
+        >
+          {logoOptionsWithBrands.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Fixation Section */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium text-gray-700">Фіксація:</span>
+          <button
+            onClick={() => setIsFixationModalOpen(true)}
+            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
+          >
+            Детальніше
+          </button>
+        </div>
+        <select
+          value={selectedFixationType}
+          onChange={(e) => setSelectedFixationType(e.target.value)}
+          className="w-full h-12 px-4 py-3 border border-gray-300 rounded-md text-sm bg-white text-gray-900 hover:border-gray-400 transition-colors"
+        >
+          {fixationOptions.map((option) => (
+            <option key={option.name} value={option.name}>
+              {option.name} {option.price > 0 ? `+${option.price} ₴` : '0 ₴'}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Add to cart button */}
@@ -444,40 +313,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         isOpen={isFixationModalOpen}
         onClose={() => setIsFixationModalOpen(false)}
       />
-
-      {/* Brand Logo Modal */}
-      <Modal
-        isOpen={isBrandLogoModalOpen}
-        onClose={() => setIsBrandLogoModalOpen(false)}
-        title={`${selectedLogo} ${carModels.find(m => m.value === selectedCarModel)?.name || ''}`}
-      >
-        <div className="space-y-6">
-          {/* Logo Image - Full Width */}
-          <div className="w-full">
-            <div className="w-full h-48 lg:h-80 bg-gray-200 rounded-2xl flex items-center justify-center border">
-              <span className="text-4xl lg:text-6xl font-bold text-gray-600">
-                {carModels.find(m => m.value === selectedCarModel)?.name || ''}
-              </span>
-            </div>
-          </div>
-
-          {/* Logo Details - Left Aligned with Icons */}
-          <div className="space-y-4 text-gray-700">
-            <div className="flex items-center gap-3 text-sm">
-              <Ruler className="w-5 h-5 text-black flex-shrink-0" />
-              <span><span className="font-medium">Розміри:</span> 82 на 18 мм</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm">
-              <Wrench className="w-5 h-5 text-black flex-shrink-0" />
-              <span><span className="font-medium">Матеріал:</span> {selectedLogo === 'лого (латунь)' ? 'латунь' : 'нержавіюча сталь'}</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm">
-              <Award className="w-5 h-5 text-black flex-shrink-0" />
-              <span className="font-medium">Власне виробництво</span>
-            </div>
-          </div>
-        </div>
-      </Modal>
     </div>
   );
 };
