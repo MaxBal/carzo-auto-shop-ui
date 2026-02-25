@@ -313,7 +313,12 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         </div>
         <div className="flex items-start gap-2">
           <Truck className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
-          <span className="text-gray-700 font-medium">Відправлення 5 березня</span>
+          <span className="text-gray-700">
+            <span className="font-medium">Відправлення 1-2 дні</span>{' '}
+            <button className="text-gray-500 underline hover:text-gray-700 transition-colors">
+              детальніше
+            </button>
+          </span>
         </div>
         <div className="flex items-start gap-2">
           <CreditCard className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
