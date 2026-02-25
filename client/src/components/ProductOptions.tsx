@@ -29,6 +29,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
   const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'design' | 'options'>('design');
 
   const { addItem } = useCart();
   const { openCart } = useCartDrawer();
@@ -140,7 +141,36 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         )}
       </div>
 
-      {/* Design Selector */}
+      {/* Tabs */}
+      <div className="mb-6 border-b border-gray-200">
+        <div className="flex gap-0">
+          <button
+            onClick={() => setActiveTab('design')}
+            className={`flex-1 py-3 px-4 text-sm font-medium transition-all ${
+              activeTab === 'design'
+                ? 'text-black border-b-2 border-black'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Дизайни та розміри
+          </button>
+          <button
+            onClick={() => setActiveTab('options')}
+            className={`flex-1 py-3 px-4 text-sm font-medium transition-all ${
+              activeTab === 'options'
+                ? 'text-black border-b-2 border-black'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Лого та фіксація
+          </button>
+        </div>
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === 'design' && (
+        <>
+          {/* Design Selector */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-medium text-gray-700">Оберіть дизайн:</span>
@@ -208,8 +238,12 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           ))}
         </div>
       </div>
+        </>
+      )}
 
-      {/* Logo Section */}
+      {activeTab === 'options' && (
+        <>
+          {/* Logo Section */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-medium text-gray-700">Лого:</span>
@@ -263,6 +297,8 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           ))}
         </select>
       </div>
+        </>
+      )}
 
       {/* Add to cart button */}
       <button
