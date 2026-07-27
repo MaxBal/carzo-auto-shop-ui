@@ -1,122 +1,191 @@
-import { useState, useEffect } from 'react';
-import { ShoppingCart, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { Link } from 'wouter';
-import { useCart } from '@/hooks/useCart';
-import { useCartDrawer } from '@/contexts/CartContext';
-import { CartDrawer } from './CartDrawer';
 import { MobileMenu } from './MobileMenu';
+import carzoLogo from '@/assets/carzo-logo-tight.svg';
 
 export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
-  const { getTotalItems } = useCart();
-  const { isCartOpen, openCart, closeCart } = useCartDrawer();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (isCatalogOpen) {
-        setIsCatalogOpen(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isCatalogOpen]);
-
-  const totalItems = getTotalItems();
-  
-  console.log('Header - totalItems:', totalItems);
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 h-14 z-50 bg-black" style={{ position: 'fixed' }}>
-        <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between px-4">
-          {/* Mobile burger menu */}
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden text-white flex flex-col gap-1"
-          >
-            <div className="w-5 h-0.5 bg-white"></div>
-            <div className="w-5 h-0.5 bg-white"></div>
-          </button>
-
+      <header
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '56px',
+          background: '#000',
+          zIndex: 100,
+          paddingLeft: '16px',
+          paddingRight: '16px',
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           {/* Logo */}
-          <div className="lg:flex-none lg:mr-8">
-            <Link href="/">
-              <h1 className="text-white font-bold text-lg leading-[56px] hover:text-white/80 transition-colors cursor-pointer">
-                Carzo
-              </h1>
-            </Link>
-          </div>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+              src={carzoLogo}
+              alt="Carzo"
+              style={{ width: '82px', height: 'auto', objectFit: 'contain' }}
+            />
+          </Link>
 
-          {/* Desktop navigation - centered */}
-          <nav className="hidden lg:flex gap-14 text-white text-base flex-1 justify-center relative">
-            <Link href="/" className="hover:text-[#00d5b5] transition-colors">Головна</Link>
-            
-            {/* Catalog with dropdown */}
-            <div className="relative">
-              <button 
+          {/* Desktop navigation */}
+          <nav
+            className="hidden lg:flex"
+            style={{
+              gap: '32px',
+              alignItems: 'center',
+            }}
+          >
+            <Link
+              href="/"
+              style={{
+                fontSize: '14px',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.92)',
+                textDecoration: 'none',
+              }}
+              className="hover:text-white transition-colors"
+            >
+              Головна
+            </Link>
+
+            <div style={{ position: 'relative' }}>
+              <button
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsCatalogOpen(!isCatalogOpen);
                 }}
-                className="hover:text-[#00d5b5] transition-colors flex items-center gap-1"
+                style={{
+                  fontSize: '14px',
+                  fontWeight: 400,
+                  color: 'rgba(255,255,255,0.92)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  padding: 0,
+                }}
               >
                 Каталог
-                <ChevronDown size={16} className={`transition-transform ${isCatalogOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  size={14}
+                  style={{
+                    transition: 'transform 0.2s',
+                    transform: isCatalogOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  }}
+                />
               </button>
-              
+
               {isCatalogOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-black rounded-md shadow-lg py-2 min-w-[200px] z-50 border border-white/20">
-                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
-                    Автокейси
-                  </Link>
-                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
-                    Автокилимки
-                  </Link>
-                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
-                    Накидки в салон
-                  </Link>
-                  <Link href="/" className="block px-4 py-2 text-white hover:bg-white/10 hover:text-[#00d5b5] transition-colors">
-                    Захист спинки сидіння
-                  </Link>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    left: 0,
+                    background: '#111',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: '6px',
+                    padding: '6px 0',
+                    minWidth: '200px',
+                    zIndex: 200,
+                  }}
+                  onClick={() => setIsCatalogOpen(false)}
+                >
+                  {['Автокейси', 'Автокилимки', 'Накидки в салон', 'Захист спинки сидіння'].map((item) => (
+                    <Link
+                      key={item}
+                      href="/"
+                      style={{
+                        display: 'block',
+                        padding: '8px 16px',
+                        fontSize: '14px',
+                        color: 'rgba(255,255,255,0.85)',
+                        textDecoration: 'none',
+                      }}
+                      className="hover:bg-white/10 transition-colors"
+                    >
+                      {item}
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
-            
-            <Link href="#" className="hover:text-[#00d5b5] transition-colors">B2B</Link>
-            <Link href="#" className="hover:text-[#00d5b5] transition-colors">Контакти</Link>
+
+            <Link
+              href="#"
+              style={{
+                fontSize: '14px',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.92)',
+                textDecoration: 'none',
+              }}
+              className="hover:text-white transition-colors"
+            >
+              B2B
+            </Link>
+            <Link
+              href="#"
+              style={{
+                fontSize: '14px',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.92)',
+                textDecoration: 'none',
+              }}
+              className="hover:text-white transition-colors"
+            >
+              Контакти
+            </Link>
           </nav>
 
-          {/* Cart button */}
+          {/* Mobile: burger only */}
           <button
-            onClick={openCart}
-            className="relative text-white"
+            className="lg:hidden"
+            onClick={() => setIsMobileMenuOpen(true)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 0,
+            }}
+            aria-label="Меню"
           >
-            <ShoppingCart size={24} />
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#00d5b5] text-white text-[10px] flex items-center justify-center rounded-full font-medium">
-                {totalItems}
-              </span>
-            )}
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              stroke="white"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+            >
+              <line x1="2" y1="5.5" x2="20" y2="5.5" />
+              <line x1="2" y1="11" x2="20" y2="11" />
+              <line x1="2" y1="16.5" x2="20" y2="16.5" />
+            </svg>
           </button>
         </div>
       </header>
 
-      {/* Mobile Menu */}
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
-
-      {/* Cart Drawer */}
-      <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
     </>
   );
 };

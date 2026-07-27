@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Camera, ChevronRight, Check, Ruler, Wrench, Award, RefreshCcw, Truck, CreditCard, Magnet } from 'lucide-react';
+import { ShoppingCart, RefreshCcw, Truck, CreditCard, Magnet, Package, Users, Info, Camera } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCart } from '@/hooks/useCart';
 import { useCartDrawer } from '@/contexts/CartContext';
 import { SizeModal } from './SizeModal';
 import { LogoModal } from './LogoModal';
 import { FixationModal } from './FixationModal';
-import { Modal } from './Modal';
 
 interface ProductOptionsProps {
   product: {
@@ -19,31 +18,21 @@ interface ProductOptionsProps {
 }
 
 export const ProductOptions = ({ product }: ProductOptionsProps) => {
-  const [selectedDesign, setSelectedDesign] = useState('Carzo 2.0');
   const [selectedSize, setSelectedSize] = useState('M 50×30×30 см');
   const [selectedLogo, setSelectedLogo] = useState('без лого');
   const [selectedFixationType, setSelectedFixationType] = useState('без фіксації');
   const [selectedCarBrand, setSelectedCarBrand] = useState('');
   const [selectedLogoValue, setSelectedLogoValue] = useState('без лого');
-  const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
   const [isFixationModalOpen, setIsFixationModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'design' | 'options'>('design');
 
   const { addItem } = useCart();
   const { openCart } = useCartDrawer();
 
-  const designs = [
-    { name: 'Carzo 2.0', colors: '1 колір' },
-    { name: 'Carzo 3.0', colors: '1 колір' },
-    { name: 'Carzo 4.0', colors: '1 колір' }
-  ];
-
   // Generate dynamic article based on selections
   const generateArticle = () => {
     const sizeCode = selectedSize.split(' ')[0];
-    const designCode = selectedDesign;
     let logoText = 'без лого';
     if (selectedLogo !== 'без лого' && selectedCarBrand) {
       logoText = `${selectedLogo} ${selectedCarBrand}`;
@@ -52,7 +41,7 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
     }
     const fixationText = selectedFixationType;
 
-    return `арт. ${sizeCode} ${designCode} | ${logoText} | ${fixationText}`;
+    return `арт. ${sizeCode} | ${logoText} | ${fixationText}`;
   };
 
   // Generate dynamic product title
@@ -115,7 +104,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
       price: calculatePrice(),
       oldPrice: product.oldPrice,
       options: {
-        design: selectedDesign,
         size: selectedSize,
         logo: logoDisplayText,
         fixation: selectedFixationType
@@ -128,7 +116,6 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
 
   return (
     <div className="col-span-12 md:col-span-5 px-1 md:px-0 mt-2 md:mt-0">
-
 
       {/* Product title and details */}
       <h1 className="text-2xl font-bold text-black mb-2">{generateTitle()}</h1>
@@ -154,77 +141,16 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
         )}
       </div>
 
-      {/* Tabs */}
-      <div className="mb-6 border-b border-gray-200">
-        <div className="flex gap-0">
-          <button
-            onClick={() => setActiveTab('design')}
-            className={`flex-1 py-3 px-4 text-sm font-medium transition-all ${
-              activeTab === 'design'
-                ? 'text-black border-b-2 border-black'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Дизайни та розміри
-          </button>
-          <button
-            onClick={() => setActiveTab('options')}
-            className={`flex-1 py-3 px-4 text-sm font-medium transition-all ${
-              activeTab === 'options'
-                ? 'text-black border-b-2 border-black'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Лого та фіксація
-          </button>
-        </div>
-      </div>
-
-      {/* Tab Content */}
-      {activeTab === 'design' && (
-        <>
-          {/* Design Selector */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-gray-700">Оберіть дизайн:</span>
-          <button
-            onClick={() => setIsDesignModalOpen(true)}
-            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
-          >
-            В чому різниця?
-          </button>
-        </div>
-        <div className="flex gap-4 items-center justify-start">
-          {designs.map((design) => (
-            <button
-              key={design.name}
-              onClick={() => setSelectedDesign(design.name)}
-              className={`py-2 px-3 rounded-md text-center transition-all duration-300 ease-in-out transform whitespace-nowrap flex-shrink-0 ${
-                selectedDesign === design.name
-                  ? 'bg-black text-white scale-105'
-                  : 'border border-gray-200 hover:border-gray-300 hover:scale-102'
-              }`}
-            >
-              <span className={`text-sm font-medium ${
-                selectedDesign === design.name ? 'text-white' : 'text-gray-500'
-              }`}>
-                {selectedDesign === design.name ? design.name : design.name.replace('Carzo ', '')}
-              </span>
-            </button>
-          ))}
-        </div>
-
-      </div>
-
       {/* Sizes Section */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-medium text-gray-700">Розміри:</span>
           <button
             onClick={() => setIsSizeModalOpen(true)}
-            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
+            className="flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-colors rounded-full px-3 py-1.5"
           >
-            Що в середині?
+            <Camera className="w-3.5 h-3.5 text-gray-600" strokeWidth={2} />
+            <span className="text-xs font-medium text-gray-700">що в середині?</span>
           </button>
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -251,20 +177,17 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           ))}
         </div>
       </div>
-        </>
-      )}
 
-      {activeTab === 'options' && (
-        <>
-          {/* Logo Section */}
+      {/* Logo Section */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-medium text-gray-700">Лого:</span>
           <button
             onClick={() => setIsLogoModalOpen(true)}
-            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
+            className="flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-colors rounded-full px-3 py-1.5"
           >
-            Детальніше
+            <Camera className="w-3.5 h-3.5 text-gray-600" strokeWidth={2} />
+            <span className="text-xs font-medium text-gray-700">варіантів</span>
           </button>
         </div>
         <select
@@ -293,9 +216,10 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           <span className="text-sm font-medium text-gray-700">Фіксація:</span>
           <button
             onClick={() => setIsFixationModalOpen(true)}
-            className="text-sm font-medium text-gray-700 underline hover:text-gray-900 transition-colors"
+            className="flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-colors rounded-full px-3 py-1.5"
           >
-            Детальніше
+            <Camera className="w-3.5 h-3.5 text-gray-600" strokeWidth={2} />
+            <span className="text-xs font-medium text-gray-700">варіантів</span>
           </button>
         </div>
         <select
@@ -310,61 +234,48 @@ export const ProductOptions = ({ product }: ProductOptionsProps) => {
           ))}
         </select>
       </div>
-        </>
-      )}
-
-      {/* Info blocks */}
-      <div className="mb-4 space-y-2 text-sm">
-        <div className="flex items-start gap-2">
-          <RefreshCcw className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
-          <span className="text-gray-700">
-            <span className="font-medium">Обмін та повернення 14 дн.</span>{' '}
-            <button className="text-gray-500 underline hover:text-gray-700 transition-colors">
-              детальніше
-            </button>
-          </span>
-        </div>
-        <div className="flex items-start gap-2">
-          <Truck className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
-          <span className="text-gray-700">
-            <span className="font-medium">Відправлення 1-2 дні</span>{' '}
-            <button className="text-gray-500 underline hover:text-gray-700 transition-colors">
-              детальніше
-            </button>
-          </span>
-        </div>
-        <div className="flex items-start gap-2">
-          <CreditCard className="w-4 h-4 text-[#00d5b5] flex-shrink-0 mt-0.5" />
-          <span className="text-gray-700">
-            <span className="font-medium">Оплата та доставка</span>{' '}
-            <button className="text-gray-500 underline hover:text-gray-700 transition-colors">
-              детальніше
-            </button>
-          </span>
-        </div>
-      </div>
 
       {/* Add to cart button */}
       <button
         onClick={handleAddToCart}
-        className="w-full bg-black text-white py-3 px-6 rounded-md font-medium transition-colors flex items-center justify-center group"
+        className="w-full bg-black text-white py-3 px-6 rounded-md font-medium transition-colors flex items-center justify-center group mb-4"
       >
         <ShoppingCart className="w-5 h-5 mr-2 transition-colors group-hover:text-[#00d5b5]" />
         Купити {calculatePrice()} ₴
       </button>
 
-      {/* Design Modal */}
-      <Modal
-        isOpen={isDesignModalOpen}
-        onClose={() => setIsDesignModalOpen(false)}
-        title="Чим відрізняються дизайни?"
+      {/* Benefit cards */}
+      <div
+        className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-4 px-4"
+        style={{ scrollSnapType: 'x mandatory' }}
       >
-        <div className="space-y-4 text-gray-700 text-sm leading-relaxed">
-          <p>
-            Дизайни Сarzo 2.0, 3.0, 4.0 нічим окрім візерунку між собою не відрізняються. В усіх дизайнах використовується автомобільна німецька максимально зносостійка еко-шкіра, зазначений матеріал ми використовуємо також при виготовленні авто килимків. Всі дизайни представлені в чорному кольорі з чорною строчкою.
-          </p>
-        </div>
-      </Modal>
+        {([
+          { icon: CreditCard, title: 'Варіанти оплати', sub: '' },
+          { icon: Truck, title: 'Доставка', sub: '1-2 дні' },
+          { icon: RefreshCcw, title: 'Обмін та повернення', sub: '' },
+          { icon: Package, title: 'Разом дешевше', sub: '' },
+          { icon: Users, title: 'Клієнтська програма', sub: '' },
+        ] as const).map(({ icon: Icon, title, sub }) => (
+          <button
+            key={title}
+            className="relative flex-shrink-0 group"
+            style={{ scrollSnapAlign: 'start', width: 'calc(27vw)', maxWidth: '104px', minWidth: '82px' }}
+          >
+            <div className="aspect-square w-full rounded-2xl border border-gray-200 bg-white group-hover:border-gray-400 group-hover:shadow-md group-active:scale-95 transition-all duration-200 flex flex-col items-center justify-center gap-2 p-2 overflow-hidden">
+              <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#00d5b5]/10 flex items-center justify-center">
+                <Info className="w-3 h-3 text-[#00d5b5]" strokeWidth={2.5} />
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-5 h-5 text-gray-900" strokeWidth={1.5} />
+              </div>
+              <div className="flex flex-col items-center gap-0.5 w-full px-1">
+                <span className="text-[11px] font-semibold text-gray-800 text-center leading-tight w-full">{title}</span>
+                {sub && <span className="text-[11px] font-semibold text-gray-800 text-center leading-tight w-full">{sub}</span>}
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
 
       {/* Size Modal */}
       <SizeModal

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Carzo автоаксессуары - Дизайн система. Все цвета ДОЛЖНЫ быть HSL. */
 
 @layer base {
@@ -141,6 +151,22 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+/* Product subheader responsive height */
+.product-subheader {
+  height: 44px;
+}
+.product-subheader-placeholder {
+  height: 44px;
+}
+@media (min-width: 640px) {
+  .product-subheader {
+    height: 48px;
+  }
+  .product-subheader-placeholder {
+    height: 48px;
   }
 }
 
